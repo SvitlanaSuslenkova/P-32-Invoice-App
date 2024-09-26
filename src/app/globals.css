@@ -2,26 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*Maybe will have to add some shades of grey*/
+/*Should we add box-shadow here?*/
 
-@media (prefers-color-scheme: dark) {
+/*hsla(252, 100%, 73%, 1) header image*/
+
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 240 27% 98%;
+    --foreground: 231 28% 7%; /*dark text*/
+
+    --card: 0 0% 100%;
+    --card-foreground: 231 23% 61%; /*light-grey text*/
+
+    --secondary: 231 67% 99%; /*light-blue on view invoice=>top-card*/
+    --secondary-accent: 231 20% 27%;
+
+    --primary: 252 94% 67%; /*purple*/
+    --primary-foreground: 0 0% 100%;
+
+    --header: 231 20% 36%;
+
+    /*buttons*/
+    --accent-one-foreground: 160 67% 52%; /*green bg-opacity 5.71%*/
+    --accent-two-foreground: 34 100% 50%; /*orange bg-opacity 5.71%*/
+    --accent-three-foreground: 231 20% 27%; /*dark-grey+blue bg-opacity 5.71%*/
+    --delete: 0 80% 63%; /*red*/
+
+    --muted: 231 36% 63%; /*purple+grey  moon*/
+
+    --sm-radius: 0.375rem;
+    --radius: 1.5rem;
+  }
+
+  .dark {
+    --background: 233 30% 11%;
+    --foreground: 0 0% 100%;
+
+    --card: 233 31% 17%;
+    --card-foreground: 0 0% 100%;
+
+    --secondary: 233 30% 21%;
+    --secondary-accent: 231 28% 7%;
+
+    --header: 233 31% 17%;
+
+    --accent-three-foreground: 231 75% 93%;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@layer base {
+  body {
+    @apply bg-background text-foreground;
   }
 }
