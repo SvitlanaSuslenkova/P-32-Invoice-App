@@ -50,6 +50,19 @@ const config: Config = {
 
         'accent-three-foreground': 'hsl(231 75% 93%)',*/
       },
+      fontSize: {
+        sm13: '0.8125rem',
+        sm15: '0.9375rem',
+      },
+      borderRadius: {
+        b20: '1.25rem',
+      },
+      height: {
+        h18: '4.5rem',
+      },
+      traking: {
+        em0016: '-0.016em',
+      },
     },
   },
   plugins: [],

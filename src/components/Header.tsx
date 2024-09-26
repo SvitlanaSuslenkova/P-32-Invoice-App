@@ -5,20 +5,20 @@ import Moon from '../images/icon-moon.svg';
 export default function Header() {
   return (
     <header
-      className={`flex h-[4.5rem] md:h-[5rem] bg-header xl:flex-col xl:w-[6.44rem] xl:h-screen xl:rounded-r-[1.25rem]`}
+      className={`flex h-h18 md:h-20 bg-header xl:flex-col xl:w-[6.44rem] xl:h-screen xl:rounded-r-b20`}
     >
       <section
-        className={`w-[4.5rem] aspect-square bg-primary rounded-r-[1.25rem] overflow-hidden md:w-[5rem]   relative before:block 
+        className={`w-18 aspect-square bg-primary rounded-r-b20 overflow-hidden md:w-20   relative before:block 
             before:absolute before:w-full before:h-full before:bg-[url('../images/logo.svg')] before:bg-no-repeat
             before:bg-center before:bg-[length:38.8%] xl:w-full`}
       >
         <div
-          className={`mt-[2.25rem] w-[4.5rem] aspect-[2/1] bg-[#9277FF] rounded-tl-[1.25rem] md:w-[5rem] md:mt-[2.5rem] xl:w-full 
+          className={`mt-9 w-h18 aspect-[2/1] bg-[#9277FF] rounded-tl-b20 md:w-20 md:mt-10 xl:w-full 
             xl:mt-[3.22rem] `}
         ></div>
       </section>
       <section
-        className={`grid place-content-center w-[4.5rem] md:w-[5rem] aspect-square ml-auto xl:mt-auto xl:w-full xl:ml-0`}
+        className={`grid place-content-center w-16 md:w-20 aspect-square ml-auto xl:mt-auto xl:w-full xl:ml-0`}
       >
         <button className={`p-2 hover:brightness-150`}>
           <Image
@@ -31,7 +31,7 @@ export default function Header() {
         </button>
       </section>
       <section
-        className={`w-[4.5rem] md:w-[5rem] aspect-square grid place-items-center border-l border-l-[#494E6E] xl:w-full 
+        className={`w-16 md:w-20 aspect-square grid place-items-center border-l border-l-[#494E6E] xl:w-full 
             xl:ml-0 xl:border-l-0 xl:border-t xl:border-t-[#494E6E]`}
       >
         <Image
