@@ -22,7 +22,7 @@ const config: Config = {
         primary: 'hsl(252, 94%, 67%)' /*purple*/,
         'primary-foreground': 'hsl(0, 0%, 100%)',
 
-        header: 'hsl(231, 20%, 36%)',
+        header: 'hsl(231, 20%, 27%)',
 
         /*buttons*/
         'accent-one-foreground':
