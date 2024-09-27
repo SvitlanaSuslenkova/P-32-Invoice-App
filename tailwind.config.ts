@@ -61,7 +61,14 @@ const config: Config = {
         h18: '4.5rem',
       },
       traking: {
+        em0008: '-0.008em',
         em0016: '-0.016em',
+        em0031: '-0.031em',
+      },
+      leading: {
+        sm6: '1.38rem',
+        sm9: '2.07rem',
+        sm4: '0.94rem',
       },
     },
   },
