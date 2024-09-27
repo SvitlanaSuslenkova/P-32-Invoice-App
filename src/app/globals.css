@@ -16,4 +16,8 @@ body {
 :root {
   --background: hsl(240, 27%, 98%);
   --foreground: hsl(231, 28%, 7%);
+  /*status*/
+  --paid: hsl(160, 67%, 52%); /*green bg-opacity 5.71%*/
+  --pending: hsl(34, 100%, 50%); /*orange bg-opacity 5.71%*/
+  --draft: hsl(231, 20%, 27%); /*dark-grey+blue bg-opacity 5.71%*/
 }
