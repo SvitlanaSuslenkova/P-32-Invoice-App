@@ -1,5 +1,4 @@
-import { FilterButton } from './Buttons';
-import { InvoiceButton } from './Buttons';
+import { FilterButton, InvoiceButton } from './Buttons';
 export default function Filter() {
   return (
     <div

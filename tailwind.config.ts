@@ -21,6 +21,7 @@ const config: Config = {
 
         primary: 'hsl(252, 94%, 67%)' /*purple*/,
         'primary-foreground': 'hsl(0, 0%, 100%)',
+        'primary-hover': 'hsl(252, 100%, 73%)',
 
         header: 'hsl(231, 20%, 27%)',
 
@@ -35,6 +36,7 @@ const config: Config = {
         delete: 'hsl(0, 80%, 63%)' /*red*/,
 
         muted: 'hsl(231, 36%, 63%)' /*purple+grey  moon*/,
+        'muted-darker': 'hsl(231, 75%, 93%)',
 
         /*DARK MODE COLORS*/
         /*  background: 'hsl(233 30% 11%)',
@@ -69,6 +71,9 @@ const config: Config = {
         sm6: '1.38rem',
         sm9: '2.07rem',
         sm4: '0.94rem',
+      },
+      shadow: {
+        smsh: '0px 10px 10px -10px hsla(231, 38%, 45%, 0.1)',
       },
     },
   },
