@@ -2,8 +2,6 @@
 import Header from '../components/Header';
 import InvoiceCards from '../components/InvoiceCards';
 
-import { AddNewItemButton } from '@/components/Buttons';
-
 export default function Home() {
   return (
     <main className={`grid xl:grid-cols-[6.44rem,auto]`}>
@@ -11,7 +9,6 @@ export default function Home() {
       <div className={`grid justify-items-center w-full content-start`}>
         <div className={`grid content-center w-full max-w-[45.63rem] `}>
           <InvoiceCards />
-          <AddNewItemButton />
         </div>
       </div>
     </main>
