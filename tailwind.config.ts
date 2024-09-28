@@ -6,6 +6,7 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+
   theme: {
     extend: {
       colors: {
@@ -72,8 +73,9 @@ const config: Config = {
         sm9: '2.07rem',
         sm4: '0.94rem',
       },
-      shadow: {
-        smsh: '0px 10px 10px -10px hsla(231, 38%, 45%, 0.1)',
+      boxShadow: {
+        smsh: '0px 10px 10px -10px hsl(231, 38%, 45%, 0.1)',
+        bsh: '0px 10px 20px 0px hsl(231, 38%, 45%, 0.25)',
       },
     },
   },

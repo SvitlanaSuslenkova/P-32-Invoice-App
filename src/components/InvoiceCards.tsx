@@ -1,9 +1,14 @@
+'use client';
+import { useState } from 'react';
 import InvoiceCard from './InvoiceCard';
 import Filter from './Filter';
 import NoInvoice from './NoInvoice';
-import FilterMenu from './FilterMenu';
+import React from 'react';
 
 export default function InvoiceCards() {
+  type Status = 'draft' | 'pending' | 'paid';
+  const [status, setStatus] = useState<Status>('draft'); //take it out
+
   return (
     <div>
       <div
@@ -17,7 +22,7 @@ export default function InvoiceCards() {
       <div>
         <NoInvoice />
       </div>
-      <FilterMenu />
+      {/*MOVE*/}
     </div>
   );
 }

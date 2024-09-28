@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Plus from '../images/icon-plus.svg';
 import ArrowDown from '../images/icon-arrow-down.svg';
+
 import ArrowLeft from '../images/icon-arrow-left.svg';
 
 export default function Buttons() {
@@ -22,17 +23,24 @@ export default function Buttons() {
   );
 }
 
-export const FilterButton = () => {
+export const FilterButton = ({ onClick, isOpenMenu, ...props }) => {
   return (
     <button
       className={`justify-self-end flex justify-center items-center gap-2 md:gap-4 h-11 p-1.5 rounded-3xl 
-        text-sm-15 leading-sm4 font-bold traking-em0016`}
+        text-sm-15 leading-sm4 font-bold traking-em0016 hover:text-header`}
+      onClick={onClick}
     >
       <span>
         Filter <span className={`hidden sm:inline`}> by status</span>
       </span>
 
-      <Image src={ArrowDown} alt="v" width={8.46} height={4.23} />
+      <Image
+        src={ArrowDown}
+        alt="v"
+        width={8.46}
+        height={4.23}
+        style={isOpenMenu ? { rotate: '180deg' } : ''}
+      />
     </button>
   );
 };
