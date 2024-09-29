@@ -1,10 +1,6 @@
-'use client';
-import { useState } from 'react';
-
 type Status = 'draft' | 'pending' | 'paid';
 
-export default function Status() {
-  const [status, setStatus] = useState('draft'); //take it out
+export default function Status({ status }) {
   return (
     <p
       className={`row-start-2 sm:row-start-1 row-end-4 sm:row-end-2 sm:col-start-5 justify-self-end sm:justify-self-center flex items-center justify-center 

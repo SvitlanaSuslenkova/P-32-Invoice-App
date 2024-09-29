@@ -1,7 +1,3 @@
-/*interface IFilterMenu {
-  status: 'draft' | 'pending' | 'paid';
-  setStatus: (status: 'draft' | 'pending' | 'paid') => void;
-}*/
 const statuses = ['draft', 'pending', 'paid'];
 
 const FilterMenu = () => {
@@ -20,7 +16,10 @@ const FilterMenu = () => {
                 className={`w-4 h-4 rounded-sm cursor-pointer appearance-none bg-muted-darker border-muted hover:border  hover:border-primary  
        checked:appearance-auto checked:accent-primary `}
               />
-              <label htmlFor={status} className={`ml-3 cursor-pointer`}>
+              <label
+                htmlFor={status}
+                className={`ml-3 cursor-pointer font-bold leading-sm4 tracking-em0016 sm:col-start-4 sm:row-star-1`}
+              >
                 {status.charAt(0).toUpperCase() + status.slice(1).toLowerCase()}
               </label>
             </div>

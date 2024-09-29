@@ -1,13 +1,26 @@
 'use client';
-import { useState } from 'react';
+
+import React from 'react';
+import { useState, useEffect } from 'react';
 import InvoiceCard from './InvoiceCard';
 import Filter from './Filter';
 import NoInvoice from './NoInvoice';
-import React from 'react';
+import { getInvoices } from '../app/actions/getInvoices';
 
 export default function InvoiceCards() {
-  type Status = 'draft' | 'pending' | 'paid';
-  const [status, setStatus] = useState<Status>('draft'); //take it out
+  const [invoices, setInvoices] = useState();
+  const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState(null);
+
+  const fetchInvoices = async () => {
+    const allinvoices = await getInvoices();
+    setInvoices(allinvoices);
+    console.log(allinvoices);
+    setLoading(false);
+  };
+  useEffect(() => {
+    fetchInvoices();
+  }, []);
 
   return (
     <div>
@@ -15,14 +28,16 @@ export default function InvoiceCards() {
         className={`px-6 sm:px-12 md:px-0 grid justify-items-center gap-y-4 content-start`}
       >
         <Filter />
-        <InvoiceCard />
-        <InvoiceCard />
-        <InvoiceCard />
+        {loading && !invoices ? (
+          <p>Loading...</p>
+        ) : !loading && invoices ? (
+          invoices.map((invoice) => (
+            <InvoiceCard invoice={invoice} key={invoice.id} />
+          ))
+        ) : (
+          <NoInvoice />
+        )}
       </div>
-      <div>
-        <NoInvoice />
-      </div>
-      {/*MOVE*/}
     </div>
   );
 }
