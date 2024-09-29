@@ -10,7 +10,7 @@ import { getInvoices } from '../app/actions/getInvoices';
 export default function InvoiceCards() {
   const [invoices, setInvoices] = useState();
   const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState(null);
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   const fetchInvoices = async () => {
     const allinvoices = await getInvoices();
@@ -27,7 +27,7 @@ export default function InvoiceCards() {
       <div
         className={`px-6 sm:px-12 md:px-0 grid justify-items-center gap-y-4 content-start`}
       >
-        <Filter />
+        <Filter isOpenMenu={isOpenMenu} setIsOpenMenu={setIsOpenMenu} />
         {loading && !invoices ? (
           <p>Loading...</p>
         ) : !loading && invoices ? (

@@ -1,10 +1,8 @@
-'use client';
 import { FilterButton, InvoiceButton } from './Buttons';
-import { useState } from 'react';
+
 import FilterMenu from './FilterMenu';
 
-export default function Filter({}) {
-  const [isOpenMenu, setIsOpenMeun] = useState(false); //take out??
+export default function Filter({ isOpenMenu, setIsOpenMenu }) {
   return (
     <div
       className={`relative grid grid-rows-2 grid-cols-[auto,auto] w-full mt-7 md:pt-10 md:pb-9`}
@@ -25,7 +23,7 @@ export default function Filter({}) {
         className={`row-start-1 row-end-3 col-start-2 grid grid-cols-[auto,auto] content-center`}
       >
         <FilterButton
-          onClick={() => setIsOpenMeun(!isOpenMenu)}
+          onClick={() => setIsOpenMenu(!isOpenMenu)}
           isOpenMenu={isOpenMenu}
         />
         <InvoiceButton />

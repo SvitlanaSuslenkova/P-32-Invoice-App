@@ -3,12 +3,12 @@ const statuses = ['draft', 'pending', 'paid'];
 const FilterMenu = () => {
   return (
     <div
-      className={`absolute top-14 right-1/4 sm:top-14 sm:right-1/4 md:top-28 md:right-52 2xl:right-[16.9rem] z-2 w-48 h-32 p-6 rounded-lg bg-card shadow-bsh`}
+      className={`absolute top-14 right-1/4 sm:top-14 sm:right-1/4 md:top-28 md:right-52 2xl:right-[16.9rem] z-2 w-48 h-32 p-6 rounded-lg bg-card shadow-bsh `}
     >
-      <ul className={``}>
+      <ul className={`grid  place-content-between items-center w-full h-full`}>
         {statuses.map((status) => (
           <li className={``} key={status}>
-            <div className={``}>
+            <div className={`flex items-center`}>
               <input
                 id={status}
                 type="checkbox"
