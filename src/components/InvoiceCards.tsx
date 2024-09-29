@@ -6,19 +6,28 @@ import InvoiceCard from './InvoiceCard';
 import Filter from './Filter';
 import NoInvoice from './NoInvoice';
 import { getInvoices } from '../app/actions/getInvoices';
+import { IInvoice } from './Types';
 
 export default function InvoiceCards() {
-  const [invoices, setInvoices] = useState();
-  const [loading, setLoading] = useState(true);
-  const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const [invoices, setInvoices] = useState<IInvoice[] | null>();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false); //add close on click outside?
 
-  const fetchInvoices = async () => {
-    const allinvoices = await getInvoices();
-    setInvoices(allinvoices);
-    console.log(allinvoices);
-    setLoading(false);
-  };
   useEffect(() => {
+    const fetchInvoices = async () => {
+      try {
+        const allinvoices = await getInvoices();
+        setInvoices(allinvoices);
+        console.log(allinvoices);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setError('Failed to fetch data. Please try again later.');
+        setLoading(false);
+      }
+    };
+
     fetchInvoices();
   }, []);
 
@@ -34,6 +43,8 @@ export default function InvoiceCards() {
           invoices.map((invoice) => (
             <InvoiceCard invoice={invoice} key={invoice.id} />
           ))
+        ) : error ? (
+          <p>Error</p>
         ) : (
           <NoInvoice />
         )}

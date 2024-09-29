@@ -45,7 +45,13 @@ export default function InvoiceCard({ invoice }) {
         <span>£</span> {invoice.total}
       </p>
       <div className={`hidden sm:w-full sm:h-full md:grid place-items-center`}>
-        <Image src={ArrowRight} alt=">" width={7} height={14} />
+        <Image
+          src={ArrowRight}
+          alt=">"
+          width={7}
+          height={10}
+          className={`h-3 w-2`}
+        />
       </div>
     </Link>
   );
