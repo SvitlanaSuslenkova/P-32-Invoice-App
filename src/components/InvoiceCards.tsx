@@ -13,6 +13,7 @@ export default function InvoiceCards() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false); //add close on click outside?
+
   const [filteredInvoices, setFilteredInvoices] = useState<IInvoice[] | null>();
   const [filters, setFilters] = useState<string | string[] | null>([
     'paid',
@@ -56,28 +57,29 @@ export default function InvoiceCards() {
   }, [filters, invoices]);
 
   return (
-    <div>
-      <div
-        className={`px-6 sm:px-12 md:px-0 grid justify-items-center gap-y-4 content-start`}
-      >
-        <Filter
-          isOpenMenu={isOpenMenu}
-          setIsOpenMenu={setIsOpenMenu}
-          setFilters={setFilters}
-          filters={filters}
-        />
-        {loading ? (
-          <p>Loading...</p>
-        ) : !loading && filteredInvoices && filteredInvoices?.length > 0 ? (
-          filteredInvoices.map((invoice) => (
-            <InvoiceCard invoice={invoice} key={invoice.id} />
-          ))
-        ) : error ? (
-          <p>Error</p>
-        ) : (
+    <div
+      className={`px-6 sm:px-12 md:px-0 grid justify-items-center gap-y-4 content-start w-full `}
+    >
+      <Filter
+        isOpenMenu={isOpenMenu}
+        setIsOpenMenu={setIsOpenMenu}
+        setFilters={setFilters}
+        filters={filters}
+      />
+
+      {loading ? (
+        <p>Loading...</p>
+      ) : !loading && filteredInvoices && filteredInvoices?.length > 0 ? (
+        filteredInvoices.map((invoice) => (
+          <InvoiceCard invoice={invoice} key={invoice.id} />
+        ))
+      ) : error ? (
+        <p>Error</p>
+      ) : (
+        <div className={`mt-16 md:mt-44 xl:mt-16`}>
           <NoInvoice />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

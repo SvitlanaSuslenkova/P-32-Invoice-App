@@ -23,7 +23,11 @@ export default function Buttons() {
   );
 }
 
-export const FilterButton = ({ onClick, isOpenMenu, ...props }) => {
+interface IFilterButton {
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  isOpenMenu: boolean;
+}
+export const FilterButton = ({ onClick, isOpenMenu }: IFilterButton) => {
   return (
     <button
       className={`justify-self-end flex justify-center items-center gap-2 md:gap-4 h-11 p-1.5 rounded-3xl 

@@ -10,7 +10,6 @@ interface IFilterMenu {
 const FilterMenu = ({ setFilters, filters }: IFilterMenu) => {
   function handleFilter(e: React.MouseEvent<HTMLButtonElement>) {
     const filterValue = (e.target as HTMLButtonElement).value;
-
     if (Array.isArray(filters) && filters.includes(filterValue)) {
       //remove
       const allfilters = filters.filter((filter) => filter !== filterValue);
