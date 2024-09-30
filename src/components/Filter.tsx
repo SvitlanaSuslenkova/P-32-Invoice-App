@@ -2,7 +2,19 @@ import { FilterButton, InvoiceButton } from './Buttons';
 
 import FilterMenu from './FilterMenu';
 
-export default function Filter({ isOpenMenu, setIsOpenMenu }) {
+interface IFilter {
+  isOpenMenu: boolean;
+  setIsOpenMenu: (isOpenMenu: boolean) => void;
+  setFilters: (filters: string | string[] | null) => void;
+  filters: string | string[] | null;
+}
+
+export default function Filter({
+  isOpenMenu,
+  setIsOpenMenu,
+  setFilters,
+  filters,
+}: IFilter) {
   return (
     <div
       className={`relative grid grid-rows-2 grid-cols-[auto,auto] w-full mt-7 md:pt-10 md:pb-9`}
@@ -28,7 +40,7 @@ export default function Filter({ isOpenMenu, setIsOpenMenu }) {
         />
         <InvoiceButton />
       </div>
-      {isOpenMenu && <FilterMenu />}
+      {isOpenMenu && <FilterMenu setFilters={setFilters} filters={filters} />}
     </div>
   );
 }

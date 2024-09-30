@@ -1,6 +1,6 @@
 type Status = 'draft' | 'pending' | 'paid';
 
-export default function Status({ status }) {
+export default function Status({ status }: { status: string }) {
   return (
     <p
       className={`row-start-2 sm:row-start-1 row-end-4 sm:row-end-2 sm:col-start-5 justify-self-end sm:justify-self-center flex items-center justify-center 

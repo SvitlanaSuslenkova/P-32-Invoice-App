@@ -13,6 +13,12 @@ export default function InvoiceCards() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false); //add close on click outside?
+  const [filteredInvoices, setFilteredInvoices] = useState<IInvoice[] | null>();
+  const [filters, setFilters] = useState<string | string[] | null>([
+    'paid',
+    'pending',
+    'draft',
+  ]); //?
 
   useEffect(() => {
     const fetchInvoices = async () => {
@@ -21,26 +27,49 @@ export default function InvoiceCards() {
         setInvoices(allinvoices);
         console.log(allinvoices);
         setLoading(false);
+        setFilteredInvoices(allinvoices);
       } catch (error) {
         console.error('Error fetching data:', error);
         setError('Failed to fetch data. Please try again later.');
         setLoading(false);
       }
     };
-
     fetchInvoices();
   }, []);
+
+  useEffect(() => {
+    if (invoices && filters && Array.isArray(filters)) {
+      const newfilteredInvoices = invoices.filter((invoice) =>
+        filters.includes(invoice.status)
+      );
+      setFilteredInvoices(newfilteredInvoices);
+    }
+    if (invoices && filters && typeof filters == 'string') {
+      const newfilteredInvoices = invoices.filter(
+        (invoice) => invoice.status == filters
+      );
+      setFilteredInvoices(newfilteredInvoices);
+    }
+    if (invoices && filters == null) {
+      setFilteredInvoices(null);
+    }
+  }, [filters, invoices]);
 
   return (
     <div>
       <div
         className={`px-6 sm:px-12 md:px-0 grid justify-items-center gap-y-4 content-start`}
       >
-        <Filter isOpenMenu={isOpenMenu} setIsOpenMenu={setIsOpenMenu} />
-        {loading && !invoices ? (
+        <Filter
+          isOpenMenu={isOpenMenu}
+          setIsOpenMenu={setIsOpenMenu}
+          setFilters={setFilters}
+          filters={filters}
+        />
+        {loading ? (
           <p>Loading...</p>
-        ) : !loading && invoices ? (
-          invoices.map((invoice) => (
+        ) : !loading && filteredInvoices && filteredInvoices?.length > 0 ? (
+          filteredInvoices.map((invoice) => (
             <InvoiceCard invoice={invoice} key={invoice.id} />
           ))
         ) : error ? (
