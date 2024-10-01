@@ -2,18 +2,23 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ArrowRight from '../images/icon-arrow-right.svg';
 import Status from './Status';
+import { IInvoice } from './Types';
 //import ArrowDown from '../images/icon-arrow-down.svg'
 
-export default function InvoiceCard({ invoice }) {
-  const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+export default function InvoiceCard({ invoice }: { invoice: IInvoice }) {
+  const formatDate = (dateString: string) => {
+    const options = {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    };
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', options);
   };
 
   return (
     <Link
-      href="/viewinvoice"
+      href={`/viewinvoice/${invoice.id}`}
       className={`grid grid-cols-2 sm:grid-cols-[auto,auto,auto,auto,auto] md:grid-cols-[2fr,3fr,4fr,3fr,2fr,1fr] grid-rows-3 sm:grid-rows-1 items-center sm:justify-items-center
          bg-card p-6 px-[7.34%] sm:px-0 sm:py-4 sm:h-h18  rounded-lg w-full shadow-smsh
          focus:border focus:border-primary hover:border hover:border-primary md:pl-6`}

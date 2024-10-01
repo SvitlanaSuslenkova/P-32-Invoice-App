@@ -1,3 +1,7 @@
+'use client';
+import { usePathname } from 'next/navigation';
+
 export default function ViewInvoice() {
-  return <div>View</div>;
+  const pathname = usePathname();
+  return <div>{pathname}</div>;
 }
