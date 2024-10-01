@@ -1,35 +1,16 @@
 'use client';
+import { useDispatch } from 'react-redux';
+import { setFilters } from '../app/redux/slices/filtersSlice';
 
 const statuses = ['draft', 'pending', 'paid'];
 
-interface IFilterMenu {
-  setFilters: (filters: string | string[] | null) => void;
-  filters: string | string[] | null;
-}
+const FilterMenu = () => {
+  const dispatch = useDispatch();
 
-const FilterMenu = ({ setFilters, filters }: IFilterMenu) => {
-  function handleFilter(e: React.MouseEvent<HTMLButtonElement>) {
-    const filterValue = (e.target as HTMLButtonElement).value;
-    if (Array.isArray(filters) && filters.includes(filterValue)) {
-      //remove
-      const allfilters = filters.filter((filter) => filter !== filterValue);
-      setFilters(allfilters);
-    } else if (typeof filters == 'string' && filters == filterValue) {
-      //remove
-      setFilters([]);
-    } else if (typeof filters == 'string' && filters !== filterValue) {
-      //add
-      const allfilters = [filters, filterValue];
-      setFilters(allfilters);
-    } else if (Array.isArray(filters) && !filters.includes(filterValue)) {
-      //add
-      const allfilters = [...filters, filterValue];
-      setFilters(allfilters);
-    } else {
-      const allfilters = filterValue; //add
-      setFilters(allfilters);
-    }
-  }
+  const handleFilter = (e: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(setFilters((e.target as HTMLButtonElement).value));
+  };
+
   return (
     <div
       className={`absolute top-14 right-1/4 sm:top-14 sm:right-1/4 md:top-28 md:right-52 2xl:right-[16.9rem] z-2 w-48 h-32 p-6 rounded-lg bg-card shadow-bsh `}

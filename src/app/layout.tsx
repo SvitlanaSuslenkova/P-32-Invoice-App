@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { Providers } from './redux/providers';
+
 //import localFont from "next/font/local";
 import './globals.css';
 
@@ -15,12 +17,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${fontLeagueSpartan.variable} ${fontFredoka.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <Providers>
+      <html lang="en">
+        <body
+          className={`${fontLeagueSpartan.variable} ${fontFredoka.variable} antialiased`}
+        >
+          {children}
+        </body>
+      </html>
+    </Providers>
   );
 }

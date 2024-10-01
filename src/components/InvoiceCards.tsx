@@ -1,85 +1,71 @@
 'use client';
 
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import InvoiceCard from './InvoiceCard';
 import Filter from './Filter';
 import NoInvoice from './NoInvoice';
-import { getInvoices } from '../app/actions/getInvoices';
 import { IInvoice } from './Types';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  fetchInvoices,
+  setFilteredInvoices,
+} from '../app/redux/slices/invoicesSlice';
 
 export default function InvoiceCards() {
-  const [invoices, setInvoices] = useState<IInvoice[] | null>();
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false); //add close on click outside?
+  const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
+  const [invoicesToShow, setInvoicesToShow] = useState<IInvoice[] | null>([]);
 
-  const [filteredInvoices, setFilteredInvoices] = useState<IInvoice[] | null>();
-  const [filters, setFilters] = useState<string | string[] | null>([
-    'paid',
-    'pending',
-    'draft',
-  ]); //?
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    const fetchInvoices = async () => {
-      try {
-        const allinvoices = await getInvoices();
-        setInvoices(allinvoices);
-        console.log(allinvoices);
-        setLoading(false);
-        setFilteredInvoices(allinvoices);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setError('Failed to fetch data. Please try again later.');
-        setLoading(false);
-      }
-    };
-    fetchInvoices();
-  }, []);
+  const invoices = useSelector((state) => state.invoices.invoices);
+  const filteredInvoices = useSelector(
+    (state) => state.invoices.filteredinvoices
+  );
+  const filters = useSelector((state) => state.filters.filters);
+  const invoicesStatus = useSelector((state) => state.invoices.status);
+  //const error = useSelector((state) => state.invoices.error);
 
   useEffect(() => {
-    if (invoices && filters && Array.isArray(filters)) {
-      const newfilteredInvoices = invoices.filter((invoice) =>
-        filters.includes(invoice.status)
-      );
-      setFilteredInvoices(newfilteredInvoices);
+    if (invoicesStatus === 'idle') {
+      dispatch(fetchInvoices());
     }
-    if (invoices && filters && typeof filters == 'string') {
-      const newfilteredInvoices = invoices.filter(
-        (invoice) => invoice.status == filters
-      );
-      setFilteredInvoices(newfilteredInvoices);
+  }, [dispatch, invoices]);
+
+  useEffect(() => {
+    if (invoicesStatus === 'succeeded') {
+      dispatch(setFilteredInvoices(filters));
     }
-    if (invoices && filters == null) {
-      setFilteredInvoices(null);
+  }, [dispatch, invoices, filters, invoicesStatus]);
+
+  useEffect(() => {
+    if (filteredInvoices && filteredInvoices.length > 0) {
+      setInvoicesToShow(filteredInvoices);
+    } else {
+      setInvoicesToShow([]); // handle case where no invoices match the filter
     }
-  }, [filters, invoices]);
+  }, [filteredInvoices]);
 
   return (
     <div
       className={`px-6 sm:px-12 md:px-0 grid justify-items-center gap-y-4 content-start w-full `}
     >
-      <Filter
-        isOpenMenu={isOpenMenu}
-        setIsOpenMenu={setIsOpenMenu}
-        setFilters={setFilters}
-        filters={filters}
-      />
+      <Filter isOpenMenu={isOpenMenu} setIsOpenMenu={setIsOpenMenu} />
 
-      {loading ? (
+      {invoicesStatus === 'loading' ? (
         <p>Loading...</p>
-      ) : !loading && filteredInvoices && filteredInvoices?.length > 0 ? (
-        filteredInvoices.map((invoice) => (
+      ) : invoicesStatus === 'succeeded' &&
+        invoicesToShow &&
+        invoicesToShow.length > 0 ? (
+        invoicesToShow.map((invoice: IInvoice) => (
           <InvoiceCard invoice={invoice} key={invoice.id} />
         ))
-      ) : error ? (
-        <p>Error</p>
-      ) : (
+      ) : invoicesStatus === 'succeeded' && !invoicesToShow ? (
         <div className={`mt-16 md:mt-44 xl:mt-16`}>
           <NoInvoice />
         </div>
-      )}
+      ) : invoicesStatus == 'failed' ? (
+        <p>Error</p>
+      ) : null}
     </div>
   );
 }

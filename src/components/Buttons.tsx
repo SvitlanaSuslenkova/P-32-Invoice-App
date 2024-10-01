@@ -43,7 +43,7 @@ export const FilterButton = ({ onClick, isOpenMenu }: IFilterButton) => {
         alt="v"
         width={8.46}
         height={4.23}
-        style={isOpenMenu ? { rotate: '180deg' } : ''}
+        style={isOpenMenu ? { rotate: '180deg' } : {}}
       />
     </button>
   );
