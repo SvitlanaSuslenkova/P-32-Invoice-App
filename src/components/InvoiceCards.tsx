@@ -44,14 +44,12 @@ export default function InvoiceCards() {
     if (filteredInvoices && filteredInvoices.length > 0) {
       setInvoicesToShow(filteredInvoices);
     } else {
-      setInvoicesToShow([]); // handle case where no invoices match the filter
+      setInvoicesToShow([]);
     }
   }, [filteredInvoices]);
 
   return (
-    <div
-      className={`px-6 sm:px-12 md:px-0 grid justify-items-center gap-y-4 content-start w-full `}
-    >
+    <div className={`grid justify-items-center gap-y-4 content-start w-full `}>
       <Filter
         isOpenMenu={isOpenMenu}
         setIsOpenMenu={setIsOpenMenu}
