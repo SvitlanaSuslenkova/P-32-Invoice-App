@@ -4,8 +4,21 @@ import { setFilters } from '../app/redux/slices/filtersSlice';
 
 const statuses = ['draft', 'pending', 'paid'];
 
-const FilterMenu = () => {
+const FilterMenu = ({ filters }: { filters: string | null | string[] }) => {
   const dispatch = useDispatch();
+
+  const isChecked = (status: string) => {
+    if (
+      filters &&
+      filters.length > 0 &&
+      Array.isArray(filters) &&
+      filters.includes(status)
+    ) {
+      return true;
+    } else if (typeof filters == 'string' && filters == status) {
+      return true;
+    } else return false;
+  };
 
   const handleFilter = (e: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(setFilters((e.target as HTMLButtonElement).value));
@@ -20,7 +33,7 @@ const FilterMenu = () => {
           <button className={`flex items-center`} value={status} key={status}>
             <input
               id={status}
-              defaultChecked={true}
+              defaultChecked={isChecked(status)}
               type="checkbox"
               value={status}
               onClick={(e) =>

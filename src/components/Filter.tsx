@@ -5,14 +5,14 @@ import FilterMenu from './FilterMenu';
 interface IFilter {
   isOpenMenu: boolean;
   setIsOpenMenu: (isOpenMenu: boolean) => void;
+  filters: string | null | string[];
 }
 
 export default function Filter({
   isOpenMenu,
   setIsOpenMenu,
-}: // setFilters,
-//  filters,
-IFilter) {
+  filters,
+}: IFilter) {
   return (
     <div
       className={`relative grid grid-rows-2 grid-cols-[auto,auto] w-full mt-7 md:pt-10 md:pb-9`}
@@ -38,7 +38,7 @@ IFilter) {
         />
         <InvoiceButton />
       </div>
-      {isOpenMenu && <FilterMenu />}
+      {isOpenMenu && <FilterMenu filters={filters} />}
     </div>
   );
 }

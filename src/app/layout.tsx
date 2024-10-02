@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Providers } from './redux/providers';
+import Header from '../components/Header';
 
 //import localFont from "next/font/local";
 import './globals.css';
@@ -20,8 +21,9 @@ export default function RootLayout({
     <Providers>
       <html lang="en">
         <body
-          className={`${fontLeagueSpartan.variable} ${fontFredoka.variable} antialiased`}
+          className={`${fontLeagueSpartan.variable} ${fontFredoka.variable} antialiased grid content-start xl:grid-cols-[6.44rem,auto] min-h-svh`}
         >
+          <Header />
           {children}
         </body>
       </html>

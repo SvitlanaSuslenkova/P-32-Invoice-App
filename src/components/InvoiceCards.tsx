@@ -21,7 +21,10 @@ export default function InvoiceCards() {
   const filteredInvoices = useSelector(
     (state) => state.invoices.filteredinvoices
   );
-  const filters = useSelector((state) => state.filters.filters);
+  const filters = useSelector((state) => state.filters.filters) as
+    | string
+    | null
+    | string[];
   const invoicesStatus = useSelector((state) => state.invoices.status);
   //const error = useSelector((state) => state.invoices.error);
 
@@ -49,7 +52,11 @@ export default function InvoiceCards() {
     <div
       className={`px-6 sm:px-12 md:px-0 grid justify-items-center gap-y-4 content-start w-full `}
     >
-      <Filter isOpenMenu={isOpenMenu} setIsOpenMenu={setIsOpenMenu} />
+      <Filter
+        isOpenMenu={isOpenMenu}
+        setIsOpenMenu={setIsOpenMenu}
+        filters={filters}
+      />
 
       {invoicesStatus === 'loading' ? (
         <p>Loading...</p>
