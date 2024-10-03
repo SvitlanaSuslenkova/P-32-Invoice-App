@@ -33,7 +33,7 @@ export default function ViewInvoice() {
 
   return (
     <div>
-      <div className={`h-20 grid content-center mt-12`}>
+      <div className={`h-20 grid content-center mt-1 md:mt-8 xl:mt-12`}>
         <GoBackButton onClick={handleGoBack} />
       </div>
       {invoiceStatus === 'loading' && <p>Loading...</p>}
