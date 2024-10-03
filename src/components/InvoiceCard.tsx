@@ -3,19 +3,9 @@ import Link from 'next/link';
 import ArrowRight from '../images/icon-arrow-right.svg';
 import Status from './Status';
 import { IInvoice } from './Types';
-//import ArrowDown from '../images/icon-arrow-down.svg'
+import { formatDate } from '@/app/actions/formatDate';
 
 export default function InvoiceCard({ invoice }: { invoice: IInvoice }) {
-  const formatDate = (dateString: string) => {
-    const options = {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    };
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', options);
-  };
-
   return (
     <Link
       href={`/viewinvoice/${invoice.id}`}
@@ -31,7 +21,7 @@ export default function InvoiceCard({ invoice }: { invoice: IInvoice }) {
       </p>
 
       <p
-        className={`col-start-2 sm:col-start-3 justify-self-end sm:justify-self-center mb-3.5 sm:mb-0  font-medium text-sm13 leading-sm15 text-card-foreground   `}
+        className={`col-start-2 sm:col-start-3 justify-self-end sm:justify-self-center mb-3.5 sm:mb-0  grey13`}
       >
         {invoice.clientName}
       </p>
@@ -47,7 +37,7 @@ export default function InvoiceCard({ invoice }: { invoice: IInvoice }) {
       <p
         className={`justify-self-start sm:justify-self-center font-bold leading-6 tracking-em0016 sm:col-start-4 sm:row-star-1`}
       >
-        <span>£</span> {invoice.total}
+        <span>£</span> {invoice.total.toFixed(2)}
       </p>
       <div className={`hidden sm:w-full sm:h-full md:grid place-items-center`}>
         <Image

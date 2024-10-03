@@ -21,10 +21,12 @@ export default function RootLayout({
     <Providers>
       <html lang="en">
         <body
-          className={`${fontLeagueSpartan.variable} ${fontFredoka.variable} antialiased grid content-start xl:grid-cols-[6.44rem,auto] min-h-svh`}
+          className={`${fontLeagueSpartan.variable} ${fontFredoka.variable} antialiased grid content-start grid-cols-1 xl:grid-cols-[6.44rem,auto]   min-h-svh text-foreground bg-background`}
         >
           <Header />
-          <main className={`grid justify-items-center w-full content-start`}>
+          <main
+            className={`grid justify-items-center w-full h-full content-start`}
+          >
             <div
               className={`grid content-center w-full max-w-[45.63rem] 2xl:max-w-[60rem] px-6 sm:px-12 md:px-0  `}
             >

@@ -2,21 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: 'League Spartan', 'Fredoka', sans-serif;
-  background: var(--background);
-  color: var(--foreground);
-}
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
-:root {
-  --background: hsl(240, 27%, 98%);
-  --foreground: hsl(231, 28%, 7%);
-  /*status*/
-  --paid: hsl(160, 67%, 52%); /*green bg-opacity 5.71%*/
-  --pending: hsl(34, 100%, 50%); /*orange bg-opacity 5.71%*/
-  --draft: hsl(231, 20%, 27%); /*dark-grey+blue bg-opacity 5.71%*/
+@layer components {
+  .grey13 {
+    @apply font-medium text-[0.8125rem] leading-[0.9375rem] text-card-foreground tracking-[-0.008em];
+  }
+  .black15 {
+    @apply font-bold text-[0.9375rem] leading-5 text-foreground tracking-[-0.016em];
+  }
 }

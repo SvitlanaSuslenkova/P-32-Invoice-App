@@ -64,7 +64,7 @@ export default function InvoiceCards() {
         invoicesToShow.map((invoice: IInvoice) => (
           <InvoiceCard invoice={invoice} key={invoice.id} />
         ))
-      ) : invoicesStatus === 'succeeded' && !invoicesToShow ? (
+      ) : invoicesStatus === 'succeeded' && invoicesToShow?.length == 0 ? (
         <div className={`mt-16 md:mt-44 xl:mt-16`}>
           <NoInvoice />
         </div>

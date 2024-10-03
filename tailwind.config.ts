@@ -35,6 +35,7 @@ const config: Config = {
           'hsl(231, 20%, 27%)' /*dark-grey+blue bg-opacity 5.71%*/,
 
         delete: 'hsl(0, 80%, 63%)' /*red*/,
+        'delete-muted': 'hsl(0, 100%, 80%)',
 
         muted: 'hsl(231, 36%, 63%)' /*purple+grey  moon*/,
         'muted-darker': 'hsl(231, 75%, 93%)',
@@ -69,6 +70,7 @@ const config: Config = {
         em0031: '-0.031em',
       },
       leading: {
+        sm5: '1.125rem',
         sm6: '1.38rem',
         sm9: '2.07rem',
         sm4: '0.94rem',

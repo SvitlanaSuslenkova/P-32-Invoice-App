@@ -4,25 +4,6 @@ import ArrowDown from '../images/icon-arrow-down.svg';
 
 import ArrowLeft from '../images/icon-arrow-left.svg';
 
-export default function Buttons() {
-  return (
-    <div>
-      {/* height:48px*/}
-      {/*Mark as Paid, Save Changes, Save & Send*/}
-      <button className={`h-12`}>Mark as Paid</button>
-
-      <button>Delete</button>
-
-      {/*Cancel, Discard*/}
-      <button>Edit</button>
-
-      <button>Save as Draft</button>
-
-      <button>Add New Item</button>
-    </div>
-  );
-}
-
 interface IFilterButton {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   isOpenMenu: boolean;
@@ -65,13 +46,18 @@ export const InvoiceButton = () => {
     </button>
   );
 };
-export const GoBackButton = () => {
+export const GoBackButton = ({
+  onClick,
+}: {
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+}) => {
   return (
     <button
-      className={`justify-self-start flex justify-center items-center gap-2 md:gap-4 h-11 p-1.5 rounded-3xl`}
+      className={`justify-self-start flex justify-center items-center gap-2 md:gap-4 h-11 p-1.5 rounded-3xl hover:text-card-foreground`}
+      onClick={onClick}
     >
       <Image src={ArrowLeft} alt="<" width={4.23} height={8.46} />
-      <span className={`text-sm15 leading-sm4 font-bold traking-em0016  `}>
+      <span className={`text-sm15 leading-sm4 font-bold traking-em0016`}>
         Go back
       </span>
     </button>
@@ -85,6 +71,72 @@ export const AddNewItemButton = () => {
         text-sm-15 leading-sm4 font-bold traking-em0016 w-full text-muted bg-secondary md:hover:bg-muted-darker`}
     >
       + Add New Item
+    </button>
+  );
+};
+
+export const GreyButton = ({
+  text,
+  onClick,
+}: {
+  text: string;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+}) => {
+  return (
+    <button
+      onClick={onClick}
+      className={`text-sm15 leading-sm15 font-bold tracking-em0016 rounded-3xl h-12 px-5 md:px-6 flex justify-center items-center text-card-foreground bg-secondary hover:bg-muted-darker`}
+    >
+      {text}
+    </button>
+  );
+};
+export const RedButton = ({
+  text,
+  onClick,
+}: {
+  text: string;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+}) => {
+  return (
+    <button
+      onClick={onClick}
+      className={`text-sm15 leading-sm15 font-bold tracking-em0016 rounded-3xl h-12 px-5 md:px-6 flex justify-center items-center text-primary-foreground bg-delete hover:bg-delete-muted`}
+    >
+      {text}
+    </button>
+  );
+};
+export const PurpleButton = ({
+  text,
+  onClick,
+}: {
+  text: string;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+}) => {
+  return (
+    <button
+      onClick={onClick}
+      className={`text-sm15 leading-sm15 font-bold tracking-em0016 rounded-3xl h-12 px-5 md:px-6 flex justify-center items-center text-primary-foreground bg-primary hover:bg-primary-hover`}
+    >
+      {text}
+    </button>
+  );
+};
+
+export const DarkButton = ({
+  text,
+  onClick,
+}: {
+  text: string;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+}) => {
+  return (
+    <button
+      onClick={onClick}
+      className={`text-sm15 leading-sm15 font-bold tracking-em0016 rounded-3xl h-12 px-5 md:px-6 flex justify-center items-center text-card-foreground bg-secondary-accent hover:bg-foreground`}
+    >
+      {text}
     </button>
   );
 };

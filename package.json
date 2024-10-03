@@ -12,6 +12,7 @@
     "@reduxjs/toolkit": "^2.2.7",
     "my-app": "file:",
     "next": "14.2.13",
+    "next-navigation": "^1.0.6",
     "react": "^18",
     "react-dom": "^18",
     "react-redux": "^9.1.2"

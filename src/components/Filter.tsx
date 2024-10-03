@@ -22,9 +22,7 @@ export default function Filter({
       >
         Invoices
       </h1>
-      <p
-        className={` text-card-foreground text-sm13 font-medium traking-em0008 leading-sm4`}
-      >
+      <p className={`grey13`}>
         <span className={`hidden sm:inline-block`}>There are</span>
         <span> </span>
         <span>7</span> total invoices
