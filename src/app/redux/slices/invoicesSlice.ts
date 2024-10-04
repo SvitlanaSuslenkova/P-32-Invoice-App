@@ -29,17 +29,13 @@ const invoicesSlice = createSlice({
 
   reducers: {
     setFilteredInvoices: (state, action: PayloadAction<string>) => {
-      const { payload } = action; //const payload = action.payload;
+      const { payload } = action;
 
-      if (state.invoices && Array.isArray(payload)) {
+      if (Array.isArray(payload)) {
         state.filteredinvoices = state.invoices.filter((invoice) =>
           payload.includes(invoice.status)
         );
-      } /*else if (state.invoices && typeof payload == 'string') {
-        state.filteredinvoices = state.invoices.filter(
-          (invoice) => invoice.status == payload
-        );
-      }*/ else if (state.invoices || payload == null) {
+      } else if (payload == null) {
         state.filteredinvoices = [];
       }
     },
@@ -64,3 +60,23 @@ const invoicesSlice = createSlice({
 
 export const { setFilteredInvoices } = invoicesSlice.actions;
 export default invoicesSlice.reducer;
+
+/*
+  reducers: {
+    setFilteredInvoices: (state, action: PayloadAction<string>) => {
+      const { payload } = action; //const payload = action.payload;
+
+      if (state.invoices && Array.isArray(payload)) {
+        state.filteredinvoices = state.invoices.filter((invoice) =>
+          payload.includes(invoice.status)
+        );
+      } else if (state.invoices && typeof payload == 'string') {
+        state.filteredinvoices = state.invoices.filter(
+          (invoice) => invoice.status == payload
+        );
+      else if (state.invoices && payload == null) {
+        state.filteredinvoices = [];
+      }
+    },
+  },
+  */
