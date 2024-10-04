@@ -6,10 +6,7 @@ import Filter from './Filter';
 import NoInvoice from './NoInvoice';
 import { IInvoice } from './Types';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  fetchInvoices,
-  setFilteredInvoices,
-} from '../app/redux/slices/invoicesSlice';
+import { fetchInvoices } from '../app/redux/slices/invoicesSlice';
 
 export default function InvoiceCards() {
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
@@ -18,13 +15,17 @@ export default function InvoiceCards() {
   const dispatch = useDispatch();
 
   const invoices = useSelector((state) => state.invoices.invoices);
-  const filteredInvoices = useSelector(
-    (state) => state.invoices.filteredinvoices
-  );
+
   const filters = useSelector((state) => state.filters.filters);
   const invoicesStatus = useSelector((state) => state.invoices.status);
   //const error = useSelector((state) => state.invoices.error);
 
+  const deletedId = useSelector((state) => {
+    console.log(state);
+    return state.deletedId.deletedId;
+  });
+
+  const [filteredInvoices, setFilteredInvoices] = useState([]);
   useEffect(() => {
     if (invoicesStatus === 'idle') {
       dispatch(fetchInvoices());
@@ -33,9 +34,14 @@ export default function InvoiceCards() {
 
   useEffect(() => {
     if (invoicesStatus === 'succeeded') {
-      dispatch(setFilteredInvoices(filters));
-    }
-  }, [dispatch, invoices, filters, invoicesStatus]);
+      if (filters.length > 0) {
+        const newInvoices = invoices.filter((invoice) =>
+          filters.includes(invoice.status)
+        );
+        setFilteredInvoices(newInvoices);
+      }
+    } else setFilteredInvoices([]);
+  }, [invoices, filters, invoicesStatus]);
 
   useEffect(() => {
     if (filteredInvoices && filteredInvoices.length > 0) {

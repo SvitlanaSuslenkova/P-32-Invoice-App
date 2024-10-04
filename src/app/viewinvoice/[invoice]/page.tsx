@@ -8,6 +8,7 @@ import {
   fetchInvoices,
   setDeletedInvoice,
 } from '@/app/redux/slices/invoicesSlice';
+import { setDeletedId } from '@/app/redux/slices/deletedIdSlice';
 import { IInvoice } from '@/components/Types';
 import { useRouter } from 'next/navigation';
 import EditDeleteMark from '@/components/EditDeleteMark';
@@ -25,6 +26,12 @@ export default function ViewInvoice() {
   const dispatch = useDispatch();
   const invoice = useSelector((state) => state.invoice.invoice as [IInvoice]);
   const invoiceStatus = useSelector((state) => state.invoice.status);
+
+  const deletedId = useSelector((state) => {
+    console.log(state);
+    return state.deletedId.deletedId;
+  });
+
   const router = useRouter();
 
   useEffect(() => {
@@ -40,7 +47,8 @@ export default function ViewInvoice() {
     setIsDeleteOpen(true);
   };
   const handleConfirmDelete = () => {
-    dispatch(setDeletedInvoice(invoiceId));
+    dispatch(setDeletedId(invoiceId));
+    dispatch(setDeletedInvoice(deletedId));
     setIsDeleteOpen(false);
     handleGoBack();
   };
@@ -75,4 +83,3 @@ export default function ViewInvoice() {
     </>
   );
 }
-//        className={`grid place-items-center sm:pr-20 sm:place-items-end bg-card shadow-smsh mt-14 mx-[-1.5rem] sm:mx-[-3rem]  px-6 py-5 md:hidden`}

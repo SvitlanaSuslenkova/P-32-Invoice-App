@@ -19,6 +19,7 @@ export const fetchInvoices = createAsyncThunk(
 type InvoicesState = {
   invoices: IInvoice[];
   filteredinvoices: IInvoice[];
+  editedinvoices: IInvoice[];
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 };
@@ -26,6 +27,7 @@ type InvoicesState = {
 const initialState: InvoicesState = {
   invoices: [],
   filteredinvoices: [],
+  editedinvoices: [],
   status: 'idle',
   error: null,
 };
@@ -33,7 +35,7 @@ const initialState: InvoicesState = {
 const invoicesSlice = createSlice({
   name: 'invoices',
   initialState,
-  reducers: {
+  /*{
     setFilteredInvoices: (state, action: PayloadAction<string>) => {
       const { payload } = action;
 
@@ -44,12 +46,17 @@ const invoicesSlice = createSlice({
           payload.includes(invoice.status)
         );
       }
-    },
+    },*/
+  reducers: {
     setDeletedInvoice: (state, action: PayloadAction<string>) => {
       const { payload } = action;
-      state.invoices = state.invoices.filter(
+      /*state.editedinvoices = state.invoices.filter(
         (invoice) => invoice.id !== payload
+      );*/
+      /*  state.editedinvoices = state.invoices.filter(
+        (invoice) => !payload.includes(invoice.id)
       );
+      console.log(state.editedinvoices);*/
     },
   },
 
@@ -70,7 +77,7 @@ const invoicesSlice = createSlice({
   },
 });
 
-export const { setFilteredInvoices, setDeletedInvoice } = invoicesSlice.actions;
+export const { setDeletedInvoice } = invoicesSlice.actions;
 export default invoicesSlice.reducer;
 
 /*
