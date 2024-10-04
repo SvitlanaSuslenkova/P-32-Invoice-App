@@ -1,17 +1,20 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { GoBackButton } from '../../../components/Buttons';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchInvoice } from '@/app/redux/slices/OneInvoiceSlice';
+import { fetchInvoices } from '@/app/redux/slices/invoicesSlice';
 import { IInvoice } from '@/components/Types';
 import { useRouter } from 'next/navigation';
 import EditDeleteMark from '@/components/EditDeleteMark';
+import ConfirmDelete from '@/components/ConfirmDelete';
 
 import NoInvoice from '@/components/NoInvoice';
 import InvoiceView from '@/components/InvoiceView';
 
 export default function ViewInvoice() {
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const pathname = usePathname();
   const partsofpathname = pathname.split('/');
   const invoiceId: string = partsofpathname[partsofpathname.length - 1];
@@ -29,6 +32,11 @@ export default function ViewInvoice() {
     router.back();
   };
 
+  const handleDelete = () => {
+    dispatch(fetchInvoices(invoiceId));
+    setIsDeleteOpen(true);
+  };
+
   return (
     <div>
       <div className={`h-20 grid content-center mt-1 md:mt-8 xl:mt-12`}>
@@ -44,8 +52,9 @@ export default function ViewInvoice() {
       <div
         className={`grid place-items-center sm:pr-20 sm:place-items-end bg-card shadow-smsh mt-14 mx-[-24px] sm:mx-[-48px] md:ml-0 px-6 py-5 md:hidden`}
       >
-        <EditDeleteMark />
+        <EditDeleteMark handleDelete={handleDelete} />
       </div>
+      {isDeleteOpen && <ConfirmDelete />}
     </div>
   );
 }

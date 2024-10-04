@@ -1,8 +1,8 @@
 import { RedButton, GreyButton } from './Buttons';
 
-export default function Header() {
+export default function ConfirmDelete() {
   return (
-    <div>
+    <div className={`fixed top-0 z-2 w-full h-full`}>
       <h2>Confirm Deletion</h2>
       <p>
         Are you sure you want to delete invoice #XM9141? This action cannot be

@@ -21,10 +21,7 @@ export default function InvoiceCards() {
   const filteredInvoices = useSelector(
     (state) => state.invoices.filteredinvoices
   );
-  const filters = useSelector((state) => state.filters.filters) as
-    | string
-    | null
-    | string[];
+  const filters = useSelector((state) => state.filters.filters);
   const invoicesStatus = useSelector((state) => state.invoices.status);
   //const error = useSelector((state) => state.invoices.error);
 
