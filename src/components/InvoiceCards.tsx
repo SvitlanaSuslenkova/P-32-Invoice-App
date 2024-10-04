@@ -46,28 +46,34 @@ export default function InvoiceCards() {
   }, [filteredInvoices]);
 
   return (
-    <div className={`grid justify-items-center gap-y-4 content-start w-full `}>
-      <Filter
-        isOpenMenu={isOpenMenu}
-        setIsOpenMenu={setIsOpenMenu}
-        filters={filters}
-      />
+    <div
+      className={`grid content-center w-full max-w-[45.63rem] 2xl:max-w-[60rem] px-6 sm:px-12 md:px-0  `}
+    >
+      <div
+        className={`grid justify-items-center gap-y-4 content-start w-full `}
+      >
+        <Filter
+          isOpenMenu={isOpenMenu}
+          setIsOpenMenu={setIsOpenMenu}
+          filters={filters}
+        />
 
-      {invoicesStatus === 'loading' ? (
-        <p>Loading...</p>
-      ) : invoicesStatus === 'succeeded' &&
-        invoicesToShow &&
-        invoicesToShow.length > 0 ? (
-        invoicesToShow.map((invoice: IInvoice) => (
-          <InvoiceCard invoice={invoice} key={invoice.id} />
-        ))
-      ) : invoicesStatus === 'succeeded' && invoicesToShow?.length == 0 ? (
-        <div className={`mt-16 md:mt-44 xl:mt-16`}>
-          <NoInvoice />
-        </div>
-      ) : invoicesStatus == 'failed' ? (
-        <p>Error</p>
-      ) : null}
+        {invoicesStatus === 'loading' ? (
+          <p>Loading...</p>
+        ) : invoicesStatus === 'succeeded' &&
+          invoicesToShow &&
+          invoicesToShow.length > 0 ? (
+          invoicesToShow.map((invoice: IInvoice) => (
+            <InvoiceCard invoice={invoice} key={invoice.id} />
+          ))
+        ) : invoicesStatus === 'succeeded' && invoicesToShow?.length == 0 ? (
+          <div className={`mt-16 md:mt-44 xl:mt-16`}>
+            <NoInvoice />
+          </div>
+        ) : invoicesStatus == 'failed' ? (
+          <p>Error</p>
+        ) : null}
+      </div>
     </div>
   );
 }

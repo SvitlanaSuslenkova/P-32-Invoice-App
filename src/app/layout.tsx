@@ -27,11 +27,7 @@ export default function RootLayout({
           <main
             className={`grid justify-items-center w-full h-full content-start`}
           >
-            <div
-              className={`grid content-center w-full max-w-[45.63rem] 2xl:max-w-[60rem] px-6 sm:px-12 md:px-0  `}
-            >
-              {children}
-            </div>
+            {children}
           </main>
         </body>
       </html>

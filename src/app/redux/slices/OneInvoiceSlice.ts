@@ -20,7 +20,7 @@ const OneInvoiceSlice = createSlice({
   name: 'invoice',
   initialState: {
     invoice: {} as IInvoice,
-
+    editedInvoice: {} as IInvoice,
     status: 'idle' as 'idle' | 'loading' | 'succeeded' | 'failed',
     error: null as string | null,
   },
@@ -36,7 +36,7 @@ const OneInvoiceSlice = createSlice({
       .addCase(fetchInvoice.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.invoice = action.payload;
-        state.editedinvoice = action.payload;
+        state.editedInvoice = action.payload;
       })
       .addCase(fetchInvoice.rejected, (state, action) => {
         state.status = 'failed';

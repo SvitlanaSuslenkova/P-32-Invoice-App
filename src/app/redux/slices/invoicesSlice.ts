@@ -45,6 +45,12 @@ const invoicesSlice = createSlice({
         );
       }
     },
+    setDeletedInvoice: (state, action: PayloadAction<string>) => {
+      const { payload } = action;
+      state.invoices = state.invoices.filter(
+        (invoice) => invoice.id !== payload
+      );
+    },
   },
 
   extraReducers: (builder) => {
@@ -64,7 +70,7 @@ const invoicesSlice = createSlice({
   },
 });
 
-export const { setFilteredInvoices } = invoicesSlice.actions;
+export const { setFilteredInvoices, setDeletedInvoice } = invoicesSlice.actions;
 export default invoicesSlice.reducer;
 
 /*

@@ -3,7 +3,12 @@ import Status from './Status';
 import { IInvoice, Iitem } from './Types';
 import { formatDate } from '@/app/actions/formatDate';
 
-export default function InvoiceView({ invoice }: { invoice: IInvoice }) {
+export default function InvoiceView({
+  invoice,
+  handleDelete,
+}: {
+  invoice: IInvoice;
+}) {
   const items = invoice && invoice.items ? invoice.items : [];
 
   return (
@@ -20,7 +25,7 @@ export default function InvoiceView({ invoice }: { invoice: IInvoice }) {
           </div>
 
           <div className={`hidden md:inline-block`}>
-            <EditDeleteMark />
+            <EditDeleteMark handleDelete={handleDelete} />
           </div>
         </div>
       </div>

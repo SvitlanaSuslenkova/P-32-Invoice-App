@@ -1,15 +1,30 @@
 import { RedButton, GreyButton } from './Buttons';
 
-export default function ConfirmDelete() {
+export default function ConfirmDelete({
+  setIsDeleteOpen,
+  handleConfirmDelete,
+}) {
   return (
-    <div className={`fixed top-0 z-2 w-full h-full`}>
-      <h2>Confirm Deletion</h2>
-      <p>
-        Are you sure you want to delete invoice #XM9141? This action cannot be
-        undone.
-      </p>
-      <GreyButton text="Cancel" />
-      <RedButton text="Delete" />
+    <div
+      className={`p-6 fixed grid place-items-center top-0 z-2 w-screen h-screen bg-black bg-opacity-50 xl:ml-[-6.5rem] min-w-80`}
+    >
+      <div
+        className={`bg-card mb-4 rounded-lg shadow-smsh w-full max-w-[30rem] p-8 md:p-12`}
+      >
+        <h2
+          className={`font-bold text-2xl leading-8 text-foreground tracking-tight mb-3`}
+        >
+          Confirm Deletion
+        </h2>
+        <p className={`grey13 leading-6 mb-6`}>
+          Are you sure you want to delete invoice #XM9141? This action cannot be
+          undone.
+        </p>
+        <div className={`flex flex-row gap-x-2 justify-end`}>
+          <GreyButton text="Cancel" onClick={() => setIsDeleteOpen(false)} />
+          <RedButton text="Delete" onClick={handleConfirmDelete} />
+        </div>
+      </div>
     </div>
   );
 }
