@@ -16,27 +16,33 @@ export const fetchInvoices = createAsyncThunk(
   }
 );
 
-const initialState = {
-  invoices: [] as IInvoice[],
-  filteredinvoices: [] as IInvoice[],
-  status: 'idle' as 'idle' | 'loading' | 'succeeded' | 'failed',
-  error: null as string | null,
+type InvoicesState = {
+  invoices: IInvoice[];
+  filteredinvoices: IInvoice[];
+  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  error: string | null;
+};
+
+const initialState: InvoicesState = {
+  invoices: [],
+  filteredinvoices: [],
+  status: 'idle',
+  error: null,
 };
 
 const invoicesSlice = createSlice({
   name: 'invoices',
   initialState,
-
   reducers: {
     setFilteredInvoices: (state, action: PayloadAction<string>) => {
       const { payload } = action;
 
-      if (Array.isArray(payload)) {
+      if (payload == null) {
+        state.filteredinvoices = [];
+      } else {
         state.filteredinvoices = state.invoices.filter((invoice) =>
           payload.includes(invoice.status)
         );
-      } else if (payload == null) {
-        state.filteredinvoices = [];
       }
     },
   },
@@ -48,8 +54,8 @@ const invoicesSlice = createSlice({
       })
       .addCase(fetchInvoices.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.invoices = action.payload as IInvoice[];
-        state.filteredinvoices = action.payload as IInvoice[];
+        state.invoices = action.payload;
+        state.filteredinvoices = action.payload;
       })
       .addCase(fetchInvoices.rejected, (state, action) => {
         state.status = 'failed';
