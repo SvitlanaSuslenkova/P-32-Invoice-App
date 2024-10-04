@@ -67,7 +67,7 @@ export default function InvoiceView({ invoice }: { invoice: IInvoice }) {
             </article>
           </div>
           <div>
-            <p className={`mb-7`}>Sent to</p>
+            <p className={`mb-7 md:mb-3`}>Sent to</p>
             <p className={`black15 normal-case`}>{invoice.clientEmail}</p>
           </div>
         </div>

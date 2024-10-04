@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { setError } from './errorSlice';
 import { getInvoices } from '../../actions/getInvoices';
 import { IInvoice } from '../../../components/Types';
@@ -15,25 +15,31 @@ export const fetchInvoices = createAsyncThunk(
     }
   }
 );
+
+const initialState = {
+  invoices: [] as IInvoice[],
+  filteredinvoices: [] as IInvoice[],
+  status: 'idle' as 'idle' | 'loading' | 'succeeded' | 'failed',
+  error: null as string | null,
+};
+
 const invoicesSlice = createSlice({
   name: 'invoices',
-  initialState: {
-    invoices: [] as IInvoice[],
-    filteredinvoices: [] as IInvoice[],
-    status: 'idle' as 'idle' | 'loading' | 'succeeded' | 'failed',
-    error: null as string | null,
-  },
+  initialState,
+
   reducers: {
-    setFilteredInvoices: (state, action) => {
-      if (state.invoices && Array.isArray(action.payload)) {
+    setFilteredInvoices: (state, action: PayloadAction<string>) => {
+      const { payload } = action; //const payload = action.payload;
+
+      if (state.invoices && Array.isArray(payload)) {
         state.filteredinvoices = state.invoices.filter((invoice) =>
-          action.payload.includes(invoice.status)
+          payload.includes(invoice.status)
         );
-      } else if (state.invoices && typeof action.payload == 'string') {
+      } /*else if (state.invoices && typeof payload == 'string') {
         state.filteredinvoices = state.invoices.filter(
-          (invoice) => invoice.status == action.payload
+          (invoice) => invoice.status == payload
         );
-      } else if (state.invoices || action.payload == null) {
+      }*/ else if (state.invoices || payload == null) {
         state.filteredinvoices = [];
       }
     },
