@@ -37,7 +37,7 @@ const invoicesSlice = createSlice({
   initialState,
   reducers: {
     setEditedInvoice: (state, action: PayloadAction<string>) => {
-      const { payload } = action;
+      // const { payload } = action;
       /*state.editedinvoices = state.invoices.filter(
         (invoice) => invoice.id !== payload
       );*/

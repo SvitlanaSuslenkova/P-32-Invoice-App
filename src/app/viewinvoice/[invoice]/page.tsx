@@ -27,10 +27,7 @@ export default function ViewInvoice() {
   const invoice = useSelector((state) => state.invoice.invoice as [IInvoice]);
   const invoiceStatus = useSelector((state) => state.invoice.status);
 
-  const deletedId = useSelector((state) => {
-    console.log(state);
-    return state.deletedId.deletedId;
-  });
+  const deletedId = useSelector((state) => state.deletedId.deletedId);
 
   const router = useRouter();
 
@@ -48,7 +45,7 @@ export default function ViewInvoice() {
   };
   const handleConfirmDelete = () => {
     dispatch(setDeletedId(invoiceId));
-    dispatch(setDeletedInvoice(deletedId));
+    // dispatch(setDeletedInvoice(deletedId));
     setIsDeleteOpen(false);
     handleGoBack();
   };

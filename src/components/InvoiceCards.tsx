@@ -20,10 +20,7 @@ export default function InvoiceCards() {
   const invoicesStatus = useSelector((state) => state.invoices.status);
   //const error = useSelector((state) => state.invoices.error);
 
-  const deletedId = useSelector((state) => {
-    console.log(state);
-    return state.deletedId.deletedId;
-  });
+  const deletedId = useSelector((state) => state.deletedId.deletedId);
 
   const [filteredInvoices, setFilteredInvoices] = useState([]);
   useEffect(() => {
@@ -36,7 +33,12 @@ export default function InvoiceCards() {
 
   useEffect(() => {
     if (invoicesStatus === 'succeeded') {
-      if (filters.length > 0) {
+      if (filters.length > 0 && deletedId.length == 0) {
+        const newInvoices = invoices.filter((invoice) =>
+          filters.includes(invoice.status)
+        );
+        setFilteredInvoices(newInvoices);
+      } else if (filters.length > 0 && deletedId.length > 0) {
         const newInvoices = invoices.filter((invoice) =>
           filters.includes(invoice.status)
         );
@@ -44,9 +46,9 @@ export default function InvoiceCards() {
           (invoice) => !deletedId.includes(invoice.id)
         );
         setFilteredInvoices(newInvoicesAfterDel);
-      }
-    } else setFilteredInvoices([]);
-  }, [invoices, filters, invoicesStatus]);
+      } else setFilteredInvoices([]);
+    }
+  }, [invoices, filters, invoicesStatus, deletedId]);
 
   useEffect(() => {
     if (filteredInvoices && filteredInvoices.length > 0) {
