@@ -35,20 +35,8 @@ const initialState: InvoicesState = {
 const invoicesSlice = createSlice({
   name: 'invoices',
   initialState,
-  /*{
-    setFilteredInvoices: (state, action: PayloadAction<string>) => {
-      const { payload } = action;
-
-      if (payload == null) {
-        state.filteredinvoices = [];
-      } else {
-        state.filteredinvoices = state.invoices.filter((invoice) =>
-          payload.includes(invoice.status)
-        );
-      }
-    },*/
   reducers: {
-    setDeletedInvoice: (state, action: PayloadAction<string>) => {
+    setEditedInvoice: (state, action: PayloadAction<string>) => {
       const { payload } = action;
       /*state.editedinvoices = state.invoices.filter(
         (invoice) => invoice.id !== payload
@@ -77,7 +65,7 @@ const invoicesSlice = createSlice({
   },
 });
 
-export const { setDeletedInvoice } = invoicesSlice.actions;
+export const { setEditedInvoice } = invoicesSlice.actions;
 export default invoicesSlice.reducer;
 
 /*

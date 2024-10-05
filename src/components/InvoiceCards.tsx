@@ -32,13 +32,18 @@ export default function InvoiceCards() {
     }
   }, [dispatch, invoices]);
 
+  /*Filters+(-deleted)*/
+
   useEffect(() => {
     if (invoicesStatus === 'succeeded') {
       if (filters.length > 0) {
         const newInvoices = invoices.filter((invoice) =>
           filters.includes(invoice.status)
         );
-        setFilteredInvoices(newInvoices);
+        const newInvoicesAfterDel = newInvoices.filter(
+          (invoice) => !deletedId.includes(invoice.id)
+        );
+        setFilteredInvoices(newInvoicesAfterDel);
       }
     } else setFilteredInvoices([]);
   }, [invoices, filters, invoicesStatus]);
