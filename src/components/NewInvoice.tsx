@@ -9,8 +9,22 @@ import Image from 'next/image';
 import ArrowDown from '../images/icon-arrow-down.svg';
 import IconCalendar from '../images/icon-calendar.svg';
 import CalendarMenu from './CalendarMenu';
+//npm i tailwind-scrollbar
 
 export default function NewInvoice({ setIsOpenNewInvoice }) {
+  const [itemsCount, setItemsCount] = useState(1);
+  const itemsArray = [...Array(itemsCount)];
+  const handleAddItem = (e) => {
+    e.preventDefault();
+    setItemsCount(itemsCount + 1);
+    console.log(itemsCount);
+  };
+  function handleDeleteItem(e, indexToDelete) {
+    e.preventDefault();
+    console.log(indexToDelete);
+    return itemsArray.filter((item, index) => index !== indexToDelete); //DOES NOT WORK
+  }
+
   const handleGoBack = () => {
     setIsOpenNewInvoice(false);
   };
@@ -22,7 +36,8 @@ export default function NewInvoice({ setIsOpenNewInvoice }) {
       className={`sm:overflow-hidden absolute left-0 top-[4.5rem] grid place-items-start   md:top-[5rem] xl:top-0 xl:left-[6.44rem]  z-2 w-full h-svh bg-black bg-opacity-50  min-w-80`}
     >
       <div
-        className={`sm:absolute px-6 w-full h-full  bg-card max-w-[38.5rem] sm:h-[calc(100vh-8rem)] sm:rounded-r-b20 sm:overflow-y-scroll`}
+        className={`sm:absolute px-6 w-full h-full  bg-card max-w-[38.5rem] sm:h-[calc(100vh-8rem)] sm:rounded-r-b20 sm:overflow-y-scroll scrollbar-track-card scrollbar-thin 
+            scrollbar-thumb-muted-darker scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-corner scrollbar-corner-red-800`}
       >
         <div>
           <div className={` h-20 grid content-center mt-1 sm:mt-4 xl:mt-8`}>
@@ -67,7 +82,7 @@ export default function NewInvoice({ setIsOpenNewInvoice }) {
                       setIsCalendarMenu(!isCalendarMenu);
                     }}
                   >
-                    <span>{paymentTerms}</span>
+                    <span></span>
                     <Image
                       className={`justify-self-end `}
                       src={IconCalendar}
@@ -114,71 +129,77 @@ export default function NewInvoice({ setIsOpenNewInvoice }) {
                 Item list
               </p>
               <div
-                className={`hidden sm:grid sm:grid-cols-[4fr,1fr,2fr,2fr,1fr] sm:gap-4 sm:mb-6 w-full grey13`}
+                className={`hidden sm:grid sm:grid-cols-[4fr,1.5fr,2fr,2fr,1fr] sm:gap-4 sm:mb-6 w-full grey13`}
               >
                 <p>Item name</p>
                 <p className={`text-center sm:text-left`}>Qty.</p>
                 <p className={`text-right sm:text-left`}>Price</p>
                 <p className={`text-right sm:text-left`}>Total</p>
               </div>
-              <div
-                className={`grid grid-cols-[4fr,6fr,4fr,2fr]  sm:grid-cols-[4fr,1fr,2fr,2fr,1fr] gap-4 mb-8`}
-              >
-                <p
-                  className={`grey13 capitalize sm:hidden col-span-4 sm:col-span-1 mb-[-0.8rem]`}
-                >
-                  Item name
-                </p>
-                <Input
-                  label=""
-                  type="text"
-                  className={`row-start-2  col-span-4 sm:row-start-1 sm:col-span-1`}
-                />
-                <p className={`grey13 capitalize sm:hidden mb-[-0.8rem]`}>
-                  Qty.
-                </p>
-                <Input
-                  label=""
-                  type="number"
-                  className={`row-start-4 sm:row-start-1 sm:col-start-2`}
-                />
-                <p className={`grey13 capitalize sm:hidden mb-[-0.8rem]`}>
-                  Price
-                </p>
-                <Input
-                  label=""
-                  type="number"
-                  className={`row-start-4 sm:row-start-1 sm:col-start-3`}
-                />
-                <p className={`grey13 capitalize sm:hidden mb-[-0.8rem]`}>
-                  Total
-                </p>
-
-                <p
-                  className={` grid items-center  row-start-4 sm:row-start-1 sm:col-start-4 black15 text-card-foreground`}
-                >
-                  400.00
-                </p>
+              {itemsArray.map((item, index) => (
                 <div
-                  className={` justify-self-end sm:justify-self-center grid place-items-center row-start-4 sm:row-start-1 sm:col-start-5`}
+                  key={index}
+                  className={`grid grid-cols-[4fr,6fr,4fr,2fr]  sm:grid-cols-[4fr,1.5fr,2fr,2fr,1fr] gap-4 mb-8`}
                 >
-                  <button>
-                    <svg
-                      width="13"
-                      height="16"
-                      xmlns="http://www.w3.org/2000/svg"
+                  <p
+                    className={`grey13 capitalize sm:hidden col-span-4 sm:col-span-1 mb-[-0.8rem]`}
+                  >
+                    Item name
+                  </p>
+                  <Input
+                    label=""
+                    type="text"
+                    className={`row-start-2  col-span-4 sm:row-start-1 sm:col-span-1`}
+                  />
+                  <p className={`grey13 capitalize sm:hidden mb-[-0.8rem]`}>
+                    Qty.
+                  </p>
+                  <Input
+                    label=""
+                    type="number"
+                    className={`row-start-4 sm:row-start-1 sm:col-start-2`}
+                  />
+                  <p className={`grey13 capitalize sm:hidden mb-[-0.8rem]`}>
+                    Price
+                  </p>
+                  <Input
+                    label=""
+                    type="number"
+                    className={`row-start-4 sm:row-start-1 sm:col-start-3`}
+                  />
+                  <p className={`grey13 capitalize sm:hidden mb-[-0.8rem]`}>
+                    Total
+                  </p>
+
+                  <p
+                    className={` grid items-center  row-start-4 sm:row-start-1 sm:col-start-4 black15 text-card-foreground`}
+                  >
+                    400.00
+                  </p>
+                  <div
+                    className={` justify-self-end sm:justify-self-center grid place-items-center row-start-4 sm:row-start-1 sm:col-start-5`}
+                  >
+                    <button
+                      value={index}
+                      onClick={(e) => handleDeleteItem(e, index)}
                     >
-                      <path
-                        d="M11.583 3.556v10.666c0 .982-.795 1.778-1.777 1.778H2.694a1.777 1.777 0 01-1.777-1.778V3.556h10.666zM8.473 0l.888.889h3.111v1.778H.028V.889h3.11L4.029 0h4.444z"
-                        fill="#888EB0"
-                        fillRule="nonzero"
-                        className={`w-[0.81rem] h-4 p-2 hover:fill-delete transition-colors duration-200`}
-                      />
-                    </svg>
-                  </button>
+                      <svg
+                        width="13"
+                        height="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M11.583 3.556v10.666c0 .982-.795 1.778-1.777 1.778H2.694a1.777 1.777 0 01-1.777-1.778V3.556h10.666zM8.473 0l.888.889h3.111v1.778H.028V.889h3.11L4.029 0h4.444z"
+                          fill="#888EB0"
+                          fillRule="nonzero"
+                          className={`w-[0.81rem] h-4 p-2 hover:fill-delete transition-colors duration-200`}
+                        />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
-              </div>
-              <AddNewItemButton />
+              ))}
+              <AddNewItemButton handleAddItem={handleAddItem} />
             </section>
           </form>
         </div>

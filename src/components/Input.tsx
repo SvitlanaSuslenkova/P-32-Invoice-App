@@ -24,7 +24,7 @@ export const Input: React.FC<InputProps> = ({
       <input
         id={label}
         type={type}
-        className={`mt-2 w-full px-5 py-4 border rounded focus:outline-none focus:ring-1 focus:ring-primary hover:ring-1 hover:ring-primary hover:cursor-pointer black15 ${
+        className={`appearance-none overflow-visible mt-2 w-full px-5 py-4 border rounded focus:outline-none focus:ring-1 focus:ring-primary hover:ring-1 hover:ring-primary hover:cursor-pointer black15 ${
           error ? 'border-delete' : 'border-muted-darker'
         }`}
         {...props}

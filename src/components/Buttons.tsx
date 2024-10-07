@@ -65,11 +65,12 @@ export const GoBackButton = ({
   );
 };
 
-export const AddNewItemButton = () => {
+export const AddNewItemButton = ({ handleAddItem }) => {
   return (
     <button
       className={`flex justify-center items-center gap-2 md:gap-4 h-11 rounded-3xl 
         text-sm-15 leading-sm4 font-bold traking-em0016 w-full text-muted bg-secondary md:hover:bg-muted-darker`}
+      onClick={handleAddItem}
     >
       + Add New Item
     </button>
