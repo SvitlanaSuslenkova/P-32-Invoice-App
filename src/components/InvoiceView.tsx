@@ -1,4 +1,4 @@
-import EditDeleteMark from './EditDeleteMark';
+import { EditDeleteMark } from './Footers';
 import Status from './Status';
 import { IInvoice, Iitem } from './Types';
 import { formatDate } from '@/app/actions/formatDate';

@@ -29,11 +29,12 @@ export const FilterButton = ({ onClick, isOpenMenu }: IFilterButton) => {
     </button>
   );
 };
-export const InvoiceButton = () => {
+export const InvoiceButton = ({ onClick }) => {
   return (
     <button
       className={`justify-self-end flex justify-center items-center gap-2 md:gap-4 pr-4 h-11 p-1.5  rounded-3xl bg-primary text-primary-foreground 
         text-sm-15 leading-sm4 font-bold traking-em0016 hover:bg-primary-hover`}
+      onClick={onClick}
     >
       <div
         className={`flex justify-center items-center w-8 aspect-square rounded-full bg-primary-foreground`}
@@ -85,7 +86,7 @@ export const GreyButton = ({
   return (
     <button
       onClick={onClick}
-      className={`text-sm15 leading-sm15 font-bold tracking-em0016 rounded-3xl h-12 px-5 md:px-6 flex justify-center items-center text-card-foreground bg-secondary hover:bg-muted-darker`}
+      className={`text-sm15 leading-sm15 font-bold tracking-em0016 rounded-3xl h-12 px-4 md:px-6 flex justify-center items-center text-card-foreground bg-secondary hover:bg-muted-darker`}
     >
       {text}
     </button>
@@ -117,7 +118,7 @@ export const PurpleButton = ({
   return (
     <button
       onClick={onClick}
-      className={`text-sm15 leading-sm15 font-bold tracking-em0016 rounded-3xl h-12 px-5 md:px-6 flex justify-center items-center text-primary-foreground bg-primary hover:bg-primary-hover`}
+      className={`w-full text-sm15 leading-sm15 font-bold tracking-em0016 rounded-3xl h-12 px-2 sm:px-4  flex justify-center items-center text-primary-foreground bg-primary hover:bg-primary-hover`}
     >
       {text}
     </button>
@@ -134,7 +135,7 @@ export const DarkButton = ({
   return (
     <button
       onClick={onClick}
-      className={`text-sm15 leading-sm15 font-bold tracking-em0016 rounded-3xl h-12 px-5 md:px-6 flex justify-center items-center text-card-foreground bg-secondary-accent hover:bg-foreground`}
+      className={`w-full text-sm15 leading-sm15 font-bold tracking-em0016 rounded-3xl h-12 px-2 sm:px-4 flex justify-center items-center text-card-foreground bg-secondary-accent hover:bg-foreground`}
     >
       {text}
     </button>

@@ -25,7 +25,7 @@ const OneInvoiceSlice = createSlice({
     error: null as string | null,
   },
   reducers: {
-    setEditedInvoice: (state, action) => {},
+    // setNew: (state, action) => {},
   },
 
   extraReducers: (builder) => {
@@ -45,5 +45,5 @@ const OneInvoiceSlice = createSlice({
   },
 });
 
-export const { setEditedInvoice } = OneInvoiceSlice.actions;
+//export const { setEditedInvoice } = OneInvoiceSlice.actions;
 export default OneInvoiceSlice.reducer;

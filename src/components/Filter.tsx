@@ -12,10 +12,11 @@ export default function Filter({
   isOpenMenu,
   setIsOpenMenu,
   filters,
+  handleOpenNewInvoice,
 }: IFilter) {
   return (
     <div
-      className={`relative grid grid-rows-2 grid-cols-[auto,auto] w-full mt-7 md:pt-10 md:pb-9`}
+      className={`relative grid grid-rows-2 grid-cols-[auto,auto] w-full mt-7 sm:mt-24 md:pt-10 md:pb-9`}
     >
       <h1
         className={`text-2xl md:text-4xl font-bold  leading-sm6 md:leading-sm9 tracking-em0031`}
@@ -34,7 +35,7 @@ export default function Filter({
           onClick={() => setIsOpenMenu(!isOpenMenu)}
           isOpenMenu={isOpenMenu}
         />
-        <InvoiceButton />
+        <InvoiceButton onClick={handleOpenNewInvoice} />
       </div>
       {isOpenMenu && <FilterMenu filters={filters} />}
     </div>

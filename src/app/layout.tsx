@@ -21,7 +21,7 @@ export default function RootLayout({
     <Providers>
       <html lang="en">
         <body
-          className={`${fontLeagueSpartan.variable} ${fontFredoka.variable} antialiased grid content-start grid-cols-1 xl:grid-cols-[6.44rem,auto]   min-h-svh text-foreground bg-background min-w-80`}
+          className={`${fontLeagueSpartan.variable} ${fontFredoka.variable} antialiased grid content-start grid-cols-1 xl:grid-cols-[auto]   min-h-svh text-foreground bg-background min-w-80`}
         >
           <Header />
           <main

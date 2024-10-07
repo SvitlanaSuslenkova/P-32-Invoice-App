@@ -5,7 +5,7 @@ import Moon from '../images/icon-moon.svg';
 export default function Header() {
   return (
     <header
-      className={`flex h-h18 md:h-20 bg-header xl:flex-col xl:w-[6.44rem] xl:h-screen xl:rounded-r-b20`}
+      className={`sm:fixed sm:top-0 sm:left-0 w-full z-10 flex h-h18 md:h-20 bg-header xl:flex-col xl:w-[6.44rem] xl:h-screen xl:rounded-r-b20`}
     >
       <section
         className={`w-18 aspect-square bg-primary rounded-r-b20 overflow-hidden md:w-20   relative before:block 

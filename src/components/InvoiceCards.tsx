@@ -7,9 +7,11 @@ import NoInvoice from './NoInvoice';
 import { IInvoice } from './Types';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchInvoices } from '../app/redux/slices/invoicesSlice';
+import NewInvoice from './NewInvoice';
 
 export default function InvoiceCards() {
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
+  const [isOpenNewInvoice, setIsOpenNewInvoice] = useState<boolean>(false);
   const [invoicesToShow, setInvoicesToShow] = useState<IInvoice[] | null>([]);
 
   const dispatch = useDispatch();
@@ -58,6 +60,10 @@ export default function InvoiceCards() {
     }
   }, [filteredInvoices]);
 
+  const handleOpenNewInvoice = () => {
+    setIsOpenNewInvoice(true);
+  };
+
   return (
     <div
       className={`grid content-center w-full max-w-[45.63rem] 2xl:max-w-[60rem] px-6 sm:px-12 md:px-0  `}
@@ -69,6 +75,7 @@ export default function InvoiceCards() {
           isOpenMenu={isOpenMenu}
           setIsOpenMenu={setIsOpenMenu}
           filters={filters}
+          handleOpenNewInvoice={handleOpenNewInvoice}
         />
 
         {invoicesStatus === 'loading' ? (
@@ -87,6 +94,9 @@ export default function InvoiceCards() {
           <p>Error</p>
         ) : null}
       </div>
+      {isOpenNewInvoice && (
+        <NewInvoice setIsOpenNewInvoice={setIsOpenNewInvoice} />
+      )}
     </div>
   );
 }

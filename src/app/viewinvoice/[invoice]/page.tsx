@@ -4,14 +4,11 @@ import { usePathname } from 'next/navigation';
 import { GoBackButton } from '../../../components/Buttons';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchInvoice } from '@/app/redux/slices/oneInvoiceSlice';
-import {
-  fetchInvoices,
-  setDeletedInvoice,
-} from '@/app/redux/slices/invoicesSlice';
+import { fetchInvoices } from '@/app/redux/slices/invoicesSlice';
 import { setDeletedId } from '@/app/redux/slices/deletedIdSlice';
 import { IInvoice } from '@/components/Types';
 import { useRouter } from 'next/navigation';
-import EditDeleteMark from '@/components/EditDeleteMark';
+import { EditDeleteMark } from '@/components/Footers';
 import ConfirmDelete from '@/components/ConfirmDelete';
 
 import NoInvoice from '@/components/NoInvoice';
@@ -19,6 +16,7 @@ import InvoiceView from '@/components/InvoiceView';
 
 export default function ViewInvoice() {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
   const pathname = usePathname();
   const partsofpathname = pathname.split('/');
   const invoiceId: string = partsofpathname[partsofpathname.length - 1];
@@ -26,8 +24,6 @@ export default function ViewInvoice() {
   const dispatch = useDispatch();
   const invoice = useSelector((state) => state.invoice.invoice as [IInvoice]);
   const invoiceStatus = useSelector((state) => state.invoice.status);
-
-  const deletedId = useSelector((state) => state.deletedId.deletedId);
 
   const router = useRouter();
 
@@ -45,7 +41,6 @@ export default function ViewInvoice() {
   };
   const handleConfirmDelete = () => {
     dispatch(setDeletedId(invoiceId));
-    // dispatch(setDeletedInvoice(deletedId));
     setIsDeleteOpen(false);
     handleGoBack();
   };
@@ -53,7 +48,7 @@ export default function ViewInvoice() {
   return (
     <>
       <div
-        className={`grid content-center w-full max-w-[45.63rem] 2xl:max-w-[60rem] px-6 sm:px-12 md:px-0  `}
+        className={`grid content-center w-full sm:mt-20 max-w-[45.63rem] 2xl:max-w-[60rem] px-6 sm:px-12 md:px-0  `}
       >
         <div className={`h-20 grid content-center mt-1 md:mt-8 xl:mt-12`}>
           <GoBackButton onClick={handleGoBack} />

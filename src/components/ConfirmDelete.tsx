@@ -6,7 +6,7 @@ export default function ConfirmDelete({
 }) {
   return (
     <div
-      className={`p-6 fixed grid place-items-center top-0 z-2 w-screen h-screen bg-black bg-opacity-50 xl:ml-[-6.5rem] min-w-80`}
+      className={`p-6 fixed grid place-items-center top-0 left-0 z-2 w-screen h-screen bg-black bg-opacity-50  min-w-80`}
     >
       <div
         className={`bg-card mb-4 rounded-lg shadow-smsh w-full max-w-[30rem] p-8 md:p-12`}

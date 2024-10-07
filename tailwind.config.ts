@@ -78,6 +78,7 @@ const config: Config = {
       boxShadow: {
         smsh: '0px 10px 10px -10px hsl(231, 38%, 45%, 0.1)',
         bsh: '0px 10px 20px 0px hsl(231, 38%, 45%, 0.25)',
+        shadowUp: '0px -20px 20px 0px hsla(231, 38%, 45%, 0.1)',
       },
     },
   },
