@@ -97,7 +97,7 @@ export default function NewInvoice({ setIsOpenNewInvoice }) {
                     </div>
                   </article>
 
-                  <article>
+                  <article className={`relative`}>
                     <p className={`grey13 capitalize mt-1 mb-3`}>
                       Payment terms
                     </p>

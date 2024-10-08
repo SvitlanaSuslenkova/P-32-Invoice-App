@@ -12,7 +12,7 @@ export default function PaymentTermsMenu({
 
   return (
     <div
-      className={`absolute w-60 mt-2 black15 z-2 grid grid-cols-1 shadow-bsh rounded-lg bg-card`}
+      className={`absolute w-60 mt-2 black15 z-12 grid grid-cols-1 shadow-bsh rounded-lg bg-card`}
     >
       <button
         className={`capitalize grid place-items-start items-center px-6 py-4 h-12 border-b border-muted-darker hover:text-primary`}
