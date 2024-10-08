@@ -15,6 +15,7 @@
     @apply font-bold text-[0.9375rem] leading-5 text-foreground tracking-[-0.016em];
   }
 }
+
 @layer base {
   input[type='number']::-webkit-inner-spin-button,
   input[type='number']::-webkit-outer-spin-button {
@@ -39,6 +40,30 @@
     border-radius: 1rem;
   }
 }
-.react-datepicker_month-container {
-  background-color: aqua;
+
+.react-datepicker {
+  border: 0 !important;
+  border-radius: 0.5rem !important;
+  box-shadow: 0 0.5rem 1.5rem hsl(231, 38%, 45%, 0.25) !important;
+  font-weight: 700;
+}
+
+.react-datepicker__navigation-icon::before {
+  border-color: hsl(252, 94%, 67%) !important;
+}
+.react-datepicker__day-names {
+  display: none;
+}
+.react-datepicker__header {
+  background-color: white !important;
+}
+.react-datepicker__triangle {
+  display: none;
+}
+.react-datepicker__day--selected {
+  background-color: transparent !important;
+  color: hsl(252, 94%, 67%) !important;
+}
+.react-datepicker__day--outside-month {
+  color: hsl(231, 23%, 61%) !important;
 }

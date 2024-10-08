@@ -85,6 +85,7 @@ export default function NewInvoice({ setIsOpenNewInvoice }) {
                       Invoice date
                     </p>
                     <DatePicker
+                      cssClass="e-custom-style"
                       dateFormat="dd MMM yyyy"
                       selected={startDate}
                       onChange={(date) => setStartDate(date)}
