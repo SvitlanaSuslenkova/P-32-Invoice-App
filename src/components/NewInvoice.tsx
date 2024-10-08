@@ -17,7 +17,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 export default function NewInvoice({ setIsOpenNewInvoice }) {
   const [startDate, setStartDate] = useState(new Date());
 
-  const [items, setItems] = useState(['item']);
+  const [items, setItems] = useState([nanoid()]);
   const handleAddItem = (e) => {
     e.preventDefault();
     const newItem = nanoid();
