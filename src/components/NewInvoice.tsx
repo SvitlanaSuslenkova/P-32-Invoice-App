@@ -7,11 +7,15 @@ import PaymentTermsMenu from './PaymentTermsMenu';
 import { useState } from 'react';
 import Image from 'next/image';
 import ArrowDown from '../images/icon-arrow-down.svg';
-import IconCalendar from '../images/icon-calendar.svg';
-import CalendarMenu from './CalendarMenu';
+
 //npm i tailwind-scrollbar
 
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
 export default function NewInvoice({ setIsOpenNewInvoice }) {
+  const [startDate, setStartDate] = useState(new Date());
+
   const [itemsCount, setItemsCount] = useState(1);
   const itemsArray = [...Array(itemsCount)];
   const handleAddItem = (e) => {
@@ -29,7 +33,7 @@ export default function NewInvoice({ setIsOpenNewInvoice }) {
     setIsOpenNewInvoice(false);
   };
   const [isPaymentTermsMenu, setIsPaymentTermsMenu] = useState(false);
-  const [isCalendarMenu, setIsCalendarMenu] = useState(false);
+
   const [paymentTerms, setPaymentTerms] = useState();
   return (
     <div
@@ -37,7 +41,7 @@ export default function NewInvoice({ setIsOpenNewInvoice }) {
     >
       <div
         className={`sm:absolute px-6 w-full h-full  bg-card max-w-[38.5rem] sm:h-[calc(100vh-8rem)] sm:rounded-r-b20 sm:overflow-y-scroll scrollbar-track-card scrollbar-thin 
-            scrollbar-thumb-muted-darker scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-corner scrollbar-corner-red-800`}
+         scrollbar-thumb-muted-darker `}
       >
         <div>
           <div className={` h-20 grid content-center mt-1 sm:mt-4 xl:mt-8`}>
@@ -72,30 +76,25 @@ export default function NewInvoice({ setIsOpenNewInvoice }) {
                 <Input label="post code" type="text" />
                 <Input label="country" type="text" className={`col-span-2`} />
               </div>
-              <div className={`sm:grid grid-cols-2  gap-x-6  mb-3`}>
+              <div
+                className={`grid justify-items-stretch  sm:grid-cols-2  sm:gap-x-6  mb-3`}
+              >
                 <article>
-                  <p className={`grey13 capitalize mt-1 mb-1`}>Invoice date</p>
-                  <button
-                    className={`grid grid-cols-2 items-center text-left capitalize mt-2 w-full h-14 px-5 py-4 border rounded focus:outline-none focus:ring-1 focus:ring-primary hover:ring-1 hover:ring-primary hover:cursor-pointer black15`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setIsCalendarMenu(!isCalendarMenu);
-                    }}
-                  >
-                    <span></span>
-                    <Image
-                      className={`justify-self-end `}
-                      src={IconCalendar}
-                      alt="calendar"
+                  <div className={`mb-4 w-full grid`}>
+                    <p className={`grey13 capitalize mt-1 mb-3`}>
+                      Invoice date
+                    </p>
+                    <DatePicker
+                      dateFormat="dd MMM yyyy"
+                      selected={startDate}
+                      onChange={(date) => setStartDate(date)}
+                      className={`justify-self-stretch w-full min-w-full px-5 py-4 border rounded focus:outline-none focus:ring-1 focus:ring-primary hover:ring-1 hover:ring-primary black15 bg-[url('../images/icon-calendar.svg')] bg-[right_1rem_bottom_1rem] bg-no-repeat`}
                     />
-                  </button>
-                  {isCalendarMenu && (
-                    <CalendarMenu setIsCalendarMenu={setIsCalendarMenu} />
-                  )}
+                  </div>
                 </article>
 
                 <article>
-                  <p className={`grey13 capitalize mt-1 mb-1`}>Payment terms</p>
+                  <p className={`grey13 capitalize mt-1 mb-3`}>Payment terms</p>
                   <button
                     className={`grid grid-cols-2 items-center text-left capitalize mt-2 w-full h-14 px-5 py-4 border rounded focus:outline-none focus:ring-1 focus:ring-primary hover:ring-1 hover:ring-primary hover:cursor-pointer black15`}
                     onClick={(e) => {

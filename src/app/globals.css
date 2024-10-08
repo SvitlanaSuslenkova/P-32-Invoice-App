@@ -21,4 +21,24 @@
     -webkit-appearance: none;
     margin: 0;
   }
+  input[type='date']::-webkit-calendar-picker-indicator {
+    opacity: 50%;
+  }
+  input[type='date']::-webkit-calendar-picker-indicator:hover {
+    opacity: 100%;
+    cursor: pointer;
+  }
+
+  /* ::-webkit-scrollbar {
+    width: 12px; /* Set the width of the scrollbar */
+  /* }*/
+  ::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+  }
+  ::-webkit-scrollbar-track {
+    border-radius: 1rem;
+  }
+}
+.react-datepicker_month-container {
+  background-color: aqua;
 }
