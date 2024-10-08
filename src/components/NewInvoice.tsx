@@ -7,6 +7,7 @@ import PaymentTermsMenu from './PaymentTermsMenu';
 import { useState } from 'react';
 import Image from 'next/image';
 import ArrowDown from '../images/icon-arrow-down.svg';
+import { nanoid } from 'nanoid';
 
 //npm i tailwind-scrollbar
 
@@ -16,17 +17,16 @@ import 'react-datepicker/dist/react-datepicker.css';
 export default function NewInvoice({ setIsOpenNewInvoice }) {
   const [startDate, setStartDate] = useState(new Date());
 
-  const [itemsCount, setItemsCount] = useState(1);
-  const itemsArray = [...Array(itemsCount)];
+  const [items, setItems] = useState(['item']);
   const handleAddItem = (e) => {
     e.preventDefault();
-    setItemsCount(itemsCount + 1);
-    console.log(itemsCount);
+    const newItem = nanoid();
+    setItems([...items, newItem]);
   };
-  function handleDeleteItem(e, indexToDelete) {
+  function handleDeleteItem(e, item) {
     e.preventDefault();
-    console.log(indexToDelete);
-    return itemsArray.filter((item, index) => index !== indexToDelete); //DOES NOT WORK
+    const newItems = items.filter((thisitem) => thisitem !== item);
+    setItems(newItems);
   }
 
   const handleGoBack = () => {
@@ -141,9 +141,9 @@ export default function NewInvoice({ setIsOpenNewInvoice }) {
                   <p className={`text-right sm:text-left`}>Price</p>
                   <p className={`text-right sm:text-left`}>Total</p>
                 </div>
-                {itemsArray.map((item, index) => (
+                {items.map((item) => (
                   <div
-                    key={index}
+                    key={item}
                     className={`grid grid-cols-[4fr,6fr,4fr,2fr]  sm:grid-cols-[4fr,1.5fr,2fr,2fr,1fr] gap-4 mb-8`}
                   >
                     <p
@@ -185,8 +185,8 @@ export default function NewInvoice({ setIsOpenNewInvoice }) {
                       className={` justify-self-end sm:justify-self-center grid place-items-center row-start-4 sm:row-start-1 sm:col-start-5`}
                     >
                       <button
-                        value={index}
-                        onClick={(e) => handleDeleteItem(e, index)}
+                        value={item}
+                        onClick={(e) => handleDeleteItem(e, item)}
                       >
                         <svg
                           width="13"
