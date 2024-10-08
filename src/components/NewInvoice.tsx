@@ -25,8 +25,10 @@ export default function NewInvoice({ setIsOpenNewInvoice }) {
   };
   function handleDeleteItem(e, item) {
     e.preventDefault();
-    const newItems = items.filter((thisitem) => thisitem !== item);
-    setItems(newItems);
+    if (items.length > 1) {
+      const newItems = items.filter((thisitem) => thisitem !== item);
+      setItems(newItems);
+    }
   }
 
   const handleGoBack = () => {
