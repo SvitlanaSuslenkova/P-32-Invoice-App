@@ -29,16 +29,16 @@
     opacity: 100%;
     cursor: pointer;
   }
+}
 
-  /* ::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
     width: 12px; /* Set the width of the scrollbar */
-  /* }*/
-  ::-webkit-scrollbar-thumb {
-    border-radius: 1rem;
-  }
-  ::-webkit-scrollbar-track {
-    border-radius: 1rem;
-  }
+/* }*/
+::-webkit-scrollbar-thumb {
+  border-radius: 1rem !important;
+}
+::-webkit-scrollbar-track {
+  border-radius: 1rem !important;
 }
 
 .react-datepicker {
