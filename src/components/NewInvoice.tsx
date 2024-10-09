@@ -82,10 +82,11 @@ export default function NewInvoice({
   const {
     register,
     handleSubmit,
-    //  watch,
+    watch,
     // formState: { errors },
-    // getValue,
-    setValue,
+    getValues,
+    getValue,
+    //setValue,
     ...methods
   } = useForm({
     mode: 'onBlur',
@@ -99,7 +100,10 @@ export default function NewInvoice({
   };
   const onSubmit = () => {
     handleSubmit(formSubmit);
+    const values = getValues();
+    console.log(values);
   };
+
   return (
     <div
       className={`sm:overflow-hidden absolute left-0 top-[4.5rem] grid place-items-start   md:top-[5rem] xl:top-0 xl:left-[6.44rem]  z-2 w-full h-svh bg-black bg-opacity-50  min-w-80`}
@@ -132,28 +136,28 @@ export default function NewInvoice({
                   <Input
                     label="street address"
                     type="text"
-                    // name="street"
-                    {...register(`senderAddress.street`)}
+                    name="street"
+                    //{...register(`senderAddress.street`)}
                   />
                   <div className={`grid grid-cols-2 gap-x-6`}>
                     <Input
                       label="city"
                       type="text"
-                      // name="city"
-                      {...register(`senderAddress.city`)}
+                      name="city"
+                      // {...register(`senderAddress.city`)}
                     />
                     <Input
                       label="post code"
                       type="number"
-                      //  name="postCode"
-                      {...register(`senderAddress.postCode`)}
+                      name="postCode"
+                      //  {...register(`senderAddress.postCode`)}
                     />
                     <Input
                       label="country"
                       type="text"
                       className={`col-span-2`}
-                      //  name="country"
-                      {...register(`senderAddress.country`)}
+                      name="country"
+                      // {...register(`senderAddress.country`)}
                     />
                   </div>
                 </section>
@@ -164,8 +168,8 @@ export default function NewInvoice({
                   <Input
                     label="client's name"
                     type="text"
-                    // name="clientName"
-                    {...register(`clientName`)}
+                    name="clientName"
+                    //{...register(`clientName`)}
                   />
                   <Input
                     label="client's email"
@@ -176,28 +180,28 @@ export default function NewInvoice({
                   <Input
                     label="street address"
                     type="text"
-                    // name="street"
-                    {...register(`clientAddress.street`)}
+                    name="street"
+                    //{...register(`clientAddress.street`)}
                   />
                   <div className={`grid grid-cols-2 gap-x-6`}>
                     <Input
                       label="city"
                       type="text"
-                      //  name="city"
-                      {...register(`clientAddress.city`)}
+                      name="city"
+                      //{...register(`clientAddress.city`)}
                     />
                     <Input
                       label="post code"
                       type="number"
-                      // name="postCode"
-                      {...register(`clientAddress.postCode`)}
+                      name="postCode"
+                      //{...register(`clientAddress.postCode`)}
                     />
                     <Input
                       label="country"
                       type="text"
                       className={`col-span-2`}
-                      //  name="country"
-                      {...register(`clientAddress.country`)}
+                      name="country"
+                      //{...register(`clientAddress.country`)}
                     />
                   </div>
                   <div
@@ -263,8 +267,7 @@ export default function NewInvoice({
                   <Input
                     label="project description"
                     type="text"
-                    // name="description"
-                    {...register(`description`)}
+                    name="description"
                   />
                 </section>
                 <section className={`pb-4 sm:pb-9`}>
@@ -325,7 +328,7 @@ export default function NewInvoice({
                       <p
                         className={` grid items-center  row-start-4 sm:row-start-1 sm:col-start-4 black15 text-card-foreground`}
                       >
-                        400.00
+                        {}
                       </p>
                       <div
                         className={` justify-self-end sm:justify-self-center grid place-items-center row-start-4 sm:row-start-1 sm:col-start-5`}
