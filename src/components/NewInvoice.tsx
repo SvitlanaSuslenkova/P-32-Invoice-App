@@ -101,6 +101,17 @@ export default function NewInvoice({
     }
   }, [paymentTerms]);
 
+  useEffect(() => {
+    if (startDate !== undefined && paymentTerms !== undefined) {
+      const firstDate = new Date(startDate);
+      const result = firstDate.setDate(
+        firstDate.getDate() + Number(paymentTerms)
+      );
+      const DueDate = new Date(result);
+      setValue(`paymentDue`, formatDateBack(DueDate).toString());
+    }
+  }, [startDate, paymentTerms]);
+
   const formSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data);
     console.log('formSubmit');
