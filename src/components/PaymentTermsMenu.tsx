@@ -1,12 +1,17 @@
+//import { useForm, FormProvider, useFormContext } from 'react-hook-form';
 export default function PaymentTermsMenu({
   setPaymentTerms,
   setIsPaymentTermsMenu,
 }) {
+  // const { setValue } = useFormContext();
   function handleonClick(e) {
     e.preventDefault();
     const value = e.target.value;
     console.log(value);
     setPaymentTerms(value);
+
+    // setValue(`paymentTerms`, value.toString());
+
     setIsPaymentTermsMenu(false);
   }
 

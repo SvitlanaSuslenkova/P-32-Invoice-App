@@ -4,7 +4,7 @@ import { Input } from './Input';
 import { AddNewItemButton } from './Buttons';
 import { DiscardDraftSend } from './Footers';
 import PaymentTermsMenu from './PaymentTermsMenu';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import ArrowDown from '../images/icon-arrow-down.svg';
 import { nanoid } from 'nanoid';
@@ -17,6 +17,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 //npm install react-hook-form
 //import { z } from 'zod';
+import { formatDateBack } from '@/app/actions/formatDate';
 
 export default function NewInvoice({
   setIsOpenNewInvoice,
@@ -86,13 +87,19 @@ export default function NewInvoice({
     // formState: { errors },
     getValues,
     getValue,
-    //setValue,
+    setValue,
     ...methods
   } = useForm({
     mode: 'onBlur',
     defaultValues: initialState,
   });
   //const [formData, setFormData] = useState(initialState);
+
+  useEffect(() => {
+    if (paymentTerms !== undefined) {
+      setValue(`paymentTerms`, paymentTerms.toString());
+    }
+  }, [paymentTerms]);
 
   const formSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data);
@@ -138,6 +145,12 @@ export default function NewInvoice({
                     type="text"
                     name="street"
                     //{...register(`senderAddress.street`)}
+                    onChange={(e) => {
+                      setValue(
+                        `senderAddress.street`,
+                        e.target.value.toString()
+                      );
+                    }}
                   />
                   <div className={`grid grid-cols-2 gap-x-6`}>
                     <Input
@@ -145,12 +158,24 @@ export default function NewInvoice({
                       type="text"
                       name="city"
                       // {...register(`senderAddress.city`)}
+                      onChange={(e) => {
+                        setValue(
+                          `senderAddress.city`,
+                          e.target.value.toString()
+                        );
+                      }}
                     />
                     <Input
                       label="post code"
                       type="number"
                       name="postCode"
                       //  {...register(`senderAddress.postCode`)}
+                      onChange={(e) => {
+                        setValue(
+                          `senderAddress.postCode`,
+                          e.target.value.toString()
+                        );
+                      }}
                     />
                     <Input
                       label="country"
@@ -158,6 +183,12 @@ export default function NewInvoice({
                       className={`col-span-2`}
                       name="country"
                       // {...register(`senderAddress.country`)}
+                      onChange={(e) => {
+                        setValue(
+                          `senderAddress.country`,
+                          e.target.value.toString()
+                        );
+                      }}
                     />
                   </div>
                 </section>
@@ -170,18 +201,30 @@ export default function NewInvoice({
                     type="text"
                     name="clientName"
                     //{...register(`clientName`)}
+                    onChange={(e) => {
+                      setValue(`clientName`, e.target.value.toString());
+                    }}
                   />
                   <Input
                     label="client's email"
                     type="text"
                     // name="clientEmail"
-                    {...register(`clientEmail`)}
+                    // {...register(`clientEmail`)}
+                    onChange={(e) => {
+                      setValue(`clientEmail`, e.target.value.toString());
+                    }}
                   />
                   <Input
                     label="street address"
                     type="text"
                     name="street"
                     //{...register(`clientAddress.street`)}
+                    onChange={(e) => {
+                      setValue(
+                        `clientAddress.street`,
+                        e.target.value.toString()
+                      );
+                    }}
                   />
                   <div className={`grid grid-cols-2 gap-x-6`}>
                     <Input
@@ -189,12 +232,24 @@ export default function NewInvoice({
                       type="text"
                       name="city"
                       //{...register(`clientAddress.city`)}
+                      onChange={(e) => {
+                        setValue(
+                          `clientAddress.city`,
+                          e.target.value.toString()
+                        );
+                      }}
                     />
                     <Input
                       label="post code"
                       type="number"
                       name="postCode"
                       //{...register(`clientAddress.postCode`)}
+                      onChange={(e) => {
+                        setValue(
+                          `clientAddress.postCode`,
+                          e.target.value.toString()
+                        );
+                      }}
                     />
                     <Input
                       label="country"
@@ -202,6 +257,12 @@ export default function NewInvoice({
                       className={`col-span-2`}
                       name="country"
                       //{...register(`clientAddress.country`)}
+                      onChange={(e) => {
+                        setValue(
+                          `clientAddress.country`,
+                          e.target.value.toString()
+                        );
+                      }}
                     />
                   </div>
                   <div
@@ -216,9 +277,12 @@ export default function NewInvoice({
                           cssClass="e-custom-style"
                           dateFormat="dd MMM yyyy"
                           selected={startDate}
-                          onChange={(date) => setStartDate(date)}
+                          onChange={(date) => {
+                            setStartDate(date);
+                            setValue(`createdAt`, formatDateBack(date));
+                          }}
                           className={`justify-self-stretch w-full min-w-full px-5 py-4 border rounded focus:outline-none focus:ring-1 focus:ring-primary hover:ring-1 hover:ring-primary black15 bg-[url('../images/icon-calendar.svg')] bg-[right_1rem_bottom_1rem] bg-no-repeat`}
-                          {...register(`createdAt`)}
+                          //  {...register(`createdAt`)}
                         />
                       </div>
                     </article>
@@ -233,7 +297,7 @@ export default function NewInvoice({
                           e.preventDefault();
                           setIsPaymentTermsMenu(!isPaymentTermsMenu);
                         }}
-                        {...register(`paymentTerms`)}
+                        // {...register(`paymentTerms`)}
                       >
                         {paymentTerms ? (
                           <p>
@@ -268,6 +332,9 @@ export default function NewInvoice({
                     label="project description"
                     type="text"
                     name="description"
+                    onChange={(e) => {
+                      setValue(`description`, e.target.value.toString());
+                    }}
                   />
                 </section>
                 <section className={`pb-4 sm:pb-9`}>

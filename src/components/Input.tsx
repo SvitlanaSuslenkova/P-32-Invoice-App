@@ -1,4 +1,3 @@
-import { useFormContext } from 'react-hook-form';
 import React from 'react';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -15,10 +14,9 @@ export const Input: React.FC<InputProps> = ({
   type = 'text',
   error,
   className = '',
-
+  onChange,
   ...props
 }) => {
-  const { setValue } = useFormContext();
   return (
     <div className={`mb-4 ${className}`}>
       <label htmlFor={label} className={`grey13 capitalize`}>
@@ -32,9 +30,7 @@ export const Input: React.FC<InputProps> = ({
         className={`appearance-none overflow-visible mt-2 w-full px-5 py-4 border rounded focus:outline-none focus:ring-1 focus:ring-primary hover:ring-1 hover:ring-primary hover:cursor-pointer black15 ${
           error ? 'border-delete' : 'border-muted-darker'
         }`}
-        onChange={(e) => {
-          setValue(name, e.target.value.toString());
-        }}
+        onChange={onChange}
         {...props}
       />
     </div>
