@@ -10,7 +10,7 @@ export const EditDeleteMark = ({ handleDelete }) => {
   );
 };
 
-export const DiscardDraftSend = ({ handleGoBack }) => {
+export const DiscardDraftSend = ({ handleGoBack, onSubmit }) => {
   return (
     <div
       className={`w-full grid grid-cols-[auto,auto,auto] sm:grid-cols-[auto,8.4rem,8.4rem] sm:justify-items-end gap-x-2`}
@@ -18,7 +18,13 @@ export const DiscardDraftSend = ({ handleGoBack }) => {
       <div className={`justify-self-start`}>
         <GreyButton text="Discard" onClick={handleGoBack} />
       </div>
-      <DarkButton text="Save as Draft" />
+      <DarkButton
+        text="Save as Draft"
+        onClick={(e) => {
+          e.preventDefault();
+          onSubmit();
+        }}
+      />
       <PurpleButton text="Save & Send" />
     </div>
   );

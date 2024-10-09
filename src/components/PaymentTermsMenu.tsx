@@ -16,28 +16,28 @@ export default function PaymentTermsMenu({
     >
       <button
         className={`capitalize grid place-items-start items-center px-6 py-4 h-12 border-b border-muted-darker hover:text-primary`}
-        value="Net 1 day"
+        value={1}
         onClick={(e) => handleonClick(e)}
       >
         Net 1 day
       </button>
       <button
         className={`capitalize grid place-items-start items-center px-6 py-4 h-12 border-b border-muted-darker hover:text-primary`}
-        value="Net 7 days"
+        value={7}
         onClick={(e) => handleonClick(e)}
       >
         Net 7 days
       </button>
       <button
         className={`capitalize grid place-items-start items-center px-6 py-4 h-12 border-b border-muted-darker hover:text-primary`}
-        value="Net 14 days"
+        value={14}
         onClick={(e) => handleonClick(e)}
       >
         Net 14 days
       </button>
       <button
         className={`capitalize grid place-items-start items-center px-6 py-4 h-12 border-b border-muted-darker hover:text-primary`}
-        value="Net 30 days"
+        value={30}
         onClick={(e) => handleonClick(e)}
       >
         Net 30 days
