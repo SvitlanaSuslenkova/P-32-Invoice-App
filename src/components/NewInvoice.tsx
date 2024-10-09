@@ -27,18 +27,7 @@ export default function NewInvoice({
   const [startDate, setStartDate] = useState(new Date());
 
   const [items, setItems] = useState([nanoid()]);
-  const handleAddItem = (e: MouseEvent) => {
-    e.preventDefault();
-    const newItem = nanoid();
-    setItems([...items, newItem]);
-  };
-  function handleDeleteItem(e: MouseEvent, item: string) {
-    e.preventDefault();
-    if (items.length > 1) {
-      const newItems = items.filter((thisitem) => thisitem !== item);
-      setItems(newItems);
-    }
-  }
+
   const handleGoBack = () => {
     setIsOpenNewInvoice(false);
   };
@@ -81,19 +70,42 @@ export default function NewInvoice({
   };
 
   const {
+    reset,
+    resetField,
     register,
+    unregister,
     handleSubmit,
     watch,
     // formState: { errors },
     getValues,
     getValue,
     setValue,
+    setValues,
     ...methods
   } = useForm({
     mode: 'onBlur',
     defaultValues: initialState,
   });
-  //const [formData, setFormData] = useState(initialState);
+
+  const handleAddItem = (e: MouseEvent) => {
+    e.preventDefault();
+    const newItem = nanoid();
+    setItems([...items, newItem]);
+  };
+  function handleDeleteItem(e: MouseEvent, item: string, thisindex: number) {
+    console.log(thisindex);
+    e.preventDefault();
+    if (items.length > 1) {
+      const newItems = items.filter((thisitem) => thisitem !== item);
+      setItems(newItems);
+      const formItems = getValues('items');
+      const newFormItems = formItems.filter(
+        (_item, index: number) => index !== thisindex
+      );
+      unregister('items');
+      setValue('items', newFormItems);
+    }
+  }
 
   useEffect(() => {
     if (paymentTerms !== undefined) {
@@ -111,6 +123,19 @@ export default function NewInvoice({
       setValue(`paymentDue`, formatDateBack(DueDate).toString());
     }
   }, [startDate, paymentTerms]);
+
+  const itemTotal = (index: number) => {
+    // NOT RENDERED NOT RENDERED NOT RENDERED NOT RENDEREDNOT RENDERED NOT RENDERED NOT RENDERED
+    const price = Number(getValues(`items.${index}.price`));
+    const qty = Number(getValues(`items.${index}.quantity`));
+    const total = (price * qty).toFixed(2);
+    if (price * qty > 0) {
+      setValue(`items.${index}.total`, total);
+      return total;
+    } else {
+      return '0.00';
+    }
+  };
 
   const formSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data);
@@ -376,8 +401,14 @@ export default function NewInvoice({
                         label=""
                         type="text"
                         className={`row-start-2  col-span-4 sm:row-start-1 sm:col-span-1`}
-                        // name="itemName"
-                        {...register(`items.${index}.itemName`)}
+                        name="name"
+                        // {...register(`items.${index}.itemName`)}
+                        onChange={(e) => {
+                          setValue(
+                            `items.${index}.name`,
+                            e.target.value.toString()
+                          );
+                        }}
                       />
                       <p className={`grey13 capitalize sm:hidden mb-[-0.8rem]`}>
                         Qty.
@@ -386,8 +417,14 @@ export default function NewInvoice({
                         label=""
                         type="number"
                         className={`row-start-4 sm:row-start-1 sm:col-start-2`}
-                        //  name="quantity"
-                        {...register(`items.${index}.quantity`)}
+                        name="quantity"
+                        // {...register(`items.${index}.quantity`)}
+                        onChange={(e) => {
+                          setValue(
+                            `items.${index}.quantity`,
+                            e.target.value.toString()
+                          );
+                        }}
                       />
                       <p className={`grey13 capitalize sm:hidden mb-[-0.8rem]`}>
                         Price
@@ -396,8 +433,14 @@ export default function NewInvoice({
                         label=""
                         type="number"
                         className={`row-start-4 sm:row-start-1 sm:col-start-3`}
-                        //name="price"
-                        {...register(`items.${index}.price`)}
+                        name="price"
+                        //{...register(`items.${index}.price`)}
+                        onChange={(e) => {
+                          setValue(
+                            `items.${index}.price`,
+                            e.target.value.toString()
+                          );
+                        }}
                       />
                       <p className={`grey13 capitalize sm:hidden mb-[-0.8rem]`}>
                         Total
@@ -406,14 +449,14 @@ export default function NewInvoice({
                       <p
                         className={` grid items-center  row-start-4 sm:row-start-1 sm:col-start-4 black15 text-card-foreground`}
                       >
-                        {}
+                        {itemTotal(index)}
                       </p>
                       <div
                         className={` justify-self-end sm:justify-self-center grid place-items-center row-start-4 sm:row-start-1 sm:col-start-5`}
                       >
                         <button
                           value={item}
-                          onClick={(e) => handleDeleteItem(e, item)}
+                          onClick={(e) => handleDeleteItem(e, item, index)}
                         >
                           <svg
                             width="13"
