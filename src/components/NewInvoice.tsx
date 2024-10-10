@@ -7,9 +7,8 @@ import PaymentTermsMenu from './PaymentTermsMenu';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import ArrowDown from '../images/icon-arrow-down.svg';
-import { nanoid } from 'nanoid';
-import { formInitialState } from '../components/constants/formInitialState';
-import { IInvoice } from './Types';
+
+//import { formInitialState } from '../components/constants/formInitialState';
 
 //npm i tailwind-scrollbar
 
@@ -17,8 +16,10 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 //npm install react-hook-form
-//import { z } from 'zod';
-import { formatDateBack } from '@/app/actions/formatDate';
+import { z } from 'zod';
+import { formatDateBack, todayDay } from '@/app/actions/formatDate';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { nanoid } from 'nanoid';
 
 export default function NewInvoice({
   setIsOpenNewInvoice,
@@ -33,6 +34,39 @@ export default function NewInvoice({
   };
   const [isPaymentTermsMenu, setIsPaymentTermsMenu] = useState(false);
   const [paymentTerms, setPaymentTerms] = useState();
+  const schema = z.object({
+    id: z.string(),
+    createdAt: z.string().date(),
+    paymentDue: z.string().date(),
+    description: z.string(),
+    paymentTerms: z.number().positive(),
+    clientName: z.string().min(2),
+    clientEmail: z.string().email(),
+    status: z.string(),
+    senderAddress: z.object({
+      street: z.string().min(2),
+      city: z.string().min(2),
+      postCode: z.number().positive().min(2),
+      country: z.string().min(2),
+    }),
+    clientAddress: z.object({
+      street: z.string().min(2),
+      city: z.string().min(2),
+      postCode: z.number().positive().min(2),
+      country: z.string().min(2),
+    }),
+    items: z.array(
+      z.object({
+        name: z.string().min(2),
+        quantity: z.number().positive(),
+        price: z.number().positive(),
+        total: z.number().positive(),
+      })
+    ),
+    total: z.number().positive(),
+  });
+
+  type FormFields = z.infer<typeof schema>;
 
   const {
     reset,
@@ -41,13 +75,17 @@ export default function NewInvoice({
     unregister,
     handleSubmit,
     watch,
-    // formState: { errors },
+    formState: { errors, isSubmitting },
     getValues,
     setValue,
     ...methods
-  } = useForm<IInvoice>({
+  } = useForm<FormFields>({
     mode: 'onBlur',
-    defaultValues: formInitialState,
+    defaultValues: {
+      id: nanoid(),
+      createdAt: todayDay(),
+    },
+    resolver: zodResolver(schema),
   });
 
   const handleAddItem = (e: MouseEvent) => {
@@ -56,7 +94,6 @@ export default function NewInvoice({
     setItems([...items, newItem]);
   };
   function handleDeleteItem(e: MouseEvent, item: string, thisindex: number) {
-    console.log(thisindex);
     e.preventDefault();
     if (items.length > 1) {
       const newItems = items.filter((thisitem) => thisitem !== item);
@@ -72,7 +109,7 @@ export default function NewInvoice({
 
   useEffect(() => {
     if (paymentTerms !== undefined) {
-      setValue(`paymentTerms`, paymentTerms.toString());
+      setValue(`paymentTerms`, paymentTerms);
     }
   }, [paymentTerms]);
 
@@ -92,7 +129,7 @@ export default function NewInvoice({
     const qty = watch(`items.${index}.quantity`);
     const total = (Number(price) * Number(qty)).toFixed(2);
     if (price * qty > 0) {
-      setValue(`items.${index}.total`, total);
+      setValue(`items.${index}.total`, Number(total));
       return total;
     } else {
       return '0.00';
@@ -109,7 +146,7 @@ export default function NewInvoice({
           (acc, num) => acc + Number(num),
           initialValue
         );
-        setValue(`total`, sumOfTotalValues.toFixed(2));
+        setValue(`total`, Number(sumOfTotalValues.toFixed(2)));
       }
     }
   }

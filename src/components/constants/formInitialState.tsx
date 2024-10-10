@@ -1,5 +1,6 @@
 import { nanoid } from 'nanoid';
 export const formInitialState = {
+  //DELETE ALL
   id: nanoid(),
   createdAt: '',
   paymentDue: '',
