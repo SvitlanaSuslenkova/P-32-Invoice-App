@@ -9,7 +9,7 @@ import Image from 'next/image';
 import ArrowDown from '../images/icon-arrow-down.svg';
 import { nanoid } from 'nanoid';
 import { formInitialState } from '../components/constants/formInitialState';
-//import { IInvoice } from './Types';
+import { IInvoice } from './Types';
 
 //npm i tailwind-scrollbar
 
@@ -43,11 +43,9 @@ export default function NewInvoice({
     watch,
     // formState: { errors },
     getValues,
-    getValue,
     setValue,
-
     ...methods
-  } = useForm({
+  } = useForm<IInvoice>({
     mode: 'onBlur',
     defaultValues: formInitialState,
   });
@@ -89,18 +87,33 @@ export default function NewInvoice({
     }
   }, [startDate, paymentTerms]);
 
-  const itemTotal = (index: number) => {
-    // NOT RENDERED NOT RENDERED NOT RENDERED NOT RENDEREDNOT RENDERED NOT RENDERED NOT RENDERED
-    const price = Number(getValues(`items.${index}.price`));
-    const qty = Number(getValues(`items.${index}.quantity`));
-    const total = (price * qty).toFixed(2);
+  function itemTotal(index: number) {
+    const price = watch(`items.${index}.price`);
+    const qty = watch(`items.${index}.quantity`);
+    const total = (Number(price) * Number(qty)).toFixed(2);
     if (price * qty > 0) {
       setValue(`items.${index}.total`, total);
       return total;
     } else {
       return '0.00';
     }
-  };
+  }
+
+  function countInvoiceTotal() {
+    const formItems = getValues('items');
+    if (formItems?.length > 0) {
+      const totalValues = formItems.map((item) => item.total);
+      if (totalValues.length > 0) {
+        const initialValue = 0;
+        const sumOfTotalValues = totalValues.reduce(
+          (acc, num) => acc + Number(num),
+          initialValue
+        );
+        setValue(`total`, sumOfTotalValues.toFixed(2));
+      }
+    }
+  }
+  countInvoiceTotal();
 
   const formSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data);
@@ -144,48 +157,24 @@ export default function NewInvoice({
                   <Input
                     label="street address"
                     type="text"
-                    name="street"
-                    onChange={(e) => {
-                      setValue(
-                        `senderAddress.street`,
-                        e.target.value.toString()
-                      );
-                    }}
+                    {...register(`senderAddress.street`)}
                   />
                   <div className={`grid grid-cols-2 gap-x-6`}>
                     <Input
                       label="city"
                       type="text"
-                      name="city"
-                      onChange={(e) => {
-                        setValue(
-                          `senderAddress.city`,
-                          e.target.value.toString()
-                        );
-                      }}
+                      {...register(`senderAddress.city`)}
                     />
                     <Input
                       label="post code"
                       type="number"
-                      name="postCode"
-                      onChange={(e) => {
-                        setValue(
-                          `senderAddress.postCode`,
-                          e.target.value.toString()
-                        );
-                      }}
+                      {...register(`senderAddress.postCode`)}
                     />
                     <Input
                       label="country"
                       type="text"
                       className={`col-span-2`}
-                      name="country"
-                      onChange={(e) => {
-                        setValue(
-                          `senderAddress.country`,
-                          e.target.value.toString()
-                        );
-                      }}
+                      {...register(`senderAddress.country`)}
                     />
                   </div>
                 </section>
@@ -196,64 +185,34 @@ export default function NewInvoice({
                   <Input
                     label="client's name"
                     type="text"
-                    name="clientName"
-                    onChange={(e) => {
-                      setValue(`clientName`, e.target.value.toString());
-                    }}
+                    {...register(`clientName`)}
                   />
                   <Input
                     label="client's email"
                     type="text"
-                    name="clientEmail"
-                    onChange={(e) => {
-                      setValue(`clientEmail`, e.target.value.toString());
-                    }}
+                    {...register(`clientEmail`)}
                   />
                   <Input
                     label="street address"
                     type="text"
-                    name="street"
-                    onChange={(e) => {
-                      setValue(
-                        `clientAddress.street`,
-                        e.target.value.toString()
-                      );
-                    }}
+                    {...register(`clientAddress.street`)}
                   />
                   <div className={`grid grid-cols-2 gap-x-6`}>
                     <Input
                       label="city"
                       type="text"
-                      name="city"
-                      onChange={(e) => {
-                        setValue(
-                          `clientAddress.city`,
-                          e.target.value.toString()
-                        );
-                      }}
+                      {...register(`clientAddress.city`)}
                     />
                     <Input
                       label="post code"
                       type="number"
-                      name="postCode"
-                      onChange={(e) => {
-                        setValue(
-                          `clientAddress.postCode`,
-                          e.target.value.toString()
-                        );
-                      }}
+                      {...register(`clientAddress.postCode`)}
                     />
                     <Input
                       label="country"
                       type="text"
                       className={`col-span-2`}
-                      name="country"
-                      onChange={(e) => {
-                        setValue(
-                          `clientAddress.country`,
-                          e.target.value.toString()
-                        );
-                      }}
+                      {...register(`clientAddress.country`)}
                     />
                   </div>
                   <div
@@ -320,10 +279,7 @@ export default function NewInvoice({
                   <Input
                     label="project description"
                     type="text"
-                    name="description"
-                    onChange={(e) => {
-                      setValue(`description`, e.target.value.toString());
-                    }}
+                    {...register(`description`)}
                   />
                 </section>
                 <section className={`pb-4 sm:pb-9`}>
@@ -354,13 +310,7 @@ export default function NewInvoice({
                         label=""
                         type="text"
                         className={`row-start-2  col-span-4 sm:row-start-1 sm:col-span-1`}
-                        name="name"
-                        onChange={(e) => {
-                          setValue(
-                            `items.${index}.name`,
-                            e.target.value.toString()
-                          );
-                        }}
+                        {...register(`items.${index}.name`)}
                       />
                       <p className={`grey13 capitalize sm:hidden mb-[-0.8rem]`}>
                         Qty.
@@ -369,13 +319,7 @@ export default function NewInvoice({
                         label=""
                         type="number"
                         className={`row-start-4 sm:row-start-1 sm:col-start-2`}
-                        name="quantity"
-                        onChange={(e) => {
-                          setValue(
-                            `items.${index}.quantity`,
-                            e.target.value.toString()
-                          );
-                        }}
+                        {...register(`items.${index}.quantity`)}
                       />
                       <p className={`grey13 capitalize sm:hidden mb-[-0.8rem]`}>
                         Price
@@ -384,13 +328,7 @@ export default function NewInvoice({
                         label=""
                         type="number"
                         className={`row-start-4 sm:row-start-1 sm:col-start-3`}
-                        name="price"
-                        onChange={(e) => {
-                          setValue(
-                            `items.${index}.price`,
-                            e.target.value.toString()
-                          );
-                        }}
+                        {...register(`items.${index}.price`)}
                       />
                       <p className={`grey13 capitalize sm:hidden mb-[-0.8rem]`}>
                         Total
