@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import ArrowDown from '../images/icon-arrow-down.svg';
 import { nanoid } from 'nanoid';
+import { formInitialState } from '../components/constants/formInitialState';
 //import { IInvoice } from './Types';
 
 //npm i tailwind-scrollbar
@@ -25,49 +26,13 @@ export default function NewInvoice({
   setIsOpenNewInvoice: boolean;
 }) {
   const [startDate, setStartDate] = useState(new Date());
-
   const [items, setItems] = useState([nanoid()]);
 
   const handleGoBack = () => {
     setIsOpenNewInvoice(false);
   };
   const [isPaymentTermsMenu, setIsPaymentTermsMenu] = useState(false);
-
   const [paymentTerms, setPaymentTerms] = useState();
-
-  //const [total, setTotal] = useState();
-
-  const initialState = {
-    id: nanoid(),
-    createdAt: '',
-    paymentDue: '',
-    description: '',
-    paymentTerms: '',
-    clientName: '',
-    clientEmail: '',
-    status: '',
-    senderAddress: {
-      street: '',
-      city: '',
-      postCode: '',
-      country: '',
-    },
-    clientAddress: {
-      street: '',
-      city: '',
-      postCode: '',
-      country: '',
-    },
-    items: [
-      {
-        name: '',
-        quantity: '',
-        price: '',
-        total: '',
-      },
-    ],
-    total: '',
-  };
 
   const {
     reset,
@@ -80,11 +45,11 @@ export default function NewInvoice({
     getValues,
     getValue,
     setValue,
-    setValues,
+
     ...methods
   } = useForm({
     mode: 'onBlur',
-    defaultValues: initialState,
+    defaultValues: formInitialState,
   });
 
   const handleAddItem = (e: MouseEvent) => {
@@ -180,7 +145,6 @@ export default function NewInvoice({
                     label="street address"
                     type="text"
                     name="street"
-                    //{...register(`senderAddress.street`)}
                     onChange={(e) => {
                       setValue(
                         `senderAddress.street`,
@@ -193,7 +157,6 @@ export default function NewInvoice({
                       label="city"
                       type="text"
                       name="city"
-                      // {...register(`senderAddress.city`)}
                       onChange={(e) => {
                         setValue(
                           `senderAddress.city`,
@@ -205,7 +168,6 @@ export default function NewInvoice({
                       label="post code"
                       type="number"
                       name="postCode"
-                      //  {...register(`senderAddress.postCode`)}
                       onChange={(e) => {
                         setValue(
                           `senderAddress.postCode`,
@@ -218,7 +180,6 @@ export default function NewInvoice({
                       type="text"
                       className={`col-span-2`}
                       name="country"
-                      // {...register(`senderAddress.country`)}
                       onChange={(e) => {
                         setValue(
                           `senderAddress.country`,
@@ -236,7 +197,6 @@ export default function NewInvoice({
                     label="client's name"
                     type="text"
                     name="clientName"
-                    //{...register(`clientName`)}
                     onChange={(e) => {
                       setValue(`clientName`, e.target.value.toString());
                     }}
@@ -244,8 +204,7 @@ export default function NewInvoice({
                   <Input
                     label="client's email"
                     type="text"
-                    // name="clientEmail"
-                    // {...register(`clientEmail`)}
+                    name="clientEmail"
                     onChange={(e) => {
                       setValue(`clientEmail`, e.target.value.toString());
                     }}
@@ -254,7 +213,6 @@ export default function NewInvoice({
                     label="street address"
                     type="text"
                     name="street"
-                    //{...register(`clientAddress.street`)}
                     onChange={(e) => {
                       setValue(
                         `clientAddress.street`,
@@ -267,7 +225,6 @@ export default function NewInvoice({
                       label="city"
                       type="text"
                       name="city"
-                      //{...register(`clientAddress.city`)}
                       onChange={(e) => {
                         setValue(
                           `clientAddress.city`,
@@ -279,7 +236,6 @@ export default function NewInvoice({
                       label="post code"
                       type="number"
                       name="postCode"
-                      //{...register(`clientAddress.postCode`)}
                       onChange={(e) => {
                         setValue(
                           `clientAddress.postCode`,
@@ -292,7 +248,6 @@ export default function NewInvoice({
                       type="text"
                       className={`col-span-2`}
                       name="country"
-                      //{...register(`clientAddress.country`)}
                       onChange={(e) => {
                         setValue(
                           `clientAddress.country`,
@@ -318,7 +273,6 @@ export default function NewInvoice({
                             setValue(`createdAt`, formatDateBack(date));
                           }}
                           className={`justify-self-stretch w-full min-w-full px-5 py-4 border rounded focus:outline-none focus:ring-1 focus:ring-primary hover:ring-1 hover:ring-primary black15 bg-[url('../images/icon-calendar.svg')] bg-[right_1rem_bottom_1rem] bg-no-repeat`}
-                          //  {...register(`createdAt`)}
                         />
                       </div>
                     </article>
@@ -333,7 +287,6 @@ export default function NewInvoice({
                           e.preventDefault();
                           setIsPaymentTermsMenu(!isPaymentTermsMenu);
                         }}
-                        // {...register(`paymentTerms`)}
                       >
                         {paymentTerms ? (
                           <p>
@@ -402,7 +355,6 @@ export default function NewInvoice({
                         type="text"
                         className={`row-start-2  col-span-4 sm:row-start-1 sm:col-span-1`}
                         name="name"
-                        // {...register(`items.${index}.itemName`)}
                         onChange={(e) => {
                           setValue(
                             `items.${index}.name`,
@@ -418,7 +370,6 @@ export default function NewInvoice({
                         type="number"
                         className={`row-start-4 sm:row-start-1 sm:col-start-2`}
                         name="quantity"
-                        // {...register(`items.${index}.quantity`)}
                         onChange={(e) => {
                           setValue(
                             `items.${index}.quantity`,
@@ -434,7 +385,6 @@ export default function NewInvoice({
                         type="number"
                         className={`row-start-4 sm:row-start-1 sm:col-start-3`}
                         name="price"
-                        //{...register(`items.${index}.price`)}
                         onChange={(e) => {
                           setValue(
                             `items.${index}.price`,
