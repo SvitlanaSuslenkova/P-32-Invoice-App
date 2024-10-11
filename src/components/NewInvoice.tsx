@@ -34,32 +34,33 @@ export default function NewInvoice({
   };
   const [isPaymentTermsMenu, setIsPaymentTermsMenu] = useState(false);
   const [paymentTerms, setPaymentTerms] = useState<number | undefined>();
+  // firstName: z.string().min(1, { message: "First Name is required" })
   const schema = z.object({
     id: z.string(),
     createdAt: z.string().date(),
     paymentDue: z.string().date(),
-    description: z.string().min(4),
-    paymentTerms: z.number().positive(),
-    clientName: z.string().min(2),
+    description: z.string().min(4, { message: 'can’t be empty' }),
+    paymentTerms: z.string().min(1, { message: 'can’t be empty' }),
+    clientName: z.string().min(1, { message: 'can’t be empty' }),
     clientEmail: z.string().email(),
     status: z.string(),
     senderAddress: z.object({
-      street: z.string().min(2),
-      city: z.string().min(2),
-      postCode: z.number().positive().min(2),
-      country: z.string().min(2),
+      street: z.string().min(1, { message: 'can’t be empty' }),
+      city: z.string().min(1, { message: 'can’t be empty' }),
+      postCode: z.string().min(1, { message: 'can’t be empty' }),
+      country: z.string().min(1, { message: 'can’t be empty' }),
     }),
     clientAddress: z.object({
-      street: z.string().min(2),
-      city: z.string().min(2),
-      postCode: z.number().positive().min(2),
-      country: z.string().min(2),
+      street: z.string().min(1, { message: 'can’t be empty' }),
+      city: z.string().min(1, { message: 'can’t be empty' }),
+      postCode: z.string().min(1, { message: 'can’t be empty' }),
+      country: z.string().min(1, { message: 'can’t be empty' }),
     }),
     items: z.array(
       z.object({
-        name: z.string().min(2),
-        quantity: z.number().positive(),
-        price: z.number().positive(),
+        name: z.string().min(1, { message: 'can’t be empty' }),
+        quantity: z.string().min(1, { message: 'can’t be empty' }),
+        price: z.string().min(1, { message: 'can’t be empty' }),
         total: z.number().positive(),
       })
     ),
@@ -325,7 +326,9 @@ export default function NewInvoice({
                         </p>
                       </div>
                       <button
-                        className={`grid grid-cols-2 items-center text-left capitalize mt-2 w-full h-14 px-5 py-4 border rounded focus:outline-none focus:ring-1 focus:ring-primary hover:ring-1 hover:ring-primary hover:cursor-pointer black15`}
+                        className={`grid grid-cols-2 items-center text-left capitalize mt-2 w-full h-14 px-5 py-4 border ${
+                          errors.paymentTerms ? 'border-delete' : ''
+                        } rounded focus:outline-none focus:ring-1 focus:ring-primary hover:ring-1 hover:ring-primary hover:cursor-pointer black15`}
                         onClick={(e) => {
                           e.preventDefault();
                           setIsPaymentTermsMenu(!isPaymentTermsMenu);
@@ -447,7 +450,13 @@ export default function NewInvoice({
                       </div>
                     </div>
                   ))}
+
                   <AddNewItemButton handleAddItem={handleAddItem} />
+                  {errors && (
+                    <p className={`text-delete text-xs font-semibold mt-8`}>
+                      - All fields must be added
+                    </p>
+                  )}
                 </section>
               </div>
             </div>
