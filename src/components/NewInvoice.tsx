@@ -63,6 +63,8 @@ export default function NewInvoice({
     const newItem = nanoid();
     setItems([...items, newItem]);
   };
+
+  // MouseEvent<HTMLButtonElement>??
   function handleDeleteItem(e: MouseEvent, item: string, thisindex: number) {
     e.preventDefault();
     if (items.length > 1) {
@@ -78,7 +80,7 @@ export default function NewInvoice({
   }
 
   const paymentTerms = watch(`paymentTerms`);
-  function countPaymentDue(paymentTerms: number) {
+  function countPaymentDue(paymentTerms: number, startDate: Date) {
     if (startDate && paymentTerms) {
       const firstDate = new Date(startDate);
       const result = firstDate.setDate(
@@ -88,7 +90,7 @@ export default function NewInvoice({
       setValue(`paymentDue`, formatDateBack(DueDate).toString());
     }
   }
-  countPaymentDue(paymentTerms);
+  countPaymentDue(paymentTerms, startDate);
 
   function itemTotal(index: number) {
     const price = watch(`items.${index}.price`);
@@ -235,8 +237,8 @@ export default function NewInvoice({
                           dateFormat="dd MMM yyyy"
                           selected={startDate}
                           onChange={(date) => {
-                            setStartDate(date);
-                            setValue(`createdAt`, formatDateBack(date));
+                            setStartDate(date!);
+                            setValue(`createdAt`, formatDateBack(date!));
                           }}
                           className={`justify-self-stretch w-full min-w-full px-5 py-4 border rounded focus:outline-none focus:ring-1 focus:ring-primary hover:ring-1 hover:ring-primary black15 bg-[url('../images/icon-calendar.svg')] bg-[right_1rem_bottom_1rem] bg-no-repeat`}
                         />

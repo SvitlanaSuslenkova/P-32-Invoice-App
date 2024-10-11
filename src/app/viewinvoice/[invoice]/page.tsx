@@ -8,7 +8,7 @@ import { fetchInvoices } from '@/app/redux/slices/invoicesSlice';
 import { setDeletedId } from '@/app/redux/slices/deletedIdSlice';
 import { IInvoice } from '@/components/Types';
 import { useRouter } from 'next/navigation';
-import { EditDeleteMark } from '@/components/Footers';
+import { EditDeleteMark } from '@/components/EditDeleteMark';
 import ConfirmDelete from '@/components/ConfirmDelete';
 
 import NoInvoice from '@/components/NoInvoice';
