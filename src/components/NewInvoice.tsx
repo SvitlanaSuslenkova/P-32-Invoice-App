@@ -16,7 +16,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 //npm install react-hook-form
-import { z } from 'zod';
+import { z, ZodError } from 'zod';
 import { formatDateBack, todayDay } from '@/app/actions/formatDate';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { nanoid } from 'nanoid';
@@ -38,9 +38,9 @@ export default function NewInvoice({
   const schema = z.object({
     id: z.string(),
     createdAt: z.string().date(),
-    paymentDue: z.string().date(),
+    // paymentDue: z.string().date(),
     description: z.string().min(4, { message: 'can’t be empty' }),
-    paymentTerms: z.string().min(1, { message: 'can’t be empty' }),
+    paymentTerms: z.number().positive({ message: 'can’t be empty' }),
     clientName: z.string().min(1, { message: 'can’t be empty' }),
     clientEmail: z.string().email(),
     status: z.string(),
@@ -61,10 +61,10 @@ export default function NewInvoice({
         name: z.string().min(1, { message: 'can’t be empty' }),
         quantity: z.string().min(1, { message: 'can’t be empty' }),
         price: z.string().min(1, { message: 'can’t be empty' }),
-        total: z.number().positive(),
+        // total: z.number().positive(),
       })
     ),
-    total: z.number().positive(),
+    // total: z.number().positive(),
   });
   type FormFields = z.infer<typeof schema>;
 
@@ -317,13 +317,12 @@ export default function NewInvoice({
                         >
                           Payment terms
                         </p>
-                        <p>
-                          {errors.paymentTerms && (
-                            <p className={`text-delete text-xs text-right`}>
-                              {errors.paymentTerms.message}
-                            </p>
-                          )}
-                        </p>
+
+                        {errors.paymentTerms && (
+                          <p className={`text-delete text-xs text-right`}>
+                            {errors.paymentTerms.message}
+                          </p>
+                        )}
                       </div>
                       <button
                         className={`grid grid-cols-2 items-center text-left capitalize mt-2 w-full h-14 px-5 py-4 border ${
@@ -356,7 +355,10 @@ export default function NewInvoice({
                         />
                       </button>
                       {isPaymentTermsMenu && (
-                        <PaymentTermsMenu setPaymentTerms={setPaymentTerms} />
+                        <PaymentTermsMenu
+                          setPaymentTerms={setPaymentTerms}
+                          setIsPaymentTermsMenu={setIsPaymentTermsMenu}
+                        />
                       )}
                     </article>
                   </div>
@@ -452,11 +454,11 @@ export default function NewInvoice({
                   ))}
 
                   <AddNewItemButton handleAddItem={handleAddItem} />
-                  {errors && (
+                  {Object.keys(errors).length > 0 ? (
                     <p className={`text-delete text-xs font-semibold mt-8`}>
                       - All fields must be added
                     </p>
-                  )}
+                  ) : null}
                 </section>
               </div>
             </div>
