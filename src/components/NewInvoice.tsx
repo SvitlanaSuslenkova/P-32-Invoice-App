@@ -7,9 +7,7 @@ import { DiscardDraftSend } from './DiscardDraftSend';
 import PaymentTermsMenu from './PaymentTermsMenu';
 import Image from 'next/image';
 import ArrowDown from '../images/icon-arrow-down.svg';
-
 //npm i tailwind-scrollbar
-
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
@@ -17,7 +15,6 @@ import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { schema } from './constants/zSchema';
-
 import { formatDateBack, todayDay } from '@/app/actions/formatDate';
 import { nanoid } from 'nanoid';
 
@@ -33,7 +30,6 @@ export default function NewInvoice({
     setIsOpenNewInvoice(false);
   };
   const [isPaymentTermsMenu, setIsPaymentTermsMenu] = useState(false);
-  // const [paymentTerms, setPaymentTerms] = useState<number | undefined>();
 
   type FormFields = z.infer<typeof schema>;
 
@@ -47,13 +43,13 @@ export default function NewInvoice({
   });
 
   const {
-    reset,
-    resetField,
+    // reset,
+    // resetField,
     register,
     unregister,
     handleSubmit,
     watch,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     getValues,
     setValue,
   } = methods;
@@ -295,7 +291,6 @@ export default function NewInvoice({
                       </button>
                       {isPaymentTermsMenu && (
                         <PaymentTermsMenu
-                          // setPaymentTerms={setPaymentTerms}
                           setIsPaymentTermsMenu={setIsPaymentTermsMenu}
                         />
                       )}
@@ -332,7 +327,6 @@ export default function NewInvoice({
                         Item name
                       </p>
                       <Input
-                        label=""
                         className={`row-start-2  col-span-4 sm:row-start-1 sm:col-span-1`}
                         {...register(`items.${index}.name`)}
                         errorMessage={errors?.items?.[index]?.name?.message}
@@ -341,7 +335,6 @@ export default function NewInvoice({
                         Qty.
                       </p>
                       <Input
-                        label=""
                         type="number"
                         className={`row-start-4 sm:row-start-1 sm:col-start-2`}
                         {...register(`items.${index}.quantity`)}
@@ -351,7 +344,6 @@ export default function NewInvoice({
                         Price
                       </p>
                       <Input
-                        label=""
                         type="number"
                         className={`row-start-4 sm:row-start-1 sm:col-start-3`}
                         {...register(`items.${index}.price`)}
