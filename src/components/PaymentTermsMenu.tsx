@@ -1,19 +1,19 @@
-//import { useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 interface IPaymentTermsMenu {
-  setPaymentTerms: (paymentTerms: number | undefined) => void;
+  // setPaymentTerms: (paymentTerms: number | undefined) => void;
   setIsPaymentTermsMenu: (isPaymentTermsMenu: boolean) => void;
 }
 
 export default function PaymentTermsMenu({
-  setPaymentTerms,
+  // setPaymentTerms,
   setIsPaymentTermsMenu,
 }: IPaymentTermsMenu) {
-  //const { setValue } = useFormContext();
+  const { setValue } = useFormContext();
   function handleonClick(termValue: number) {
     console.log(termValue);
-    setPaymentTerms(termValue);
+    // setPaymentTerms(termValue);
     setIsPaymentTermsMenu(false);
-    // setValue(`paymentTerms`, termValue);
+    setValue(`paymentTerms`, termValue);
   }
   const paymentTermValues = [1, 7, 14, 30];
   return (

@@ -1,14 +1,12 @@
 'use client';
+import { useState } from 'react';
 import { GoBackButton } from './Buttons';
 import { Input } from './Input';
 import { AddNewItemButton } from './Buttons';
 import { DiscardDraftSend } from './DiscardDraftSend';
 import PaymentTermsMenu from './PaymentTermsMenu';
-import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import ArrowDown from '../images/icon-arrow-down.svg';
-
-//import { formInitialState } from '../components/constants/formInitialState';
 
 //npm i tailwind-scrollbar
 
@@ -16,9 +14,11 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 //npm install react-hook-form
-import { z, ZodError } from 'zod';
-import { formatDateBack, todayDay } from '@/app/actions/formatDate';
+import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { schema } from './constants/zSchema';
+
+import { formatDateBack, todayDay } from '@/app/actions/formatDate';
 import { nanoid } from 'nanoid';
 
 export default function NewInvoice({
@@ -33,39 +33,8 @@ export default function NewInvoice({
     setIsOpenNewInvoice(false);
   };
   const [isPaymentTermsMenu, setIsPaymentTermsMenu] = useState(false);
-  const [paymentTerms, setPaymentTerms] = useState<number | undefined>();
-  // firstName: z.string().min(1, { message: "First Name is required" })
-  const schema = z.object({
-    id: z.string(),
-    createdAt: z.string().date(),
-    // paymentDue: z.string().date(),
-    description: z.string().min(4, { message: 'can’t be empty' }),
-    paymentTerms: z.number().positive({ message: 'can’t be empty' }),
-    clientName: z.string().min(1, { message: 'can’t be empty' }),
-    clientEmail: z.string().email(),
-    status: z.string(),
-    senderAddress: z.object({
-      street: z.string().min(1, { message: 'can’t be empty' }),
-      city: z.string().min(1, { message: 'can’t be empty' }),
-      postCode: z.string().min(1, { message: 'can’t be empty' }),
-      country: z.string().min(1, { message: 'can’t be empty' }),
-    }),
-    clientAddress: z.object({
-      street: z.string().min(1, { message: 'can’t be empty' }),
-      city: z.string().min(1, { message: 'can’t be empty' }),
-      postCode: z.string().min(1, { message: 'can’t be empty' }),
-      country: z.string().min(1, { message: 'can’t be empty' }),
-    }),
-    items: z.array(
-      z.object({
-        name: z.string().min(1, { message: 'can’t be empty' }),
-        quantity: z.string().min(1, { message: 'can’t be empty' }),
-        price: z.string().min(1, { message: 'can’t be empty' }),
-        // total: z.number().positive(),
-      })
-    ),
-    // total: z.number().positive(),
-  });
+  // const [paymentTerms, setPaymentTerms] = useState<number | undefined>();
+
   type FormFields = z.infer<typeof schema>;
 
   const methods = useForm<FormFields>({
@@ -89,26 +58,6 @@ export default function NewInvoice({
     setValue,
   } = methods;
 
-  /* const {
-    reset,
-    resetField,
-    register,
-    unregister,
-    handleSubmit,
-    watch,
-    formState: { errors, isSubmitting },
-    getValues,
-    setValue,
-    ...methods
-  } = useForm<FormFields>({
-    mode: 'onBlur',
-    defaultValues: {
-      id: nanoid(),
-      createdAt: todayDay(),
-    },
-    resolver: zodResolver(schema),
-  });*/
-
   const handleAddItem = (e: MouseEvent) => {
     e.preventDefault();
     const newItem = nanoid();
@@ -128,14 +77,9 @@ export default function NewInvoice({
     }
   }
 
-  useEffect(() => {
-    if (paymentTerms !== undefined) {
-      setValue(`paymentTerms`, paymentTerms);
-    }
-  }, [paymentTerms]);
-
-  useEffect(() => {
-    if (startDate !== undefined && paymentTerms !== undefined) {
+  const paymentTerms = watch(`paymentTerms`);
+  function countPaymentDue(paymentTerms: number) {
+    if (startDate && paymentTerms) {
       const firstDate = new Date(startDate);
       const result = firstDate.setDate(
         firstDate.getDate() + Number(paymentTerms)
@@ -143,13 +87,14 @@ export default function NewInvoice({
       const DueDate = new Date(result);
       setValue(`paymentDue`, formatDateBack(DueDate).toString());
     }
-  }, [startDate, paymentTerms]);
+  }
+  countPaymentDue(paymentTerms);
 
   function itemTotal(index: number) {
     const price = watch(`items.${index}.price`);
     const qty = watch(`items.${index}.quantity`);
     const total = (Number(price) * Number(qty)).toFixed(2);
-    if (price * qty > 0) {
+    if (Number(price) * Number(qty) > 0) {
       setValue(`items.${index}.total`, total);
       return total;
     } else {
@@ -356,7 +301,7 @@ export default function NewInvoice({
                       </button>
                       {isPaymentTermsMenu && (
                         <PaymentTermsMenu
-                          setPaymentTerms={setPaymentTerms}
+                          // setPaymentTerms={setPaymentTerms}
                           setIsPaymentTermsMenu={setIsPaymentTermsMenu}
                         />
                       )}
