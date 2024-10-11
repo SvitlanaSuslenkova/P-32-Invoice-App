@@ -160,14 +160,12 @@ export default function NewInvoice({
                   </p>
                   <Input
                     label="street address"
-                    type="text"
                     {...register(`senderAddress.street`)}
                     errorMessage={errors?.senderAddress?.street?.message}
                   />
                   <div className={`grid items-end grid-cols-2 gap-x-6`}>
                     <Input
                       label="city"
-                      type="text"
                       {...register(`senderAddress.city`)}
                       errorMessage={errors?.senderAddress?.city?.message}
                     />
@@ -179,7 +177,6 @@ export default function NewInvoice({
                     />
                     <Input
                       label="country"
-                      type="text"
                       className={`col-span-2`}
                       {...register(`senderAddress.country`)}
                       errorMessage={errors?.senderAddress?.country?.message}
@@ -192,27 +189,23 @@ export default function NewInvoice({
                   </p>
                   <Input
                     label="client's name"
-                    type="text"
                     {...register(`clientName`)}
                     errorMessage={errors?.clientName?.message}
                   />
 
                   <Input
                     label="client's email"
-                    type="text"
                     {...register(`clientEmail`)}
                     errorMessage={errors?.clientEmail?.message}
                   />
                   <Input
                     label="street address"
-                    type="text"
                     {...register(`clientAddress.street`)}
                     errorMessage={errors?.senderAddress?.street?.message}
                   />
                   <div className={`grid items-end grid-cols-2 gap-x-6`}>
                     <Input
                       label="city"
-                      type="text"
                       {...register(`clientAddress.city`)}
                       errorMessage={errors?.senderAddress?.city?.message}
                     />
@@ -224,7 +217,6 @@ export default function NewInvoice({
                     />
                     <Input
                       label="country"
-                      type="text"
                       className={`col-span-2`}
                       {...register(`clientAddress.country`)}
                       errorMessage={errors?.senderAddress?.country?.message}
@@ -309,7 +301,6 @@ export default function NewInvoice({
                   </div>
                   <Input
                     label="project description"
-                    type="text"
                     {...register(`description`)}
                     errorMessage={errors?.description?.message}
                   />
@@ -340,7 +331,6 @@ export default function NewInvoice({
                       </p>
                       <Input
                         label=""
-                        type="text"
                         className={`row-start-2  col-span-4 sm:row-start-1 sm:col-span-1`}
                         {...register(`items.${index}.name`)}
                         errorMessage={errors?.items?.[index]?.name?.message}
