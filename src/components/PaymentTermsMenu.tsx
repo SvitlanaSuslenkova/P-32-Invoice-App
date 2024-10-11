@@ -1,16 +1,16 @@
 //import { useFormContext } from 'react-hook-form';
+interface IPaymentTermsMenu {
+  setPaymentTerms: (paymentTerms: number | undefined) => void;
+}
 
 export default function PaymentTermsMenu({
   setPaymentTerms,
-  setIsPaymentTermsMenu,
-}) {
+}: IPaymentTermsMenu) {
   //const { setValue } = useFormContext();
-  function handleonClick(e, termValue: number) {
-    e.preventDefault();
+  function handleonClick(termValue: number) {
     console.log(termValue);
     setPaymentTerms(termValue);
-    //setValue(`paymentTerms`, termValue.toString());
-    setIsPaymentTermsMenu(false);
+    // setValue(`paymentTerms`, termValue);
   }
   const paymentTermValues = [1, 7, 14, 30];
   return (
@@ -22,7 +22,7 @@ export default function PaymentTermsMenu({
           <button
             key={termValue}
             className={`capitalize text-left px-6 py-4 h-12 border-b border-muted-darker hover:text-primary`}
-            onClick={(e) => handleonClick(e, termValue)}
+            onClick={() => handleonClick(termValue)}
           >
             <span>Net </span>
             {termValue}

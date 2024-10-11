@@ -2,7 +2,7 @@
 import { GoBackButton } from './Buttons';
 import { Input } from './Input';
 import { AddNewItemButton } from './Buttons';
-import { DiscardDraftSend } from './Footers';
+import { DiscardDraftSend } from './DiscardDraftSend';
 import PaymentTermsMenu from './PaymentTermsMenu';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
@@ -24,7 +24,7 @@ import { nanoid } from 'nanoid';
 export default function NewInvoice({
   setIsOpenNewInvoice,
 }: {
-  setIsOpenNewInvoice: boolean;
+  setIsOpenNewInvoice: (isOpenNewInvoice: boolean) => void;
 }) {
   const [startDate, setStartDate] = useState(new Date());
   const [items, setItems] = useState([nanoid()]);
@@ -33,12 +33,12 @@ export default function NewInvoice({
     setIsOpenNewInvoice(false);
   };
   const [isPaymentTermsMenu, setIsPaymentTermsMenu] = useState(false);
-  const [paymentTerms, setPaymentTerms] = useState();
+  const [paymentTerms, setPaymentTerms] = useState<number | undefined>();
   const schema = z.object({
     id: z.string(),
     createdAt: z.string().date(),
     paymentDue: z.string().date(),
-    description: z.string(),
+    description: z.string().min(4),
     paymentTerms: z.number().positive(),
     clientName: z.string().min(2),
     clientEmail: z.string().email(),
@@ -65,10 +65,30 @@ export default function NewInvoice({
     ),
     total: z.number().positive(),
   });
-
   type FormFields = z.infer<typeof schema>;
 
+  const methods = useForm<FormFields>({
+    mode: 'onBlur',
+    defaultValues: {
+      id: nanoid(),
+      createdAt: todayDay(),
+    },
+    resolver: zodResolver(schema),
+  });
+
   const {
+    reset,
+    resetField,
+    register,
+    unregister,
+    handleSubmit,
+    watch,
+    formState: { errors, isSubmitting },
+    getValues,
+    setValue,
+  } = methods;
+
+  /* const {
     reset,
     resetField,
     register,
@@ -86,7 +106,7 @@ export default function NewInvoice({
       createdAt: todayDay(),
     },
     resolver: zodResolver(schema),
-  });
+  });*/
 
   const handleAddItem = (e: MouseEvent) => {
     e.preventDefault();
@@ -129,7 +149,7 @@ export default function NewInvoice({
     const qty = watch(`items.${index}.quantity`);
     const total = (Number(price) * Number(qty)).toFixed(2);
     if (price * qty > 0) {
-      setValue(`items.${index}.total`, Number(total));
+      setValue(`items.${index}.total`, total);
       return total;
     } else {
       return '0.00';
@@ -146,7 +166,7 @@ export default function NewInvoice({
           (acc, num) => acc + Number(num),
           initialValue
         );
-        setValue(`total`, Number(sumOfTotalValues.toFixed(2)));
+        setValue(`total`, sumOfTotalValues.toFixed(2));
       }
     }
   }
@@ -156,11 +176,12 @@ export default function NewInvoice({
     console.log(data);
     console.log('formSubmit');
   };
-  const onSubmit = () => {
+  /* const onSubmit = () => {
     handleSubmit(formSubmit);
     const values = getValues();
     console.log(values);
-  };
+    console.log('formSubmit');
+  };*/
 
   return (
     <div
@@ -170,7 +191,7 @@ export default function NewInvoice({
         className={` sm:flex bg-card sm:h-[calc(100vh-8rem)] pr-4 sm:absolute sm:rounded-r-b20`}
       >
         <FormProvider {...methods}>
-          <form>
+          <form onSubmit={handleSubmit(formSubmit)}>
             <div
               className={` pl-6 pr-2 w-full h-full  bg-card max-w-[37.5rem] sm:h-[calc(100vh-8rem)] sm:rounded-r-b20 
             sm:overflow-y-scroll scrollbar-track-card scrollbar-thin scrollbar-thumb-muted-darker `}
@@ -195,23 +216,27 @@ export default function NewInvoice({
                     label="street address"
                     type="text"
                     {...register(`senderAddress.street`)}
+                    errorMessage={errors?.senderAddress?.street?.message}
                   />
-                  <div className={`grid grid-cols-2 gap-x-6`}>
+                  <div className={`grid items-end grid-cols-2 gap-x-6`}>
                     <Input
                       label="city"
                       type="text"
                       {...register(`senderAddress.city`)}
+                      errorMessage={errors?.senderAddress?.city?.message}
                     />
                     <Input
                       label="post code"
                       type="number"
                       {...register(`senderAddress.postCode`)}
+                      errorMessage={errors?.senderAddress?.postCode?.message}
                     />
                     <Input
                       label="country"
                       type="text"
                       className={`col-span-2`}
                       {...register(`senderAddress.country`)}
+                      errorMessage={errors?.senderAddress?.country?.message}
                     />
                   </div>
                 </section>
@@ -223,33 +248,40 @@ export default function NewInvoice({
                     label="client's name"
                     type="text"
                     {...register(`clientName`)}
+                    errorMessage={errors?.clientName?.message}
                   />
+
                   <Input
                     label="client's email"
                     type="text"
                     {...register(`clientEmail`)}
+                    errorMessage={errors?.clientEmail?.message}
                   />
                   <Input
                     label="street address"
                     type="text"
                     {...register(`clientAddress.street`)}
+                    errorMessage={errors?.senderAddress?.street?.message}
                   />
-                  <div className={`grid grid-cols-2 gap-x-6`}>
+                  <div className={`grid items-end grid-cols-2 gap-x-6`}>
                     <Input
                       label="city"
                       type="text"
                       {...register(`clientAddress.city`)}
+                      errorMessage={errors?.senderAddress?.city?.message}
                     />
                     <Input
                       label="post code"
                       type="number"
                       {...register(`clientAddress.postCode`)}
+                      errorMessage={errors?.senderAddress?.postCode?.message}
                     />
                     <Input
                       label="country"
                       type="text"
                       className={`col-span-2`}
                       {...register(`clientAddress.country`)}
+                      errorMessage={errors?.senderAddress?.country?.message}
                     />
                   </div>
                   <div
@@ -274,9 +306,24 @@ export default function NewInvoice({
                     </article>
 
                     <article className={`relative`}>
-                      <p className={`grey13 capitalize mt-1 mb-3`}>
-                        Payment terms
-                      </p>
+                      <div
+                        className={`grid items-end grid-cols-[auto,auto] gap-x-0.5`}
+                      >
+                        <p
+                          className={`grey13 capitalize mt-1 mb-1  ${
+                            errors.paymentTerms ? 'text-delete' : ''
+                          }`}
+                        >
+                          Payment terms
+                        </p>
+                        <p>
+                          {errors.paymentTerms && (
+                            <p className={`text-delete text-xs text-right`}>
+                              {errors.paymentTerms.message}
+                            </p>
+                          )}
+                        </p>
+                      </div>
                       <button
                         className={`grid grid-cols-2 items-center text-left capitalize mt-2 w-full h-14 px-5 py-4 border rounded focus:outline-none focus:ring-1 focus:ring-primary hover:ring-1 hover:ring-primary hover:cursor-pointer black15`}
                         onClick={(e) => {
@@ -306,10 +353,7 @@ export default function NewInvoice({
                         />
                       </button>
                       {isPaymentTermsMenu && (
-                        <PaymentTermsMenu
-                          setPaymentTerms={setPaymentTerms}
-                          setIsPaymentTermsMenu={setIsPaymentTermsMenu}
-                        />
+                        <PaymentTermsMenu setPaymentTerms={setPaymentTerms} />
                       )}
                     </article>
                   </div>
@@ -317,6 +361,7 @@ export default function NewInvoice({
                     label="project description"
                     type="text"
                     {...register(`description`)}
+                    errorMessage={errors?.description?.message}
                   />
                 </section>
                 <section className={`pb-4 sm:pb-9`}>
@@ -336,7 +381,7 @@ export default function NewInvoice({
                   {items.map((item, index) => (
                     <div
                       key={item}
-                      className={`grid grid-cols-[4fr,6fr,4fr,2fr]  sm:grid-cols-[4fr,1.5fr,2fr,2fr,1fr] gap-4 mb-8`}
+                      className={`grid items-end grid-cols-[4fr,6fr,4fr,2fr]  sm:grid-cols-[4fr,1.5fr,2fr,2fr,1fr] gap-4 mb-8`}
                     >
                       <p
                         className={`grey13 capitalize sm:hidden col-span-4 sm:col-span-1 mb-[-0.8rem]`}
@@ -348,6 +393,7 @@ export default function NewInvoice({
                         type="text"
                         className={`row-start-2  col-span-4 sm:row-start-1 sm:col-span-1`}
                         {...register(`items.${index}.name`)}
+                        errorMessage={errors?.items?.[index]?.name?.message}
                       />
                       <p className={`grey13 capitalize sm:hidden mb-[-0.8rem]`}>
                         Qty.
@@ -357,6 +403,7 @@ export default function NewInvoice({
                         type="number"
                         className={`row-start-4 sm:row-start-1 sm:col-start-2`}
                         {...register(`items.${index}.quantity`)}
+                        errorMessage={errors?.items?.[index]?.quantity?.message}
                       />
                       <p className={`grey13 capitalize sm:hidden mb-[-0.8rem]`}>
                         Price
@@ -366,18 +413,19 @@ export default function NewInvoice({
                         type="number"
                         className={`row-start-4 sm:row-start-1 sm:col-start-3`}
                         {...register(`items.${index}.price`)}
+                        errorMessage={errors?.items?.[index]?.price?.message}
                       />
                       <p className={`grey13 capitalize sm:hidden mb-[-0.8rem]`}>
                         Total
                       </p>
 
                       <p
-                        className={` grid items-center  row-start-4 sm:row-start-1 sm:col-start-4 black15 text-card-foreground`}
+                        className={` grid items-center mb-8 row-start-4 sm:row-start-1 sm:col-start-4 black15 text-card-foreground`}
                       >
                         {itemTotal(index)}
                       </p>
                       <div
-                        className={` justify-self-end sm:justify-self-center grid place-items-center row-start-4 sm:row-start-1 sm:col-start-5`}
+                        className={` justify-self-end mb-8 sm:justify-self-center grid place-items-center row-start-4 sm:row-start-1 sm:col-start-5`}
                       >
                         <button
                           value={item}
@@ -411,7 +459,7 @@ export default function NewInvoice({
               >
                 <DiscardDraftSend
                   handleGoBack={handleGoBack}
-                  onSubmit={onSubmit}
+                  onSubmit={handleSubmit(formSubmit)}
                 />
               </div>
             </div>

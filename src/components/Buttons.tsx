@@ -112,12 +112,15 @@ export const RedButton = ({
 export const PurpleButton = ({
   text,
   onClick,
+  type,
 }: {
   text: string;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
+  type: 'submit' | 'reset' | 'button' | undefined;
 }) => {
   return (
     <button
+      type={type}
       onClick={onClick}
       className={`w-full text-sm15 leading-sm15 font-bold tracking-em0016 rounded-3xl h-12 px-2 sm:px-4  flex justify-center items-center text-primary-foreground bg-primary hover:bg-primary-hover`}
     >
@@ -129,12 +132,15 @@ export const PurpleButton = ({
 export const DarkButton = ({
   text,
   onClick,
+  type,
 }: {
   text: string;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
+  type: 'submit' | 'reset' | 'button' | undefined;
 }) => {
   return (
     <button
+      type={type}
       onClick={onClick}
       className={`w-full text-sm15 leading-sm15 font-bold tracking-em0016 rounded-3xl h-12 px-2 sm:px-4 flex justify-center items-center text-card-foreground bg-secondary-accent hover:bg-foreground`}
     >
