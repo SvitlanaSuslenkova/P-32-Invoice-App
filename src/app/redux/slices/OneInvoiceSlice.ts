@@ -16,7 +16,7 @@ export const fetchInvoice = createAsyncThunk(
   }
 );
 
-const OneInvoiceSlice = createSlice({
+const oneInvoiceSlice = createSlice({
   name: 'invoice',
   initialState: {
     invoice: {} as IInvoice,
@@ -46,4 +46,4 @@ const OneInvoiceSlice = createSlice({
 });
 
 //export const { setEditedInvoice } = OneInvoiceSlice.actions;
-export default OneInvoiceSlice.reducer;
+export default oneInvoiceSlice.reducer;
