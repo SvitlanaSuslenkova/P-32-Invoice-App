@@ -29,7 +29,7 @@ export default function ViewInvoice() {
   const invoiceStatus = useSelector((state) => state.invoice.status);
 
   const router = useRouter();
-
+  // +++++ADD NEW INVOICES????
   useEffect(() => {
     dispatch(fetchInvoice(invoiceId));
   }, [dispatch, invoiceId]);
