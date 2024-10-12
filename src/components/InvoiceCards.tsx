@@ -23,7 +23,17 @@ export default function InvoiceCards() {
     console.log(state);
     return state.invoices.editedinvoices;
   });
-  const newInvoicesArray = editedInvoices || invoices;
+  /* const editedInvoices = useSelector((state) => {
+      console.log(state);
+      return state.invoices.editedinvoices;
+    });*/
+  const newInvoices = useSelector((state) => {
+    console.log(state);
+    return state.newInvoices.newInvoices;
+  });
+
+  //const newInvoicesArray = editedInvoices || invoices;
+  const newInvoicesArray = [...invoices, ...newInvoices];
 
   const filters = useSelector((state) => state.filters.filters);
   const invoicesStatus = useSelector((state) => state.invoices.status);
@@ -59,7 +69,7 @@ export default function InvoiceCards() {
       console.log('newInvoicesArray', newInvoicesArray);
       console.log('editedInvoices', editedInvoices);
     }
-  }, [newInvoicesArray, filters, invoicesStatus, deletedId]);
+  }, [newInvoices, filters, invoicesStatus, deletedId]);
 
   /*
   useEffect(() => {

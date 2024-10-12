@@ -20,19 +20,19 @@ import { nanoid } from 'nanoid';
 import { IInvoice } from './Types';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setEditedInvoice } from '@/app/redux/slices/invoicesSlice';
+//import { setEditedInvoice } from '@/app/redux/slices/invoicesSlice';
+import { setNewInvoices } from '@/app/redux/slices/newInvoicesSlice';
 
 export default function NewInvoice({
   setIsOpenNewInvoice,
-
-  invoices,
-}: {
+}: //invoices,
+{
   setIsOpenNewInvoice: (isOpenNewInvoice: boolean) => void;
-  invoices: IInvoice[];
+  // invoices: IInvoice[];
 }) {
   const dispatch = useDispatch();
   const [startDate, setStartDate] = useState(new Date());
-  const [items, setItems] = useState([nanoid()]);
+  const [items, setItems] = useState([nanoid(6)]);
 
   const handleGoBack = () => {
     setIsOpenNewInvoice(false);
@@ -44,7 +44,7 @@ export default function NewInvoice({
   const methods = useForm<FormFields>({
     mode: 'onBlur',
     defaultValues: {
-      id: nanoid(),
+      id: nanoid(6),
       createdAt: todayDay(),
     },
     resolver: zodResolver(schema),
@@ -64,7 +64,7 @@ export default function NewInvoice({
 
   const handleAddItem = (e: MouseEvent) => {
     e.preventDefault();
-    const newItem = nanoid();
+    const newItem = nanoid(6);
     setItems([...items, newItem]);
   };
 
@@ -130,9 +130,11 @@ export default function NewInvoice({
   const formSubmit: SubmitHandler<IInvoice> = (data) => {
     console.log(data);
     console.log('formSubmit');
-    const edittedInvoices = [...invoices, data];
-    console.log('edittedInvoices', edittedInvoices);
-    dispatch(setEditedInvoice(edittedInvoices));
+    // const edittedInvoices = [...invoices, data];
+    //console.log('edittedInvoices', edittedInvoices);
+    // dispatch(setEditedInvoice(edittedInvoices));
+
+    dispatch(setNewInvoices(data));
   };
   /* const onSubmit = () => {
     handleSubmit(formSubmit);

@@ -3,6 +3,7 @@ import InvoicesReducer from './slices/invoicesSlice';
 import FiltersReducer from './slices/filtersSlice';
 import InvoiceReducer from './slices/oneInvoiceSlice';
 import deletedIdReducer from './slices/deletedIdSlice';
+import newInvoicesReducer from './slices/newInvoicesSlice';
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     filters: FiltersReducer,
     invoice: InvoiceReducer,
     deletedId: deletedIdReducer,
+    newInvoices: newInvoicesReducer,
   },
 });
 export default store;
