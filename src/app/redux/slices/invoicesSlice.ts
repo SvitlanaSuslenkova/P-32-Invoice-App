@@ -18,7 +18,7 @@ export const fetchInvoices = createAsyncThunk(
 
 type InvoicesState = {
   invoices: IInvoice[];
-  //filteredinvoices: IInvoice[];
+
   editedinvoices: IInvoice[];
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
@@ -26,7 +26,7 @@ type InvoicesState = {
 
 const initialState: InvoicesState = {
   invoices: [],
-  //filteredinvoices: [],
+
   editedinvoices: [],
   status: 'idle',
   error: null,
@@ -40,19 +40,7 @@ const invoicesSlice = createSlice({
       const { payload } = action;
       console.log(payload);
 
-      console.log(state.editedinvoices);
       state.editedinvoices = payload;
-      /*  if (!state.invoices.includes(payload.id)) {
-        state.editedinvoices = [...state.invoices, payload];
-        console.log('invoicesSlice1', state.invoices);
-        console.log('invoicesSlice1', payload);
-      } else if (state.invoices.includes(payload.id)) {
-        /* const newInvoices = state.invoices.filter(
-          (invoice) => !invoice.includes(payload.id)
-        );
-        state.editedinvoices = [...newInvoices, payload];*/
-      /*  console.log('invoicesSlice2', state);
-      }*/
     },
   },
 
@@ -64,7 +52,7 @@ const invoicesSlice = createSlice({
       .addCase(fetchInvoices.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.invoices = action.payload;
-        state.filteredinvoices = action.payload;
+        state.editedinvoices = action.payload;
       })
       .addCase(fetchInvoices.rejected, (state, action) => {
         state.status = 'failed';

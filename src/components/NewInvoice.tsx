@@ -19,13 +19,18 @@ import { formatDateBack, todayDay } from '@/app/actions/formatDate';
 import { nanoid } from 'nanoid';
 import { IInvoice } from './Types';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { setEditedInvoice } from '@/app/redux/slices/invoicesSlice';
+
 export default function NewInvoice({
   setIsOpenNewInvoice,
+
   invoices,
 }: {
   setIsOpenNewInvoice: (isOpenNewInvoice: boolean) => void;
   invoices: IInvoice[];
 }) {
+  const dispatch = useDispatch();
   const [startDate, setStartDate] = useState(new Date());
   const [items, setItems] = useState([nanoid()]);
 
@@ -125,6 +130,9 @@ export default function NewInvoice({
   const formSubmit: SubmitHandler<IInvoice> = (data) => {
     console.log(data);
     console.log('formSubmit');
+    const edittedInvoices = [...invoices, data];
+    console.log('edittedInvoices', edittedInvoices);
+    dispatch(setEditedInvoice(edittedInvoices));
   };
   /* const onSubmit = () => {
     handleSubmit(formSubmit);
@@ -410,7 +418,6 @@ export default function NewInvoice({
                 <DiscardDraftSend
                   handleGoBack={handleGoBack}
                   onSubmit={handleSubmit(formSubmit)}
-                  invoices={invoices}
                 />
               </div>
             </div>
