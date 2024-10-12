@@ -21,7 +21,7 @@ export default function InvoiceCards() {
   const invoices = useSelector((state) => state.invoices.invoices);
   const editedInvoices = useSelector((state) => {
     console.log(state);
-    return state.invoices.editedInvoices;
+    return state.invoices.editedinvoices;
   });
   const newInvoicesArray = editedInvoices || invoices;
 
@@ -56,6 +56,8 @@ export default function InvoiceCards() {
         );
         setFilteredInvoices(newInvoicesAfterDel);
       } else setFilteredInvoices([]);
+      console.log('newInvoicesArray', newInvoicesArray);
+      console.log('editedInvoices', editedInvoices);
     }
   }, [newInvoicesArray, filters, invoicesStatus, deletedId]);
 
