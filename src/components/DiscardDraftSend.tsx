@@ -1,18 +1,33 @@
 import { GreyButton, PurpleButton, DarkButton } from './Buttons';
 import { useFormContext } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { setEditedInvoice } from '@/app/redux/slices/invoicesSlice';
+import { IInvoice } from './Types';
 
 export const DiscardDraftSend = ({
   handleGoBack,
   onSubmit,
+  invoices,
 }: {
   handleGoBack: () => void;
   onSubmit: () => void;
+  invoices: IInvoice[];
 }) => {
   const {
     setValue,
     getValues,
     formState: { isSubmitting },
   } = useFormContext();
+  const dispatch = useDispatch();
+
+  function submittingForm() {
+    onSubmit();
+    const newInvoice = getValues();
+    console.log(newInvoice);
+    const edittedInvoices = [...invoices, newInvoice];
+    console.log('edittedInvoices', edittedInvoices);
+    dispatch(setEditedInvoice(edittedInvoices));
+  }
   return (
     <div
       className={`w-full grid grid-cols-[auto,auto,auto] sm:grid-cols-[auto,8.4rem,8.4rem] sm:justify-items-end gap-x-2`}
@@ -26,9 +41,7 @@ export const DiscardDraftSend = ({
         onClick={(e) => {
           setValue('status', 'draft');
           e.preventDefault();
-          onSubmit();
-          const values = getValues();
-          console.log(values);
+          submittingForm();
         }}
         disabled={isSubmitting}
       />
@@ -38,9 +51,7 @@ export const DiscardDraftSend = ({
         onClick={(e) => {
           setValue('status', 'pending');
           e.preventDefault();
-          onSubmit();
-          const values = getValues();
-          console.log(values);
+          submittingForm();
         }}
         disabled={isSubmitting}
       />

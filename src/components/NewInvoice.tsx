@@ -21,8 +21,10 @@ import { IInvoice } from './Types';
 
 export default function NewInvoice({
   setIsOpenNewInvoice,
+  invoices,
 }: {
   setIsOpenNewInvoice: (isOpenNewInvoice: boolean) => void;
+  invoices: IInvoice[];
 }) {
   const [startDate, setStartDate] = useState(new Date());
   const [items, setItems] = useState([nanoid()]);
@@ -96,7 +98,7 @@ export default function NewInvoice({
     const price = watch(`items.${index}.price`);
     const qty = watch(`items.${index}.quantity`);
     const total = price * qty;
-    if (price * qty > 0) {
+    if (total > 0) {
       setValue(`items.${index}.total`, total);
       return total;
     } else {
@@ -408,6 +410,7 @@ export default function NewInvoice({
                 <DiscardDraftSend
                   handleGoBack={handleGoBack}
                   onSubmit={handleSubmit(formSubmit)}
+                  invoices={invoices}
                 />
               </div>
             </div>

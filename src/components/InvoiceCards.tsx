@@ -8,6 +8,8 @@ import { IInvoice } from './Types';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchInvoices } from '../app/redux/slices/invoicesSlice';
 import NewInvoice from './NewInvoice';
+//import { TypedUseSelectorHook } from 'react-redux';
+//import type { RootState, AppDispatch } from '../app/redux/store';
 
 export default function InvoiceCards() {
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
@@ -95,7 +97,10 @@ export default function InvoiceCards() {
         ) : null}
       </div>
       {isOpenNewInvoice && (
-        <NewInvoice setIsOpenNewInvoice={setIsOpenNewInvoice} />
+        <NewInvoice
+          setIsOpenNewInvoice={setIsOpenNewInvoice}
+          invoices={invoices}
+        />
       )}
     </div>
   );

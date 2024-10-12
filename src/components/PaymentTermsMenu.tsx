@@ -10,7 +10,6 @@ export default function PaymentTermsMenu({
 }: IPaymentTermsMenu) {
   const { setValue } = useFormContext();
   function handleonClick(termValue: number) {
-    console.log(termValue);
     // setPaymentTerms(termValue);
     setIsPaymentTermsMenu(false);
     setValue(`paymentTerms`, termValue);
