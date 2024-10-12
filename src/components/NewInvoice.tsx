@@ -17,6 +17,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { schema } from './constants/zSchema';
 import { formatDateBack, todayDay } from '@/app/actions/formatDate';
 import { nanoid } from 'nanoid';
+import { IInvoice } from './Types';
 
 export default function NewInvoice({
   setIsOpenNewInvoice,
@@ -60,8 +61,11 @@ export default function NewInvoice({
     setItems([...items, newItem]);
   };
 
-  // MouseEvent<HTMLButtonElement>??
-  function handleDeleteItem(e: MouseEvent, item: string, thisindex: number) {
+  function handleDeleteItem(
+    e: React.MouseEvent<HTMLButtonElement>,
+    item: string,
+    thisindex: number
+  ) {
     e.preventDefault();
     if (items.length > 1) {
       const newItems = items.filter((thisitem) => thisitem !== item);
@@ -91,8 +95,8 @@ export default function NewInvoice({
   function itemTotal(index: number) {
     const price = watch(`items.${index}.price`);
     const qty = watch(`items.${index}.quantity`);
-    const total = (Number(price) * Number(qty)).toFixed(2);
-    if (Number(price) * Number(qty) > 0) {
+    const total = price * qty;
+    if (price * qty > 0) {
       setValue(`items.${index}.total`, total);
       return total;
     } else {
@@ -110,13 +114,13 @@ export default function NewInvoice({
           (acc, num) => acc + Number(num),
           initialValue
         );
-        setValue(`total`, sumOfTotalValues.toFixed(2));
+        setValue(`total`, sumOfTotalValues);
       }
     }
   }
   countInvoiceTotal();
 
-  const formSubmit: SubmitHandler<FormData> = (data) => {
+  const formSubmit: SubmitHandler<IInvoice> = (data) => {
     console.log(data);
     console.log('formSubmit');
   };
@@ -337,7 +341,9 @@ export default function NewInvoice({
                       <Input
                         type="number"
                         className={`row-start-4 sm:row-start-1 sm:col-start-2`}
-                        {...register(`items.${index}.quantity`)}
+                        {...register(`items.${index}.quantity`, {
+                          valueAsNumber: true,
+                        })}
                         errorMessage={errors?.items?.[index]?.quantity?.message}
                       />
                       <p className={`grey13 capitalize sm:hidden mb-[-0.8rem]`}>
@@ -346,7 +352,9 @@ export default function NewInvoice({
                       <Input
                         type="number"
                         className={`row-start-4 sm:row-start-1 sm:col-start-3`}
-                        {...register(`items.${index}.price`)}
+                        {...register(`items.${index}.price`, {
+                          valueAsNumber: true,
+                        })}
                         errorMessage={errors?.items?.[index]?.price?.message}
                       />
                       <p className={`grey13 capitalize sm:hidden mb-[-0.8rem]`}>
@@ -356,7 +364,7 @@ export default function NewInvoice({
                       <p
                         className={` grid items-center mb-8 row-start-4 sm:row-start-1 sm:col-start-4 black15 text-card-foreground`}
                       >
-                        {itemTotal(index)}
+                        {Number(itemTotal(index)).toFixed(2)}
                       </p>
                       <div
                         className={` justify-self-end mb-8 sm:justify-self-center grid place-items-center row-start-4 sm:row-start-1 sm:col-start-5`}

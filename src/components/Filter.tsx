@@ -6,6 +6,7 @@ interface IFilter {
   isOpenMenu: boolean;
   setIsOpenMenu: (isOpenMenu: boolean) => void;
   filters: string | null | string[];
+  handleOpenNewInvoice: () => void;
 }
 
 export default function Filter({

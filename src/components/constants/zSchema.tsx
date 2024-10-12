@@ -24,12 +24,14 @@ export const schema = z.object({
   items: z.array(
     z.object({
       name: z.string().min(1, { message: 'can’t be empty' }),
-      quantity: z.string().min(1, { message: 'can’t be empty' }),
-      price: z.string().min(1, { message: 'can’t be empty' }),
-      /* total: z.number().positive(),*/
-      total: z.string().min(1),
+      //quantity: z.string().min(1, { message: 'can’t be empty' }),
+      quantity: z.number().positive({ message: 'can’t be empty' }),
+      //price: z.string().min(1, { message: 'can’t be empty' }),
+      price: z.number().positive({ message: 'can’t be empty' }),
+      total: z.number().positive(),
+      // total: z.string().min(1),
     })
   ),
-  /* total: z.number(),*/
-  total: z.string().min(1),
+  total: z.number(),
+  //total: z.string().min(1),
 });

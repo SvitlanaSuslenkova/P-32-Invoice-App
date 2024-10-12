@@ -14,6 +14,12 @@ import ConfirmDelete from '@/components/ConfirmDelete';
 import NoInvoice from '@/components/NoInvoice';
 import InvoiceView from '@/components/InvoiceView';
 
+//import { TypedUseSelectorHook } from 'react-redux';
+import type {
+  RootState,
+  //AppDispatch
+} from '../../redux/store';
+
 export default function ViewInvoice() {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
@@ -22,8 +28,8 @@ export default function ViewInvoice() {
   const invoiceId: string = partsofpathname[partsofpathname.length - 1];
 
   const dispatch = useDispatch();
-  const invoice = useSelector((state) => state.invoice.invoice as [IInvoice]);
-  const invoiceStatus = useSelector((state) => state.invoice.status);
+  const invoice = useSelector((state: RootState) => state.invoice.invoice);
+  const invoiceStatus = useSelector((state: RootState) => state.invoice.status);
 
   const router = useRouter();
 

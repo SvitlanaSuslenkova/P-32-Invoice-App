@@ -29,23 +29,23 @@ export default function InvoiceCards() {
     if (invoicesStatus === 'idle') {
       dispatch(fetchInvoices());
     }
-  }, [dispatch, invoices]);
+  }, [dispatch, invoices, invoicesStatus]);
 
   /*Filters+(-deleted)*/
 
   useEffect(() => {
     if (invoicesStatus === 'succeeded') {
       if (filters.length > 0 && deletedId.length == 0) {
-        const newInvoices = invoices.filter((invoice) =>
+        const newInvoices = invoices.filter((invoice: IInvoice) =>
           filters.includes(invoice.status)
         );
         setFilteredInvoices(newInvoices);
       } else if (filters.length > 0 && deletedId.length > 0) {
-        const newInvoices = invoices.filter((invoice) =>
+        const newInvoices = invoices.filter((invoice: IInvoice) =>
           filters.includes(invoice.status)
         );
         const newInvoicesAfterDel = newInvoices.filter(
-          (invoice) => !deletedId.includes(invoice.id)
+          (invoice: IInvoice) => !deletedId.includes(invoice.id)
         );
         setFilteredInvoices(newInvoicesAfterDel);
       } else setFilteredInvoices([]);

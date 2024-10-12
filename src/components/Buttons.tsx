@@ -29,7 +29,7 @@ export const FilterButton = ({ onClick, isOpenMenu }: IFilterButton) => {
     </button>
   );
 };
-export const InvoiceButton = ({ onClick }) => {
+export const InvoiceButton = ({ onClick }: { onClick: () => void }) => {
   return (
     <button
       className={`justify-self-end flex justify-center items-center gap-2 md:gap-4 pr-4 h-11 p-1.5  rounded-3xl bg-primary text-primary-foreground 
@@ -65,7 +65,11 @@ export const GoBackButton = ({
   );
 };
 
-export const AddNewItemButton = ({ handleAddItem }) => {
+export const AddNewItemButton = ({
+  handleAddItem,
+}: {
+  handleAddItem: React.MouseEventHandler<HTMLButtonElement>;
+}) => {
   return (
     <button
       className={`flex justify-center items-center gap-2 md:gap-4 h-11 rounded-3xl 

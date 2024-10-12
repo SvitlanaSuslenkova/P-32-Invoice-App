@@ -36,11 +36,21 @@ const invoicesSlice = createSlice({
   name: 'invoices',
   initialState,
   reducers: {
-    setEditedInvoice: (state, action: PayloadAction<string>) => {
-      // const { payload } = action;
-      /*state.editedinvoices = state.invoices.filter(
+    setEditedInvoice: (state, action: PayloadAction<IInvoice>) => {
+      const { payload } = action;
+
+      /*  if (!state.invoices.includes(payload.id)) {
+        state.editedinvoices = [...state.invoices, payload];
+      } else if (state.invoices.includes(payload.id)) {
+        const newInvoices = state.invoices.filter(
+          (invoice) => !invoice.includes(payload.id)
+        );
+        state.editedinvoices = [...newInvoices, payload];
+      }*/
+
+      /* state.editedinvoices = state.invoices.filter(
         (invoice) => invoice.id !== payload
-      );*/
+      );
       /*  state.editedinvoices = state.invoices.filter(
         (invoice) => !payload.includes(invoice.id)
       );

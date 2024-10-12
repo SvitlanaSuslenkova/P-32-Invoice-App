@@ -3,6 +3,9 @@ import { RedButton, GreyButton } from './Buttons';
 export default function ConfirmDelete({
   setIsDeleteOpen,
   handleConfirmDelete,
+}: {
+  setIsDeleteOpen: (isDeleteOpen: boolean) => void;
+  handleConfirmDelete: () => void;
 }) {
   return (
     <div

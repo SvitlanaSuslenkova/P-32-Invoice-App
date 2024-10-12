@@ -1,4 +1,4 @@
-import { GreyButton, RedButton, PurpleButton, DarkButton } from './Buttons';
+import { GreyButton, RedButton, PurpleButton } from './Buttons';
 
 export const EditDeleteMark = ({ handleDelete }) => {
   return (

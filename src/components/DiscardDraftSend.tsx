@@ -1,7 +1,13 @@
 import { GreyButton, PurpleButton, DarkButton } from './Buttons';
 import { useFormContext } from 'react-hook-form';
 
-export const DiscardDraftSend = ({ handleGoBack, onSubmit }) => {
+export const DiscardDraftSend = ({
+  handleGoBack,
+  onSubmit,
+}: {
+  handleGoBack: () => void;
+  onSubmit: () => void;
+}) => {
   const {
     setValue,
     getValues,

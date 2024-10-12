@@ -8,6 +8,7 @@ export default function InvoiceView({
   handleDelete,
 }: {
   invoice: IInvoice;
+  handleDelete: () => void;
 }) {
   const items = invoice && invoice.items ? invoice.items : [];
 

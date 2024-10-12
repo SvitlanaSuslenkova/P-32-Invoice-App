@@ -19,14 +19,12 @@ export interface IInvoice {
     postCode: string;
     country: string;
   };
-  items: [
-    {
-      name: string;
-      quantity: number;
-      price: number;
-      total: number;
-    }
-  ];
+  items: {
+    name: string;
+    quantity: number;
+    price: number;
+    total: number;
+  }[];
   total: number;
 }
 
