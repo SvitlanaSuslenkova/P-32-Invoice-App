@@ -40,8 +40,6 @@ export default function ViewInvoice() {
     (state: RootState) => state.newInvoices.newInvoices
   );
 
-  // +++++ADD NEW INVOICES????
-
   const invoicesWithoutDeleted = () => {
     const i = invoices;
     if (deletedId && deletedId.length > 0) {

@@ -2,7 +2,11 @@
 
 import { promises as fs } from 'fs';
 
-const PATH_TO_INVOICES = 'src/data.json';
+import path from //, { join }
+'path';
+//import { cwd } from 'process';
+const PATH_TO_INVOICES = path.join(process.cwd(), 'src', 'data.json');
+//const PATH_TO_INVOICES = 'src/data.json';
 
 export const getInvoices = async () => {
   try {
