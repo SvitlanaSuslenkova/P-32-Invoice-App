@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchInvoices } from '@/app/redux/slices/invoicesSlice';
 import { setDeletedId } from '@/app/redux/slices/deletedIdSlice';
-//import { IInvoice } from '@/components/Types';
+
 import { useRouter } from 'next/navigation';
 import { EditDeleteMark } from '@/components/EditDeleteMark';
 import ConfirmDelete from '@/components/ConfirmDelete';
@@ -17,7 +17,7 @@ import InvoiceView from '@/components/InvoiceView';
 import { IInvoice } from '@/components/Types';
 
 //import { TypedUseSelectorHook } from 'react-redux';
-//import type { RootState, AppDispatch } from '../../redux/store';
+import type { RootState, AppDispatch } from '../../redux/store';
 
 export default function ViewInvoice() {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -28,8 +28,10 @@ export default function ViewInvoice() {
 
   const dispatch = useDispatch();
 
-  const invoicesStatus = useSelector((state) => state.invoices.status);
-  const invoices = useSelector((state) => state.invoices.invoices);
+  const invoicesStatus = useSelector(
+    (state: RootState) => state.invoices.status
+  );
+  const invoices = useSelector((state: RootState) => state.invoices.invoices);
   const router = useRouter();
   // +++++ADD NEW INVOICES????
 
