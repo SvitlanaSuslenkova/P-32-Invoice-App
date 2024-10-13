@@ -11,7 +11,7 @@ export const fetchInvoices = createAsyncThunk(
       return invoices;
     } catch (error) {
       dispatch(setError('Failed to fetch invoices'));
-      return rejectWithValue(error.message);
+      return rejectWithValue((error as Error).message);
     }
   }
 );

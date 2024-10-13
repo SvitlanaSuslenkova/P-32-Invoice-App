@@ -248,9 +248,11 @@ export default function NewInvoice({
                           cssClass="e-custom-style"
                           dateFormat="dd MMM yyyy"
                           selected={startDate}
-                          onChange={(date: Date) => {
-                            setStartDate(date);
-                            setValue(`createdAt`, formatDateBack(date));
+                          onChange={(date: Date | null) => {
+                            if (date !== null) {
+                              setStartDate(date);
+                              setValue(`createdAt`, formatDateBack(date));
+                            }
                           }}
                           className={`justify-self-stretch w-full min-w-full px-5 py-4 border rounded focus:outline-none focus:ring-1 focus:ring-primary hover:ring-1 hover:ring-primary black15 bg-[url('../images/icon-calendar.svg')] bg-[right_1rem_bottom_1rem] bg-no-repeat`}
                         />

@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IInvoice } from '@/components/Types';
 
 type NewInvoicesState = {
-  newInvoices: IInvoice[] | null;
+  newInvoices: IInvoice[] | [];
 };
 
 const initialState: NewInvoicesState = {

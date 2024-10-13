@@ -4,7 +4,11 @@ import {
   // PurpleButton
 } from './Buttons';
 
-export const EditDeleteMark = ({ handleDelete }) => {
+export const EditDeleteMark = ({
+  handleDelete,
+}: {
+  handleDelete: () => void;
+}) => {
   return (
     <div className={`flex flex-row gap-x-2`}>
       {/*<GreyButton text="Edit" /> */}
