@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { GoBackButton } from '../../../components/Buttons';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchInvoice } from '@/app/redux/slices/oneInvoiceSlice';
+//import { fetchInvoice } from '@/app/redux/slices/oneInvoiceSlice';
+
 import { fetchInvoices } from '@/app/redux/slices/invoicesSlice';
 import { setDeletedId } from '@/app/redux/slices/deletedIdSlice';
 //import { IInvoice } from '@/components/Types';
@@ -13,6 +14,7 @@ import ConfirmDelete from '@/components/ConfirmDelete';
 
 import NoInvoice from '@/components/NoInvoice';
 import InvoiceView from '@/components/InvoiceView';
+import { IInvoice } from '@/components/Types';
 
 //import { TypedUseSelectorHook } from 'react-redux';
 //import type { RootState, AppDispatch } from '../../redux/store';
@@ -25,21 +27,25 @@ export default function ViewInvoice() {
   const invoiceId: string = partsofpathname[partsofpathname.length - 1];
 
   const dispatch = useDispatch();
-  const invoice = useSelector((state) => state.invoice.invoice);
-  const invoiceStatus = useSelector((state) => state.invoice.status);
 
+  const invoicesStatus = useSelector((state) => state.invoices.status);
+  const invoices = useSelector((state) => state.invoices.invoices);
   const router = useRouter();
   // +++++ADD NEW INVOICES????
-  useEffect(() => {
-    dispatch(fetchInvoice(invoiceId));
-  }, [dispatch, invoiceId]);
 
   const handleGoBack = () => {
     router.back();
   };
 
-  const handleDelete = () => {
+  useEffect(() => {
     dispatch(fetchInvoices());
+  }, [dispatch, invoiceId]);
+
+  const invoice = invoices.filter(
+    (invoice: IInvoice) => invoiceId == invoice.id
+  );
+
+  const handleDelete = () => {
     setIsDeleteOpen(true);
   };
   const handleConfirmDelete = () => {
@@ -56,9 +62,9 @@ export default function ViewInvoice() {
         <div className={`h-20 grid content-center mt-1 md:mt-8 xl:mt-12`}>
           <GoBackButton onClick={handleGoBack} />
         </div>
-        {invoiceStatus === 'loading' ? (
+        {invoicesStatus === 'loading' ? (
           <p>Loading...</p>
-        ) : invoiceStatus === 'succeeded' && invoice.length == 1 ? (
+        ) : invoicesStatus === 'succeeded' && invoice ? (
           <InvoiceView invoice={invoice[0]} handleDelete={handleDelete} />
         ) : (
           <NoInvoice />

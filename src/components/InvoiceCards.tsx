@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useState, useEffect } from 'react';
 import InvoiceCard from './InvoiceCard';
 import Filter from './Filter';
@@ -14,26 +13,14 @@ import NewInvoice from './NewInvoice';
 export default function InvoiceCards() {
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
   const [isOpenNewInvoice, setIsOpenNewInvoice] = useState<boolean>(false);
-  const [invoicesToShow, setInvoicesToShow] = useState<IInvoice[] | null>([]);
 
   const dispatch = useDispatch();
-
   const invoices = useSelector((state) => state.invoices.invoices);
-  const editedInvoices = useSelector((state) => {
-    console.log(state);
-    return state.invoices.editedinvoices;
-  });
-  /* const editedInvoices = useSelector((state) => {
-      console.log(state);
-      return state.invoices.editedinvoices;
-    });*/
+
   const newInvoices = useSelector((state) => {
     console.log(state);
     return state.newInvoices.newInvoices;
   });
-
-  //const newInvoicesArray = editedInvoices || invoices;
-  const newInvoicesArray = [...invoices, ...newInvoices];
 
   const filters = useSelector((state) => state.filters.filters);
   const invoicesStatus = useSelector((state) => state.invoices.status);
@@ -41,64 +28,37 @@ export default function InvoiceCards() {
 
   const deletedId = useSelector((state) => state.deletedId.deletedId);
 
-  const [filteredInvoices, setFilteredInvoices] = useState([]);
   useEffect(() => {
     if (invoicesStatus === 'idle') {
       dispatch(fetchInvoices());
     }
   }, [dispatch, invoices, invoicesStatus]);
 
-  /*Filters+(-deleted)*/
+  const [invoicesToShow, setInvoicesToShow] = useState<IInvoice[] | null>([]);
+  const newInvoicesArray = [...invoices, ...newInvoices];
+
+  const newInvoicesArrayWithoutDeleted = () => {
+    if (deletedId && deletedId.length > 0) {
+      return newInvoicesArray.filter(
+        (invoice: IInvoice) => !deletedId.includes(invoice.id)
+      );
+    }
+    return newInvoicesArray;
+  };
+  const invoicesToShowArray = () => {
+    const filteredInvoices = newInvoicesArrayWithoutDeleted();
+
+    if (filters && filters.length > 0) {
+      return filteredInvoices.filter((invoice: IInvoice) =>
+        filters.includes(invoice.status)
+      );
+    }
+    return [];
+  };
 
   useEffect(() => {
-    if (invoicesStatus === 'succeeded') {
-      if (filters.length > 0 && deletedId.length == 0) {
-        const newInvoices = newInvoicesArray.filter((invoice: IInvoice) =>
-          filters.includes(invoice.status)
-        );
-        setFilteredInvoices(newInvoices);
-      } else if (filters.length > 0 && deletedId.length > 0) {
-        const newInvoices = newInvoicesArray.filter((invoice: IInvoice) =>
-          filters.includes(invoice.status)
-        );
-        const newInvoicesAfterDel = newInvoices.filter(
-          (invoice: IInvoice) => !deletedId.includes(invoice.id)
-        );
-        setFilteredInvoices(newInvoicesAfterDel);
-      } else setFilteredInvoices([]);
-      console.log('newInvoicesArray', newInvoicesArray);
-      console.log('editedInvoices', editedInvoices);
-    }
-  }, [newInvoices, filters, invoicesStatus, deletedId]);
-
-  /*
-  useEffect(() => {
-    if (invoicesStatus === 'succeeded') {
-      if (filters.length > 0 && deletedId.length == 0) {
-        const newInvoices = invoices.filter((invoice: IInvoice) =>
-          filters.includes(invoice.status)
-        );
-        setFilteredInvoices(newInvoices);
-      } else if (filters.length > 0 && deletedId.length > 0) {
-        const newInvoices = invoices.filter((invoice: IInvoice) =>
-          filters.includes(invoice.status)
-        );
-        const newInvoicesAfterDel = newInvoices.filter(
-          (invoice: IInvoice) => !deletedId.includes(invoice.id)
-        );
-        setFilteredInvoices(newInvoicesAfterDel);
-      } else setFilteredInvoices([]);
-    }
-  }, [invoices, filters, invoicesStatus, deletedId]);
-  */
-
-  useEffect(() => {
-    if (filteredInvoices && filteredInvoices.length > 0) {
-      setInvoicesToShow(filteredInvoices);
-    } else {
-      setInvoicesToShow([]);
-    }
-  }, [filteredInvoices]);
+    setInvoicesToShow(invoicesToShowArray);
+  }, [invoices, newInvoices, deletedId, filters]);
 
   const handleOpenNewInvoice = () => {
     setIsOpenNewInvoice(true);
@@ -135,10 +95,7 @@ export default function InvoiceCards() {
         ) : null}
       </div>
       {isOpenNewInvoice && (
-        <NewInvoice
-          setIsOpenNewInvoice={setIsOpenNewInvoice}
-          invoices={invoices}
-        />
+        <NewInvoice setIsOpenNewInvoice={setIsOpenNewInvoice} />
       )}
     </div>
   );
