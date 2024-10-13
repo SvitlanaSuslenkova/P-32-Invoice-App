@@ -248,7 +248,7 @@ export default function NewInvoice({
                           cssClass="e-custom-style"
                           dateFormat="dd MMM yyyy"
                           selected={startDate}
-                          onChange={(date) => {
+                          onChange={(date: Date) => {
                             setStartDate(date);
                             setValue(`createdAt`, formatDateBack(date));
                           }}
