@@ -8,25 +8,29 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchInvoices } from '../app/redux/slices/invoicesSlice';
 import NewInvoice from './NewInvoice';
 //import { TypedUseSelectorHook } from 'react-redux';
-//import type { RootState, AppDispatch } from '../app/redux/store';
+import type { RootState, AppDispatch } from '../app/redux/store';
 
 export default function InvoiceCards() {
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
   const [isOpenNewInvoice, setIsOpenNewInvoice] = useState<boolean>(false);
 
-  const dispatch = useDispatch();
-  const invoices = useSelector((state) => state.invoices.invoices);
+  const dispatch = useDispatch<AppDispatch>();
+  const invoices = useSelector((state: RootState) => state.invoices.invoices);
 
-  const newInvoices = useSelector((state) => {
+  const newInvoices = useSelector((state: RootState) => {
     console.log(state);
     return state.newInvoices.newInvoices;
   });
 
-  const filters = useSelector((state) => state.filters.filters);
-  const invoicesStatus = useSelector((state) => state.invoices.status);
+  const filters = useSelector((state: RootState) => state.filters.filters);
+  const invoicesStatus = useSelector(
+    (state: RootState) => state.invoices.status
+  );
   //const error = useSelector((state) => state.invoices.error);
 
-  const deletedId = useSelector((state) => state.deletedId.deletedId);
+  const deletedId = useSelector(
+    (state: RootState) => state.deletedId.deletedId
+  );
 
   useEffect(() => {
     if (invoicesStatus === 'idle') {

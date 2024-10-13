@@ -3,6 +3,7 @@ import Plus from '../images/icon-plus.svg';
 import ArrowDown from '../images/icon-arrow-down.svg';
 
 import ArrowLeft from '../images/icon-arrow-left.svg';
+import { MouseEventHandler } from 'react';
 
 interface IFilterButton {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
