@@ -17,7 +17,10 @@ import InvoiceView from '@/components/InvoiceView';
 import { IInvoice } from '@/components/Types';
 
 //import { TypedUseSelectorHook } from 'react-redux';
-import type { RootState, AppDispatch } from '../../redux/store';
+import type {
+  RootState,
+  //AppDispatch
+} from '../../redux/store';
 
 export default function ViewInvoice() {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
