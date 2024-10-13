@@ -7,7 +7,7 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -40,6 +40,8 @@ const config: Config = {
 
         muted: 'hsl(231, 36%, 63%)' /*purple+grey  moon*/,
         'muted-darker': 'hsl(231, 75%, 93%)',
+        'dark-background': 'hsl(233, 30%, 11%)',
+        'dark-header': 'hsl(233, 31%, 17%)',
 
         /*DARK MODE COLORS*/
         /*  background: 'hsl(233 30% 11%)',

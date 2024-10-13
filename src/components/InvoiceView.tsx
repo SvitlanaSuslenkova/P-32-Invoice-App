@@ -7,10 +7,12 @@ export default function InvoiceView({
   invoice,
   handleDelete,
   setIsEditOpen,
-}: {
+}: // onSubmit,
+{
   invoice: IInvoice;
   handleDelete: () => void;
   setIsEditOpen: (isEditOpen: boolean) => void;
+  // onSubmit: () => void;
 }) {
   const items = invoice && invoice.items ? invoice.items : [];
 
@@ -31,6 +33,9 @@ export default function InvoiceView({
             <EditDeleteMark
               handleDelete={handleDelete}
               setIsEditOpen={setIsEditOpen}
+              invoiceId={invoice.id}
+              invoice={invoice}
+              // onSubmit={onSubmit}
             />
           </div>
         </div>

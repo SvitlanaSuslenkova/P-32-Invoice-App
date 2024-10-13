@@ -19,9 +19,14 @@ import { IInvoice } from '@/components/Types';
 
 //import { TypedUseSelectorHook } from 'react-redux';
 import type { RootState, AppDispatch } from '../../redux/store';
+//import { setNewInvoices } from '@/app/redux/slices/newInvoicesSlice';
+//import { SubmitHandler } from 'react-hook-form';
+//import { useFormContext } from 'react-hook-form';
 
 export default function ViewInvoice() {
   const router = useRouter();
+
+  //const { handleSubmit } = useFormContext();
 
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
@@ -73,6 +78,12 @@ export default function ViewInvoice() {
     handleGoBack();
   };
 
+  /*const formSubmit: SubmitHandler<IInvoice> = ({ ...invoice }) => {
+    console.log({ ...invoice });
+    console.log('formSubmit');
+    dispatch(setNewInvoices({ ...invoice }));
+  };*/
+
   return (
     <>
       <div
@@ -88,6 +99,7 @@ export default function ViewInvoice() {
             invoice={invoice[0]}
             handleDelete={handleDelete}
             setIsEditOpen={setIsEditOpen}
+            // onSubmit={handleSubmit(formSubmit)}
           />
         ) : (
           <NoInvoice />
@@ -99,6 +111,9 @@ export default function ViewInvoice() {
         <EditDeleteMark
           handleDelete={handleDelete}
           setIsEditOpen={setIsEditOpen}
+          invoiceId={invoiceId}
+          //  onSubmit={handleSubmit(formSubmit)}
+          invoice={invoice[0]}
         />
       </div>
       {isDeleteOpen && (

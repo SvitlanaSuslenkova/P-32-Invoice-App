@@ -1,11 +1,21 @@
+'use client';
 import Image from 'next/image';
 import Avatar from '../images/image-avatar.jpg';
 import Moon from '../images/icon-moon.svg';
-//import Sun from '../images/icon-sun.svg'
+import { useState } from 'react';
+import Sun from '../images/icon-sun.svg';
+
 export default function Header() {
+  const [dark, setDark] = useState(false);
+
+  const darkModeHandler = () => {
+    setDark(!dark);
+    document.body.classList.toggle('dark');
+  };
+
   return (
     <header
-      className={`sm:fixed sm:top-0 sm:left-0 w-full z-10 flex h-h18 md:h-20 bg-header xl:flex-col xl:w-[6.44rem] xl:h-screen xl:rounded-r-b20`}
+      className={`sm:fixed sm:top-0 sm:left-0 w-full z-10 flex h-h18 md:h-20 bg-header dark:bg-dark-header xl:flex-col xl:w-[6.44rem] xl:h-screen xl:rounded-r-b20`}
     >
       <section
         className={`w-18 aspect-square bg-primary rounded-r-b20 overflow-hidden md:w-20   relative before:block 
@@ -20,14 +30,28 @@ export default function Header() {
       <section
         className={`grid place-content-center w-16 md:w-20 aspect-square ml-auto xl:mt-auto xl:w-full xl:ml-0`}
       >
-        <button className={`p-2 hover:brightness-150`}>
-          <Image
-            className={`rounded-full`}
-            src={Moon}
-            width={20}
-            height={20}
-            alt="profile image"
-          />
+        <button
+          className={`p-2 hover:brightness-150`}
+          onClick={darkModeHandler}
+        >
+          {dark && (
+            <Image
+              className={`rounded-full`}
+              src={Sun}
+              width={20}
+              height={20}
+              alt="light mode"
+            />
+          )}
+          {!dark && (
+            <Image
+              className={`rounded-full`}
+              src={Moon}
+              width={20}
+              height={20}
+              alt="dark mode"
+            />
+          )}
         </button>
       </section>
       <section
