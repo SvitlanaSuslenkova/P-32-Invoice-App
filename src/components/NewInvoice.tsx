@@ -19,7 +19,7 @@ import { formatDateBack, todayDay } from '@/app/actions/formatDate';
 import { nanoid } from 'nanoid';
 import { IInvoice } from './Types';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 //import { setEditedInvoice } from '@/app/redux/slices/invoicesSlice';
 import { setNewInvoices } from '@/app/redux/slices/newInvoicesSlice';
 
