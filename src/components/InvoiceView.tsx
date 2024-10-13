@@ -6,9 +6,11 @@ import { formatDate } from '@/app/actions/formatDate';
 export default function InvoiceView({
   invoice,
   handleDelete,
+  setIsEditOpen,
 }: {
   invoice: IInvoice;
   handleDelete: () => void;
+  setIsEditOpen: (isEditOpen: boolean) => void;
 }) {
   const items = invoice && invoice.items ? invoice.items : [];
 
@@ -26,7 +28,10 @@ export default function InvoiceView({
           </div>
 
           <div className={`hidden md:inline-block`}>
-            <EditDeleteMark handleDelete={handleDelete} />
+            <EditDeleteMark
+              handleDelete={handleDelete}
+              setIsEditOpen={setIsEditOpen}
+            />
           </div>
         </div>
       </div>

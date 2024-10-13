@@ -1,9 +1,9 @@
 'use client';
 import { MouseEvent, useState } from 'react';
-//import { GoBackButton } from './Buttons';
+import { GoBackButton } from './Buttons';
 import { Input } from './Input';
 import { AddNewItemButton } from './Buttons';
-import { DiscardDraftSend } from './DiscardDraftSend';
+import { CancelSave } from './CancelSave';
 import PaymentTermsMenu from './PaymentTermsMenu';
 import Image from 'next/image';
 import ArrowDown from '../images/icon-arrow-down.svg';
@@ -15,27 +15,27 @@ import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { schema } from './constants/zSchema';
-import { formatDateBack, todayDay } from '@/app/actions/formatDate';
+import { formatDateBack } from '@/app/actions/formatDate';
 import { nanoid } from 'nanoid';
 import { IInvoice } from './Types';
 
 import { useDispatch } from 'react-redux';
-//import { setEditedInvoice } from '@/app/redux/slices/invoicesSlice';
 import { setNewInvoices } from '@/app/redux/slices/newInvoicesSlice';
 
-export default function NewInvoice({
-  setIsOpenNewInvoice,
-}: //invoices,
-{
-  setIsOpenNewInvoice: (isOpenNewInvoice: boolean) => void;
-  // invoices: IInvoice[];
+export default function EditForm({
+  setIsEditOpen,
+  invoice,
+}: {
+  setIsEditOpen: (isEditOpen: boolean) => void;
+  invoice: IInvoice;
 }) {
   const dispatch = useDispatch();
+  const invoiceId = invoice.id;
   const [startDate, setStartDate] = useState(new Date());
   const [items, setItems] = useState([nanoid(6)]);
 
   const handleGoBack = () => {
-    setIsOpenNewInvoice(false);
+    setIsEditOpen(false);
   };
   const [isPaymentTermsMenu, setIsPaymentTermsMenu] = useState(false);
 
@@ -44,15 +44,39 @@ export default function NewInvoice({
   const methods = useForm<FormFields>({
     mode: 'onBlur',
     defaultValues: {
-      id: nanoid(6),
-      createdAt: todayDay(),
+      id: invoice.id,
+      createdAt: invoice.createdAt,
+      paymentDue: invoice.paymentDue,
+      description: invoice.description,
+      paymentTerms: invoice.paymentTerms,
+      clientName: invoice.clientName,
+      clientEmail: invoice.clientEmail,
+      status: invoice.status,
+      senderAddress: {
+        street: invoice.senderAddress.street,
+        city: invoice.senderAddress.city,
+        postCode: invoice.senderAddress.postCode,
+        country: invoice.senderAddress.country,
+      },
+      clientAddress: {
+        street: invoice.clientAddress.street,
+        city: invoice.clientAddress.city,
+        postCode: invoice.clientAddress.postCode,
+        country: invoice.clientAddress.country,
+      },
+      items: invoice.items.map((item) => ({
+        name: item.name,
+        quantity: item.quantity,
+        price: item.price,
+        total: item.total,
+      })),
+      total: invoice.total,
     },
+
     resolver: zodResolver(schema),
   });
 
   const {
-    // reset,
-    // resetField,
     register,
     unregister,
     handleSubmit,
@@ -157,15 +181,17 @@ export default function NewInvoice({
             sm:overflow-y-scroll scrollbar-track-card scrollbar-thin scrollbar-thumb-muted-darker `}
             >
               <div>
-                {/*  <div
+                <div
                   className={` h-20 grid content-center mt-1 sm:mt-4 xl:mt-8`}
                 >
                   <GoBackButton onClick={handleGoBack} />
-                </div>*/}
+                </div>
                 <h2
                   className={`font-bold text-2xl leading-8 text-foreground tracking-tight  capitalize`}
                 >
-                  New invoice
+                  Edit
+                  <span className={`text-card-foreground `}> #</span>
+                  <span>{invoice.id}</span>
                 </h2>
 
                 <section>
@@ -417,9 +443,10 @@ export default function NewInvoice({
               <div
                 className={`grid w-full   place-items-center  sm:place-items-end sm:rounded-r-b20 bg-card shadow-shadowUp   px-6 py-5 `}
               >
-                <DiscardDraftSend
-                  handleGoBack={handleGoBack}
+                <CancelSave
+                  setIsEditOpen={setIsEditOpen}
                   onSubmit={handleSubmit(formSubmit)}
+                  invoiceId={invoiceId}
                 />
               </div>
             </div>

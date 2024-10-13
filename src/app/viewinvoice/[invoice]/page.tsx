@@ -10,6 +10,7 @@ import { setDeletedId } from '@/app/redux/slices/deletedIdSlice';
 
 import { useRouter } from 'next/navigation';
 import { EditDeleteMark } from '@/components/EditDeleteMark';
+import EditForm from '@/components/EditForm';
 import ConfirmDelete from '@/components/ConfirmDelete';
 
 import NoInvoice from '@/components/NoInvoice';
@@ -21,7 +22,9 @@ import type { RootState, AppDispatch } from '../../redux/store';
 
 export default function ViewInvoice() {
   const router = useRouter();
+
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
 
   const pathname = usePathname();
   const partsofpathname = pathname.split('/');
@@ -81,7 +84,11 @@ export default function ViewInvoice() {
         {invoicesStatus === 'loading' ? (
           <p>Loading...</p>
         ) : invoicesStatus === 'succeeded' && invoice[0] ? (
-          <InvoiceView invoice={invoice[0]} handleDelete={handleDelete} />
+          <InvoiceView
+            invoice={invoice[0]}
+            handleDelete={handleDelete}
+            setIsEditOpen={setIsEditOpen}
+          />
         ) : (
           <NoInvoice />
         )}
@@ -89,13 +96,19 @@ export default function ViewInvoice() {
       <div
         className={`grid w-full place-items-center sm:pr-20 sm:place-items-end bg-card shadow-smsh mt-14  px-6 py-5 md:hidden`}
       >
-        <EditDeleteMark handleDelete={handleDelete} />
+        <EditDeleteMark
+          handleDelete={handleDelete}
+          setIsEditOpen={setIsEditOpen}
+        />
       </div>
       {isDeleteOpen && (
         <ConfirmDelete
           setIsDeleteOpen={setIsDeleteOpen}
           handleConfirmDelete={handleConfirmDelete}
         />
+      )}
+      {isEditOpen && (
+        <EditForm setIsEditOpen={setIsEditOpen} invoice={invoice[0]} />
       )}
     </>
   );
