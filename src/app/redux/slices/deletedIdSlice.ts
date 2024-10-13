@@ -13,7 +13,7 @@ const deletedIdSlice = createSlice({
   initialState,
   reducers: {
     setDeletedId: (state, action: PayloadAction<string>) => {
-      const { payload } = action; //const payload = action.payload;
+      const { payload } = action;
 
       if (state.deletedId === null) {
         state.deletedId = [payload];

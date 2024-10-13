@@ -39,18 +39,17 @@ export default function InvoiceCards() {
   }, [dispatch, invoices, invoicesStatus]);
 
   const [invoicesToShow, setInvoicesToShow] = useState<IInvoice[] | null>([]);
-  const newInvoicesArray = [...invoices, ...newInvoices];
-
-  const newInvoicesArrayWithoutDeleted = () => {
+  // DELETE NEW INVOICES???
+  const invoicesWithoutDeleted = () => {
+    const i = invoices;
     if (deletedId && deletedId.length > 0) {
-      return newInvoicesArray.filter(
-        (invoice: IInvoice) => !deletedId.includes(invoice.id)
-      );
+      return i.filter((invoice: IInvoice) => !deletedId.includes(invoice.id));
     }
-    return newInvoicesArray;
+    return i;
   };
+  const newInvoicesArray = [...invoicesWithoutDeleted(), ...newInvoices];
   const invoicesToShowArray = () => {
-    const filteredInvoices = newInvoicesArrayWithoutDeleted();
+    const filteredInvoices = newInvoicesArray;
 
     if (filters && filters.length > 0) {
       return filteredInvoices.filter((invoice: IInvoice) =>

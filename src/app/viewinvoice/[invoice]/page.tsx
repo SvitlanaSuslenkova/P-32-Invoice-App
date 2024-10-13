@@ -20,6 +20,7 @@ import { IInvoice } from '@/components/Types';
 import type { RootState, AppDispatch } from '../../redux/store';
 
 export default function ViewInvoice() {
+  const router = useRouter();
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
   const pathname = usePathname();
@@ -32,8 +33,23 @@ export default function ViewInvoice() {
     (state: RootState) => state.invoices.status
   );
   const invoices = useSelector((state: RootState) => state.invoices.invoices);
-  const router = useRouter();
+  const deletedId = useSelector(
+    (state: RootState) => state.deletedId.deletedId
+  );
+  const newInvoices = useSelector(
+    (state: RootState) => state.newInvoices.newInvoices
+  );
+
   // +++++ADD NEW INVOICES????
+
+  const invoicesWithoutDeleted = () => {
+    const i = invoices;
+    if (deletedId && deletedId.length > 0) {
+      return i.filter((invoice: IInvoice) => !deletedId.includes(invoice.id));
+    }
+    return i;
+  };
+  const newInvoicesArray = [...invoicesWithoutDeleted(), ...newInvoices];
 
   const handleGoBack = () => {
     router.back();
@@ -43,7 +59,7 @@ export default function ViewInvoice() {
     dispatch(fetchInvoices());
   }, [dispatch, invoiceId]);
 
-  const invoice = invoices.filter(
+  const invoice = newInvoicesArray.filter(
     (invoice: IInvoice) => invoiceId == invoice.id
   );
 
@@ -66,7 +82,7 @@ export default function ViewInvoice() {
         </div>
         {invoicesStatus === 'loading' ? (
           <p>Loading...</p>
-        ) : invoicesStatus === 'succeeded' && invoice ? (
+        ) : invoicesStatus === 'succeeded' && invoice[0] ? (
           <InvoiceView invoice={invoice[0]} handleDelete={handleDelete} />
         ) : (
           <NoInvoice />
