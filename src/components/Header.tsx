@@ -2,16 +2,18 @@
 import Image from 'next/image';
 import Avatar from '../images/image-avatar.jpg';
 import Moon from '../images/icon-moon.svg';
-import { useState } from 'react';
+//import { useState } from 'react';
+import { useDarkMode } from '@/app/actions/darkModeContext';
 import Sun from '../images/icon-sun.svg';
 
 export default function Header() {
-  const [dark, setDark] = useState(false);
+  const { dark, toggleDarkMode } = useDarkMode();
+  /*const [dark, setDark] = useState(false);
 
   const darkModeHandler = () => {
     setDark(!dark);
     document.body.classList.toggle('dark');
-  };
+  };*/
 
   return (
     <header
@@ -30,10 +32,7 @@ export default function Header() {
       <section
         className={`grid place-content-center w-16 md:w-20 aspect-square ml-auto xl:mt-auto xl:w-full xl:ml-0`}
       >
-        <button
-          className={`p-2 hover:brightness-150`}
-          onClick={darkModeHandler}
-        >
+        <button className={`p-2 hover:brightness-150`} onClick={toggleDarkMode}>
           {dark && (
             <Image
               className={`rounded-full`}

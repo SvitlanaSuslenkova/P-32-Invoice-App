@@ -18,12 +18,14 @@ export default function InvoiceView({
 
   return (
     <div className={`capitalize`}>
-      <div className={`bg-card mb-4 rounded-lg w-full shadow-smsh`}>
+      <div
+        className={`bg-card dark:bg-dark-header mb-4 rounded-lg w-full shadow-smsh`}
+      >
         <div
           className={`grid  md:grid-cols-[auto,auto] md:place-content-between p-6 md:p-8 xl:p-12  md:py-5 md:px-8 items-center `}
         >
           <div className={`md:w-40 grid grid-cols-2 items-center`}>
-            <span className={`grey13`}>Status</span>
+            <span className={`grey13 dark:text-muted-darker`}>Status</span>
             <span className={`justify-self-end`}>
               <Status status={invoice.status} />
             </span>
@@ -41,11 +43,11 @@ export default function InvoiceView({
         </div>
       </div>
       <div
-        className={`bg-card p-6 rounded-lg w-full shadow-smsh grey13 md:p-8 xl:p-12`}
+        className={`bg-card dark:bg-dark-header p-6 rounded-lg w-full shadow-smsh grey13 dark:text-muted-darker md:p-8 xl:p-12`}
       >
         <div className={`md:grid md:grid-cols-2 `}>
           <section className={`mb-7 md:content-center`}>
-            <p className={`black15 mb-1`}>
+            <p className={`black15 dark:text-primary-foreground mb-1`}>
               <span className={`text-card-foreground `}>#</span>
               {invoice.id}
             </p>
@@ -66,16 +68,22 @@ export default function InvoiceView({
             <article className={`grid h-full content-between `}>
               <div>
                 <p className={`mb-3`}>Invoice date</p>
-                <p className={`black15`}>{formatDate(invoice.createdAt)}</p>
+                <p className={`black15 dark:text-primary-foreground`}>
+                  {formatDate(invoice.createdAt)}
+                </p>
               </div>
               <div>
                 <p className={`mb-3`}>Payment due</p>
-                <p className={`black15`}>{formatDate(invoice.paymentDue)}</p>
+                <p className={`black15 dark:text-primary-foreground`}>
+                  {formatDate(invoice.paymentDue)}
+                </p>
               </div>
             </article>
             <article>
               <p className={`mb-3`}>Bill to</p>
-              <p className={`black15 mb-2`}>{invoice.clientName}</p>
+              <p className={`black15 dark:text-primary-foreground mb-2`}>
+                {invoice.clientName}
+              </p>
               <p className={`mb-1`}>{invoice.clientAddress.street}</p>
               <p className={`mb-1`}>{invoice.clientAddress.city}</p>
               <p className={`mb-1`}>{invoice.clientAddress.postCode}</p>
@@ -84,11 +92,13 @@ export default function InvoiceView({
           </div>
           <div>
             <p className={`mb-7 md:mb-3`}>Sent to</p>
-            <p className={`black15 normal-case`}>{invoice.clientEmail}</p>
+            <p className={`black15 dark:text-primary-foreground normal-case`}>
+              {invoice.clientEmail}
+            </p>
           </div>
         </div>
 
-        <div className={`bg-secondary rounded-lg`}>
+        <div className={`bg-secondary dark:bg-dark-filter rounded-lg`}>
           <section className={`p-6 pb-0 rounded-t-lg mt-7`}>
             <div
               className={`hidden md:grid md:grid-cols-[3fr,1.5fr,1.5fr,1.5fr] md:mb-6 w-full`}
@@ -106,9 +116,11 @@ export default function InvoiceView({
                   className={`grid grid-cols-2 mb-6 md:grid-cols-[6fr,1.5fr]`}
                 >
                   <div className={`md:grid md:grid-cols-2`}>
-                    <p className={`black15 mb-1`}>{item.name}</p>
+                    <p className={`black15 dark:text-primary-foreground mb-1`}>
+                      {item.name}
+                    </p>
                     <div
-                      className={`black15 text-muted flex md:grid md:grid-cols-2  md:w-full`}
+                      className={`black15 dark:text-primary-foreground text-muted flex md:grid md:grid-cols-2  md:w-full`}
                     >
                       <p className={`md:text-center`}>{item.quantity} </p>
                       <p className={`lowercase md:hidden text-center w-4 `}>
@@ -120,7 +132,9 @@ export default function InvoiceView({
                       </p>
                     </div>
                   </div>
-                  <p className={`black15 self-center justify-self-end`}>
+                  <p
+                    className={`black15 dark:text-primary-foreground self-center justify-self-end`}
+                  >
                     <span>£ </span>
                     <span>{(item.price * item.quantity).toFixed(2)}</span>
                   </p>
@@ -128,7 +142,7 @@ export default function InvoiceView({
               ))}
           </section>
           <section
-            className={`text-primary-foreground grid grid-cols-[auto,auto] items-center place-content-between  bg-secondary-accent p-6 rounded-b-lg`}
+            className={`text-primary-foreground grid grid-cols-[auto,auto] items-center place-content-between  bg-secondary-accent dark:bg-foreground p-6 rounded-b-lg`}
           >
             <p className={`leading-sm5 `}>Grand Total</p>
             <p className={`text-2xl  text-bold leading-8 tracking-[-0.02em]`}>

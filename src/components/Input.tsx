@@ -28,20 +28,22 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         <div className={`grid items-end grid-cols-[auto,auto] gap-x-0.5`}>
           <label
             htmlFor={name}
-            className={`grey13 capitalize ${errorMessage ? 'text-delete' : ''}`}
+            className={`grey13 dark:text-muted-darker capitalize ${
+              errorMessage ? 'text-delete dark:text-delete' : ''
+            }`}
           >
             {label}
           </label>
           {errorMessage && (
-            <p className={`text-delete text-xs text-right`}>{errorMessage}</p>
+            <p className={`text-delete  text-xs text-right`}>{errorMessage}</p>
           )}
         </div>
         <input
           name={name}
           id={name}
           type={type}
-          className={`appearance-none overflow-visible mt-2 w-full px-5 py-4 border rounded focus:outline-none focus:ring-1 focus:ring-primary hover:ring-1 hover:ring-primary hover:cursor-pointer black15 ${
-            errorMessage ? 'border-delete' : 'border-muted-darker'
+          className={`dark:bg-dark-header dark:border-dark-filter  dark:text-primary-foreground appearance-none overflow-visible mt-2 w-full px-5 py-4 border rounded focus:outline-none focus:ring-1 focus:ring-primary hover:ring-1 hover:ring-primary hover:cursor-pointer black15 ${
+            errorMessage ? 'border-delete dark:border-delete' : ''
           }`}
           ref={ref} // forward the ref to the actual input element
           onChange={onChange}
@@ -51,6 +53,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     );
   }
 );
+//'border-muted-darker dark:border-dark-filter dark:bg-dark-header dark:text-primary-foreground
 
-// Provide a displayName for the component for better debugging
 Input.displayName = 'Input';

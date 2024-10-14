@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Providers } from './redux/providers';
 import Header from '../components/Header';
+import { DarkModeProvider } from './actions/darkModeContext';
 
 //import localFont from "next/font/local";
 import './globals.css';
@@ -19,18 +20,26 @@ export default function RootLayout({
 }>) {
   return (
     <Providers>
-      <html lang="en">
-        <body
-          className={`${fontLeagueSpartan.variable} ${fontFredoka.variable} antialiased grid content-start grid-cols-1 xl:grid-cols-[auto]   min-h-svh text-foreground bg-background dark:bg-dark-background min-w-80`}
-        >
-          <Header />
-          <main
-            className={`grid justify-items-center w-full h-full content-start`}
+      <DarkModeProvider>
+        <html lang="en">
+          <body
+            className={`${fontLeagueSpartan.variable} ${fontFredoka.variable} antialiased `}
           >
-            {children}
-          </main>
-        </body>
-      </html>
+            <div
+              className={`grid content-start grid-cols-1 xl:grid-cols-[auto]   min-h-svh text-foreground dark:text-primary-foreground
+                 bg-background dark:bg-dark-background min-w-80`}
+            >
+              <Header />
+
+              <main
+                className={`grid justify-items-center w-full h-full content-start`}
+              >
+                {children}
+              </main>
+            </div>
+          </body>
+        </html>
+      </DarkModeProvider>
     </Providers>
   );
 }

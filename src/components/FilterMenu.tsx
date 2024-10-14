@@ -26,7 +26,7 @@ const FilterMenu = ({ filters }: { filters: string | null | string[] }) => {
 
   return (
     <div
-      className={`absolute top-14 right-1/4 sm:top-14 sm:right-1/4 md:top-28 md:right-52 2xl:right-[16.9rem] z-2 w-48 h-32 p-6 rounded-lg bg-card shadow-bsh `}
+      className={`dark:bg-dark-filter absolute top-14 right-1/4 sm:top-14 sm:right-1/4 md:top-28 md:right-52 2xl:right-[16.9rem] z-2 w-48 h-32 p-6 rounded-lg bg-card shadow-bsh dark:shadow-dark-bsh`}
     >
       <ul className={`grid  place-content-between items-center w-full h-full`}>
         {statuses.map((status) => (
@@ -39,7 +39,7 @@ const FilterMenu = ({ filters }: { filters: string | null | string[] }) => {
               onClick={(e) =>
                 handleFilter(e as React.MouseEvent<HTMLButtonElement>)
               }
-              className={`w-4 h-4 rounded-sm cursor-pointer appearance-none bg-muted-darker border-muted hover:border  hover:border-primary  
+              className={`w-4 h-4 rounded-sm cursor-pointer appearance-none bg-muted-darker dark:bg-dark-header border-muted hover:border  hover:border-primary  
        checked:appearance-auto checked:accent-primary `}
             />
             <label

@@ -1,3 +1,4 @@
+'use client';
 import { GreyButton, PurpleButton } from './Buttons';
 import { useFormContext } from 'react-hook-form';
 import { useDispatch } from 'react-redux';

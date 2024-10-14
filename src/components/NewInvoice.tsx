@@ -145,16 +145,17 @@ export default function NewInvoice({
 
   return (
     <div
-      className={`sm:overflow-hidden absolute left-0 top-[4.5rem] grid place-items-start   md:top-[5rem] xl:top-0 xl:left-[6.44rem]  z-2 w-full h-svh bg-black bg-opacity-50  min-w-80`}
+      className={`sm:overflow-hidden absolute left-0 top-[4.5rem] grid place-items-start   md:top-[5rem] xl:top-0 xl:left-[6.44rem]  z-2 
+        w-full xl:w-[calc(100vw-6.44rem)] h-svh  sm:h-[calc(100vh-5rem)] xl:h-full bg-black bg-opacity-50  min-w-80`}
     >
       <div
-        className={` sm:flex bg-card sm:h-[calc(100vh-8rem)] pr-4 sm:absolute sm:rounded-r-b20`}
+        className={` sm:flex bg-card dark:bg-dark-background sm:h-[calc(100vh-8rem)]   pr-4 sm:absolute sm:rounded-r-b20`}
       >
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(formSubmit)}>
             <div
-              className={` pl-6 pr-2 w-full h-full  bg-card max-w-[37.5rem] sm:h-[calc(100vh-8rem)] sm:rounded-r-b20 
-            sm:overflow-y-scroll scrollbar-track-card scrollbar-thin scrollbar-thumb-muted-darker `}
+              className={` pl-6 pr-2 w-full h-full  bg-card dark:bg-dark-background max-w-[37.5rem] sm:h-[calc(100vh-8.5rem)]   sm:rounded-r-b20 
+            sm:overflow-y-scroll  dark:scrollbar-track-dark-background scrollbar-track-card scrollbar-thumb-muted-darker dark:scrollbar-thumb-dark-filter scrollbar-thin`}
             >
               <div>
                 {/*  <div
@@ -163,7 +164,7 @@ export default function NewInvoice({
                   <GoBackButton onClick={handleGoBack} />
                 </div>*/}
                 <h2
-                  className={`font-bold text-2xl leading-8 text-foreground tracking-tight  capitalize`}
+                  className={`font-bold text-2xl leading-8 mt-4 text-foreground dark:text-primary-foreground tracking-tight  capitalize`}
                 >
                   New invoice
                 </h2>
@@ -239,7 +240,9 @@ export default function NewInvoice({
                   >
                     <article>
                       <div className={`mb-4 w-full grid`}>
-                        <p className={`grey13 capitalize mt-1 mb-3`}>
+                        <p
+                          className={`grey13 capitalize mt-1 mb-3 dark:text-muted-darker`}
+                        >
                           Invoice date
                         </p>
                         <DatePicker
@@ -252,7 +255,7 @@ export default function NewInvoice({
                               setValue(`createdAt`, formatDateBack(date));
                             }
                           }}
-                          className={`justify-self-stretch w-full min-w-full px-5 py-4 border rounded focus:outline-none focus:ring-1 focus:ring-primary hover:ring-1 hover:ring-primary black15 bg-[url('../images/icon-calendar.svg')] bg-[right_1rem_bottom_1rem] bg-no-repeat`}
+                          className={`justify-self-stretch w-full min-w-full px-5 py-4 border dark:bg-dark-header dark:border-dark-filter dark:text-primary-foreground rounded focus:outline-none focus:ring-1 focus:ring-primary hover:ring-1 hover:ring-primary black15 bg-[url('../images/icon-calendar.svg')] bg-[right_1rem_bottom_1rem] bg-no-repeat`}
                         />
                       </div>
                     </article>
@@ -262,7 +265,7 @@ export default function NewInvoice({
                         className={`grid items-end grid-cols-[auto,auto] gap-x-0.5`}
                       >
                         <p
-                          className={`grey13 capitalize mt-1 mb-1  ${
+                          className={`grey13 dark:text-muted-darker capitalize mt-1 mb-1  ${
                             errors.paymentTerms ? 'text-delete' : ''
                           }`}
                         >
@@ -276,8 +279,10 @@ export default function NewInvoice({
                         )}
                       </div>
                       <button
-                        className={`grid grid-cols-2 items-center text-left capitalize mt-2 w-full h-14 px-5 py-4 border ${
-                          errors.paymentTerms ? 'border-delete' : ''
+                        className={`dark:bg-dark-header dark:text-primary-foreground grid grid-cols-2 items-center text-left capitalize mt-2 w-full h-14 px-5 py-4 border ${
+                          errors.paymentTerms
+                            ? 'border-delete'
+                            : 'dark:border-dark-filter'
                         } rounded focus:outline-none focus:ring-1 focus:ring-primary hover:ring-1 hover:ring-primary hover:cursor-pointer black15`}
                         onClick={(e) => {
                           e.preventDefault();
@@ -325,7 +330,7 @@ export default function NewInvoice({
                     Item list
                   </p>
                   <div
-                    className={`hidden sm:grid sm:grid-cols-[4fr,1.5fr,2fr,2fr,1fr] sm:gap-4 sm:mb-6 w-full grey13`}
+                    className={`hidden sm:grid sm:grid-cols-[4fr,1.5fr,2fr,2fr,1fr] sm:gap-4 sm:mb-6 w-full grey13 dark:text-muted-darker`}
                   >
                     <p>Item name</p>
                     <p className={`text-center sm:text-left`}>Qty.</p>
@@ -338,7 +343,7 @@ export default function NewInvoice({
                       className={`grid items-end grid-cols-[4fr,6fr,4fr,2fr]  sm:grid-cols-[4fr,1.5fr,2fr,2fr,1fr] gap-4 mb-8`}
                     >
                       <p
-                        className={`grey13 capitalize sm:hidden col-span-4 sm:col-span-1 mb-[-0.8rem]`}
+                        className={`grey13 dark:text-muted-darker capitalize sm:hidden col-span-4 sm:col-span-1 mb-[-0.8rem]`}
                       >
                         Item name
                       </p>
@@ -347,7 +352,9 @@ export default function NewInvoice({
                         {...register(`items.${index}.name`)}
                         errorMessage={errors?.items?.[index]?.name?.message}
                       />
-                      <p className={`grey13 capitalize sm:hidden mb-[-0.8rem]`}>
+                      <p
+                        className={`grey13 dark:text-muted-darker capitalize sm:hidden mb-[-0.8rem]`}
+                      >
                         Qty.
                       </p>
                       <Input
@@ -358,7 +365,9 @@ export default function NewInvoice({
                         })}
                         errorMessage={errors?.items?.[index]?.quantity?.message}
                       />
-                      <p className={`grey13 capitalize sm:hidden mb-[-0.8rem]`}>
+                      <p
+                        className={`grey13 dark:text-muted-darker capitalize sm:hidden mb-[-0.8rem]`}
+                      >
                         Price
                       </p>
                       <Input
@@ -369,7 +378,9 @@ export default function NewInvoice({
                         })}
                         errorMessage={errors?.items?.[index]?.price?.message}
                       />
-                      <p className={`grey13 capitalize sm:hidden mb-[-0.8rem]`}>
+                      <p
+                        className={`grey13 dark:text-muted-darker capitalize sm:hidden mb-[-0.8rem]`}
+                      >
                         Total
                       </p>
 
@@ -412,10 +423,10 @@ export default function NewInvoice({
               </div>
             </div>
             <div
-              className={`sm:fixed sm:left-0 xl:left-[6.44rem] sm:bottom-0 pt-14 w-full max-w-[38.5rem] bg-card sm:rounded-br-b20 `}
+              className={`sm:fixed sm:left-0 xl:left-[6.44rem] sm:bottom-0 pt-14 w-full max-w-[38.5rem] bg-card dark:bg-dark-background sm:rounded-br-b20 `}
             >
               <div
-                className={`grid w-full   place-items-center  sm:place-items-end sm:rounded-r-b20 bg-card shadow-shadowUp   px-6 py-5 `}
+                className={`grid w-full   place-items-center  sm:place-items-end sm:rounded-r-b20 bg-card dark:bg-dark-background shadow-shadowUp   px-6 py-5 `}
               >
                 <DiscardDraftSend
                   handleGoBack={handleGoBack}

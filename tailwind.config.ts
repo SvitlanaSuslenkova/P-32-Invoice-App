@@ -42,6 +42,7 @@ const config: Config = {
         'muted-darker': 'hsl(231, 75%, 93%)',
         'dark-background': 'hsl(233, 30%, 11%)',
         'dark-header': 'hsl(233, 31%, 17%)',
+        'dark-filter': 'hsl(233, 30%, 21%)',
 
         /*DARK MODE COLORS*/
         /*  background: 'hsl(233 30% 11%)',
@@ -50,7 +51,7 @@ const config: Config = {
         card: 'hsl(233 31% 17%)',
         'card-foreground': 'hsl(0 0% 100%)',
 
-        secondary: 'hsl(233 30% 21%)',
+        
         'secondary-accent': 'hsl(231 28% 7%)',
 
         header: 'hsl(233 31% 17%)',
@@ -82,6 +83,7 @@ const config: Config = {
         smsh: '0px 10px 10px -10px hsl(231, 38%, 45%, 0.1)',
         bsh: '0px 10px 20px 0px hsl(231, 38%, 45%, 0.25)',
         shadowUp: '0px -20px 20px 0px hsla(231, 38%, 45%, 0.1)',
+        'dark-bsh': '0px 10px 20px 0px hsla(0, 0%, 0%, 0.25)',
       },
     },
   },
