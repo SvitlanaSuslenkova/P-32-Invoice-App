@@ -102,7 +102,7 @@ export default function NewInvoice({
       setValue(`paymentDue`, formatDateBack(DueDate).toString());
     }
   }
-  countPaymentDue(paymentTerms, startDate);
+  countPaymentDue(Number(paymentTerms), startDate);
 
   function itemTotal(index: number) {
     const price = watch(`items.${index}.price`);
@@ -479,7 +479,6 @@ export default function NewInvoice({
                 <DiscardDraftSend
                   handleGoBack={handleGoBack}
                   onSubmit={handleSubmit(formSubmit)}
-                  haveErrors={haveErrors()}
                 />
               </div>
             </div>

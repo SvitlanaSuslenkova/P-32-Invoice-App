@@ -125,7 +125,7 @@ export default function EditForm({
       setValue(`paymentDue`, formatDateBack(DueDate).toString());
     }
   }
-  countPaymentDue(paymentTerms, startDate);
+  countPaymentDue(Number(paymentTerms), startDate);
 
   function itemTotal(index: number) {
     const price = watch(`items.${index}.price`);
@@ -343,7 +343,7 @@ export default function EditForm({
                           <p>
                             <span>Net </span>
                             {paymentTerms}
-                            {paymentTerms == 1 ? (
+                            {paymentTerms == '1' ? (
                               <span> day</span>
                             ) : (
                               <span> days</span>
