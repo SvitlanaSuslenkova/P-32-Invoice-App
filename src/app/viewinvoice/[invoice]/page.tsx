@@ -1,23 +1,17 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { GoBackButton } from '../../../components/Buttons';
 import { useDispatch, useSelector } from 'react-redux';
-
-//import { fetchInvoices } from '@/app/redux/slices/invoicesSlice';
-import { setDeletedId } from '@/app/redux/slices/deletedIdSlice';
-
 import { useRouter } from 'next/navigation';
 import { EditDeleteMark } from '@/components/EditDeleteMark';
 import EditForm from '@/components/EditForm';
 import ConfirmDelete from '@/components/ConfirmDelete';
-
 import NoInvoice from '@/components/NoInvoice';
-import Loading from '@/components/Loading';
+//import Loading from '@/components/Loading';
 import InvoiceView from '@/components/InvoiceView';
 import { IInvoice } from '@/components/Types';
-
-//import { TypedUseSelectorHook } from 'react-redux';
+import { setDeletedId } from '@/app/redux/slices/deletedIdSlice';
 import type { RootState, AppDispatch } from '../../redux/store';
 //import { setNewInvoices } from '@/app/redux/slices/newInvoicesSlice';
 //import { SubmitHandler } from 'react-hook-form';
@@ -60,10 +54,6 @@ export default function ViewInvoice() {
   const handleGoBack = () => {
     router.back();
   };
-
-  /*useEffect(() => {
-    dispatch(fetchInvoices());
-  }, [dispatch, invoiceId]);*/
 
   const invoice = newInvoicesArray.filter(
     (invoice: IInvoice) => invoiceId == invoice.id

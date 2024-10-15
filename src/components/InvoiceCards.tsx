@@ -3,10 +3,13 @@ import React, { useState, useEffect } from 'react';
 import InvoiceCard from './InvoiceCard';
 import Filter from './Filter';
 import NoInvoice from './NoInvoice';
-import Loading from './Loading';
+//import Loading from './Loading';
 import { IInvoice } from './Types';
 
-import { useDispatch, useSelector } from 'react-redux';
+import {
+  //useDispatch,
+  useSelector,
+} from 'react-redux';
 //import { fetchInvoices } from '../app/redux/slices/invoicesSlice';
 import NewInvoice from './NewInvoice';
 //import { TypedUseSelectorHook } from 'react-redux';
@@ -28,9 +31,9 @@ export default function InvoiceCards() {
   });
 
   const filters = useSelector((state: RootState) => state.filters.filters);
-  const invoicesStatus = useSelector(
+  /* const invoicesStatus = useSelector(
     (state: RootState) => state.invoices.status
-  );
+  );*/
   //const error = useSelector((state) => state.invoices.error);
 
   const deletedId = useSelector(

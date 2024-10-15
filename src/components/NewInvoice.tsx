@@ -143,7 +143,7 @@ export default function NewInvoice({
     console.log(values);
     console.log('formSubmit');
   };*/
-  const zodErrors = Object.keys(errors).length;
+
   return (
     <div
       className={`sm:overflow-hidden absolute left-0 top-[4.5rem] grid place-items-start   md:top-[5rem] xl:top-0 xl:left-[6.44rem]  z-2 
@@ -432,7 +432,6 @@ export default function NewInvoice({
                 <DiscardDraftSend
                   handleGoBack={handleGoBack}
                   onSubmit={handleSubmit(formSubmit)}
-                  zodErrors={zodErrors}
                 />
               </div>
             </div>
