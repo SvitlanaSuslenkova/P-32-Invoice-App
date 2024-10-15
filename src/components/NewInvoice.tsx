@@ -335,7 +335,7 @@ export default function NewInvoice({
                           <p>
                             <span>Net </span>
                             {paymentTerms}
-                            {paymentTerms == '1' ? (
+                            {paymentTerms == 1 ? (
                               <span> day</span>
                             ) : (
                               <span> days</span>

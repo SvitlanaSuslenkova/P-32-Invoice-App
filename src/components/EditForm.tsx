@@ -52,7 +52,7 @@ export default function EditForm({
       createdAt: invoice.createdAt,
       paymentDue: invoice.paymentDue,
       description: invoice.description,
-      paymentTerms: invoice.paymentTerms.toString(),
+      paymentTerms: invoice.paymentTerms,
       clientName: invoice.clientName,
       clientEmail: invoice.clientEmail,
       status: invoice.status,
@@ -343,7 +343,7 @@ export default function EditForm({
                           <p>
                             <span>Net </span>
                             {paymentTerms}
-                            {paymentTerms == '1' ? (
+                            {paymentTerms == 1 ? (
                               <span> day</span>
                             ) : (
                               <span> days</span>

@@ -2,8 +2,6 @@
 import { GreyButton, PurpleButton } from './Buttons';
 import { useFormContext } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-//import { setDeletedId } from '@/app/redux/slices/deletedIdSlice';
-
 import type { AppDispatch } from '@/app/redux/store';
 import { setDeletedInvoices } from '@/app/redux/slices/invoicesSlice';
 
@@ -19,13 +17,7 @@ export const CancelSave = ({
   const {
     trigger,
     getValues,
-    formState: {
-      errors,
-      isSubmitting,
-      // isSubmitted
-
-      // , isSubmitted
-    },
+    formState: { errors, isSubmitting },
   } = useFormContext();
   const dispatch = useDispatch<AppDispatch>();
 
@@ -46,9 +38,6 @@ export const CancelSave = ({
   const savehandler = (e: React.MouseEvent) => {
     e.preventDefault();
     triggerForm();
-    // onSubmit();
-    //handleReturn();
-    //setIsEditOpen(false);
   };
   return (
     <div className={`flex flex-row gap-x-2`}>

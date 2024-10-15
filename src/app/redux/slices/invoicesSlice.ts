@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 //import { setError } from './errorSlice';
 import { IInvoice } from '../../../components/Types';
+
 import defaultInvoices from '../../../data.json';
 //import { setNewInvoices } from './newInvoicesSlice';
 type InvoicesState = {
