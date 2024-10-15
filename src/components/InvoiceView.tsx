@@ -1,18 +1,18 @@
+'use client';
+
 import { EditDeleteMark } from './EditDeleteMark';
 import Status from './Status';
 import { IInvoice, Iitem } from './Types';
 import { formatDate } from '@/app/actions/formatDate';
 
 export default function InvoiceView({
-  invoice,
   handleDelete,
   setIsEditOpen,
-}: // onSubmit,
-{
+  invoice,
+}: {
   invoice: IInvoice;
   handleDelete: () => void;
   setIsEditOpen: (isEditOpen: boolean) => void;
-  // onSubmit: () => void;
 }) {
   const items = invoice && invoice.items ? invoice.items : [];
 
@@ -37,7 +37,6 @@ export default function InvoiceView({
               setIsEditOpen={setIsEditOpen}
               invoiceId={invoice.id}
               invoice={invoice}
-              // onSubmit={onSubmit}
             />
           </div>
         </div>

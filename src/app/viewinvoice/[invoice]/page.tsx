@@ -11,7 +11,8 @@ import NoInvoice from '@/components/NoInvoice';
 //import Loading from '@/components/Loading';
 import InvoiceView from '@/components/InvoiceView';
 import { IInvoice } from '@/components/Types';
-import { setDeletedId } from '@/app/redux/slices/deletedIdSlice';
+//import { setDeletedId } from '@/app/redux/slices/deletedIdSlice';
+import { setDeletedInvoices } from '@/app/redux/slices/invoicesSlice';
 import type { RootState, AppDispatch } from '../../redux/store';
 //import { setNewInvoices } from '@/app/redux/slices/newInvoicesSlice';
 //import { SubmitHandler } from 'react-hook-form';
@@ -34,36 +35,42 @@ export default function ViewInvoice() {
   /* const invoicesStatus = useSelector(
     (state: RootState) => state.invoices.status
   );*/
-  const invoices = useSelector((state: RootState) => state.invoices.invoices);
-  const deletedId = useSelector(
+  //const invoices = useSelector((state: RootState) => state.invoices.invoices);
+  const editedinvoices = useSelector(
+    (state: RootState) => state.invoices.editedinvoices
+  );
+  const invoice = editedinvoices.filter(
+    (invoice: IInvoice) => invoiceId == invoice.id
+  );
+  /* const deletedId = useSelector(
     (state: RootState) => state.deletedId.deletedId
-  );
-  const newInvoices = useSelector(
+  );*/
+  /* const newInvoices = useSelector(
     (state: RootState) => state.newInvoices.newInvoices
-  );
+  );*/
 
-  const invoicesWithoutDeleted = () => {
+  /* const invoicesWithoutDeleted = () => {
     const i = invoices;
     if (deletedId && deletedId.length > 0) {
       return i.filter((invoice: IInvoice) => !deletedId.includes(invoice.id));
     }
     return i;
   };
-  const newInvoicesArray = [...invoicesWithoutDeleted(), ...newInvoices];
+  const newInvoicesArray = [...invoicesWithoutDeleted(), ...newInvoices];*/
 
   const handleGoBack = () => {
     router.back();
   };
 
-  const invoice = newInvoicesArray.filter(
+  /* const invoice = newInvoicesArray.filter(
     (invoice: IInvoice) => invoiceId == invoice.id
-  );
+  );*/
 
   const handleDelete = () => {
     setIsDeleteOpen(true);
   };
   const handleConfirmDelete = () => {
-    dispatch(setDeletedId(invoiceId));
+    dispatch(setDeletedInvoices(invoiceId));
     setIsDeleteOpen(false);
     handleGoBack();
   };
@@ -84,6 +91,7 @@ export default function ViewInvoice() {
         </div>
         {invoice[0] ? (
           <InvoiceView
+            // invoiceId={invoice[0].id}
             invoice={invoice[0]}
             handleDelete={handleDelete}
             setIsEditOpen={setIsEditOpen}

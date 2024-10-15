@@ -23,12 +23,15 @@ export default function InvoiceCards() {
   const [isOpenNewInvoice, setIsOpenNewInvoice] = useState<boolean>(false);
 
   // const dispatch = useDispatch<AppDispatch>();
-  const invoices = useSelector((state: RootState) => state.invoices.invoices);
+  //const invoices = useSelector((state: RootState) => state.invoices.invoices);
+  const edittedInvoices = useSelector(
+    (state: RootState) => state.invoices.editedinvoices
+  );
 
-  const newInvoices = useSelector((state: RootState) => {
+  /*const newInvoices = useSelector((state: RootState) => {
     console.log(state);
     return state.newInvoices.newInvoices;
-  });
+  });*/
 
   const filters = useSelector((state: RootState) => state.filters.filters);
   /* const invoicesStatus = useSelector(
@@ -36,9 +39,9 @@ export default function InvoiceCards() {
   );*/
   //const error = useSelector((state) => state.invoices.error);
 
-  const deletedId = useSelector(
+  /* const deletedId = useSelector(
     (state: RootState) => state.deletedId.deletedId
-  );
+  );*/
 
   /*useEffect(() => {
     if (invoicesStatus === 'idle') {
@@ -48,14 +51,14 @@ export default function InvoiceCards() {
 
   const [invoicesToShow, setInvoicesToShow] = useState<IInvoice[] | null>([]);
   // DELETE NEW INVOICES???
-  const invoicesWithoutDeleted = () => {
+  /* const invoicesWithoutDeleted = () => {
     const i = invoices;
     if (deletedId && deletedId.length > 0) {
       return i.filter((invoice: IInvoice) => !deletedId.includes(invoice.id));
     }
     return i;
-  };
-  const newInvoicesArray = [...invoicesWithoutDeleted(), ...newInvoices];
+  };*/
+  /* const newInvoicesArray = [...invoicesWithoutDeleted(), ...newInvoices];
   const invoicesToShowArray = () => {
     const filteredInvoices = newInvoicesArray;
 
@@ -65,11 +68,18 @@ export default function InvoiceCards() {
       );
     }
     return [];
-  };
+  };*/
 
   useEffect(() => {
+    const invoicesToShowArray = () => {
+      if (filters && filters.length > 0) {
+        return edittedInvoices.filter((invoice: IInvoice) =>
+          filters.includes(invoice.status)
+        );
+      } else return [];
+    };
     setInvoicesToShow(invoicesToShowArray);
-  }, [invoices, newInvoices, deletedId, filters]);
+  }, [edittedInvoices, filters]);
 
   const handleOpenNewInvoice = () => {
     setIsOpenNewInvoice(true);

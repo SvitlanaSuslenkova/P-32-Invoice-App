@@ -20,7 +20,8 @@ import { nanoid } from 'nanoid';
 import { IInvoice } from './Types';
 
 import { useDispatch } from 'react-redux';
-import { setNewInvoices } from '@/app/redux/slices/newInvoicesSlice';
+import { setNewInvoices } from '@/app/redux/slices/invoicesSlice';
+//import type { RootState } from '@/app/redux/store';
 
 export default function EditForm({
   setIsEditOpen,
@@ -30,9 +31,12 @@ export default function EditForm({
   invoice: IInvoice;
 }) {
   const dispatch = useDispatch();
-  const invoiceId = invoice.id;
+
   const [startDate, setStartDate] = useState(new Date());
-  const [items, setItems] = useState([nanoid(6)]); /*CHANGE*/
+
+  const invoiceItems = invoice.items.map((item) => item.name);
+  const [items, setItems] = useState(invoiceItems); /*CHANGE*/
+  console.log('items', ...items);
 
   const handleGoBack = () => {
     setIsEditOpen(false);
@@ -48,7 +52,7 @@ export default function EditForm({
       createdAt: invoice.createdAt,
       paymentDue: invoice.paymentDue,
       description: invoice.description,
-      paymentTerms: invoice.paymentTerms,
+      paymentTerms: invoice.paymentTerms.toString(),
       clientName: invoice.clientName,
       clientEmail: invoice.clientEmail,
       status: invoice.status,
@@ -201,24 +205,32 @@ export default function EditForm({
                   </p>
                   <Input
                     label="street address"
-                    {...register(`senderAddress.street`)}
+                    {...register(`senderAddress.street`, {
+                      required: true,
+                    })}
                     errorMessage={errors?.senderAddress?.street?.message}
                   />
                   <div className={`grid items-end grid-cols-2 gap-x-6`}>
                     <Input
                       label="city"
-                      {...register(`senderAddress.city`)}
+                      {...register(`senderAddress.city`, {
+                        required: true,
+                      })}
                       errorMessage={errors?.senderAddress?.city?.message}
                     />
                     <Input
                       label="post code"
-                      {...register(`senderAddress.postCode`)}
+                      {...register(`senderAddress.postCode`, {
+                        required: true,
+                      })}
                       errorMessage={errors?.senderAddress?.postCode?.message}
                     />
                     <Input
                       label="country"
                       className={`col-span-2`}
-                      {...register(`senderAddress.country`)}
+                      {...register(`senderAddress.country`, {
+                        required: true,
+                      })}
                       errorMessage={errors?.senderAddress?.country?.message}
                     />
                   </div>
@@ -229,35 +241,47 @@ export default function EditForm({
                   </p>
                   <Input
                     label="client's name"
-                    {...register(`clientName`)}
+                    {...register(`clientName`, {
+                      required: true,
+                    })}
                     errorMessage={errors?.clientName?.message}
                   />
 
                   <Input
                     label="client's email"
-                    {...register(`clientEmail`)}
+                    {...register(`clientEmail`, {
+                      required: true,
+                    })}
                     errorMessage={errors?.clientEmail?.message}
                   />
                   <Input
                     label="street address"
-                    {...register(`clientAddress.street`)}
+                    {...register(`clientAddress.street`, {
+                      required: true,
+                    })}
                     errorMessage={errors?.senderAddress?.street?.message}
                   />
                   <div className={`grid items-end grid-cols-2 gap-x-6`}>
                     <Input
                       label="city"
-                      {...register(`clientAddress.city`)}
+                      {...register(`clientAddress.city`, {
+                        required: true,
+                      })}
                       errorMessage={errors?.senderAddress?.city?.message}
                     />
                     <Input
                       label="post code"
-                      {...register(`clientAddress.postCode`)}
+                      {...register(`clientAddress.postCode`, {
+                        required: true,
+                      })}
                       errorMessage={errors?.senderAddress?.postCode?.message}
                     />
                     <Input
                       label="country"
                       className={`col-span-2`}
-                      {...register(`clientAddress.country`)}
+                      {...register(`clientAddress.country`, {
+                        required: true,
+                      })}
                       errorMessage={errors?.senderAddress?.country?.message}
                     />
                   </div>
@@ -345,7 +369,9 @@ export default function EditForm({
                   </div>
                   <Input
                     label="project description"
-                    {...register(`description`)}
+                    {...register(`description`, {
+                      required: true,
+                    })}
                     errorMessage={errors?.description?.message}
                   />
                 </section>
@@ -365,7 +391,7 @@ export default function EditForm({
                   </div>
                   {items.map((item, index) => (
                     <div
-                      key={item}
+                      key={index}
                       className={`grid items-end grid-cols-[4fr,6fr,4fr,2fr]  sm:grid-cols-[4fr,1.5fr,2fr,2fr,1fr] gap-4 mb-8`}
                     >
                       <p
@@ -375,7 +401,9 @@ export default function EditForm({
                       </p>
                       <Input
                         className={`row-start-2  col-span-4 sm:row-start-1 sm:col-span-1`}
-                        {...register(`items.${index}.name`)}
+                        {...register(`items.${index}.name`, {
+                          required: true,
+                        })}
                         errorMessage={errors?.items?.[index]?.name?.message}
                       />
                       <p
@@ -388,6 +416,7 @@ export default function EditForm({
                         className={`row-start-4 sm:row-start-1 sm:col-start-2`}
                         {...register(`items.${index}.quantity`, {
                           valueAsNumber: true,
+                          required: true,
                         })}
                         errorMessage={errors?.items?.[index]?.quantity?.message}
                       />
@@ -401,6 +430,7 @@ export default function EditForm({
                         className={`row-start-4 sm:row-start-1 sm:col-start-3`}
                         {...register(`items.${index}.price`, {
                           valueAsNumber: true,
+                          required: true,
                         })}
                         errorMessage={errors?.items?.[index]?.price?.message}
                       />
@@ -457,7 +487,7 @@ export default function EditForm({
                 <CancelSave
                   setIsEditOpen={setIsEditOpen}
                   onSubmit={handleSubmit(formSubmit)}
-                  invoiceId={invoiceId}
+                  invoiceId={invoice.id}
                 />
               </div>
             </div>

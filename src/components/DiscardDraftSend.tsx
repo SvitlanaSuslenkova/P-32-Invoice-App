@@ -1,3 +1,4 @@
+'use client';
 import { GreyButton, PurpleButton, DarkButton } from './Buttons';
 import { useFormContext } from 'react-hook-form';
 
@@ -10,16 +11,29 @@ export const DiscardDraftSend = ({
 }) => {
   const {
     setValue,
-
+    getValues,
+    trigger,
     //handleSubmit,
-    formState: { isSubmitting, isSubmitted },
+    formState: {
+      errors,
+      isSubmitting,
+      // isSubmitted
+    },
   } = useFormContext();
-  function handleReturn() {
-    console.log('isSubmitted', isSubmitted);
-    if (isSubmitted) {
-      handleGoBack();
-    } else return;
+
+  async function triggerForm() {
+    const t = await trigger();
+    if (t) {
+      console.log('errors', errors);
+      const v = getValues();
+      console.log('values', v);
+      if (Object.keys(errors).length == 0) {
+        onSubmit();
+        handleGoBack();
+      }
+    }
   }
+
   return (
     <div
       className={`w-full grid grid-cols-[auto,auto,auto] sm:grid-cols-[auto,8.4rem,8.4rem] sm:justify-items-end gap-x-2`}
@@ -31,10 +45,12 @@ export const DiscardDraftSend = ({
         text="Save as Draft"
         type="submit"
         onClick={(e) => {
+          trigger(); //check
           e.preventDefault();
           setValue('status', 'draft');
-          onSubmit();
-          handleReturn();
+          // onSubmit();
+          // handleGoBack();
+          triggerForm();
         }}
         disabled={isSubmitting}
       />
@@ -42,10 +58,10 @@ export const DiscardDraftSend = ({
         text="Save & Send"
         type="submit"
         onClick={(e) => {
-          setValue('status', 'pending');
+          trigger();
           e.preventDefault();
-          onSubmit();
-          handleReturn();
+          setValue('status', 'pending');
+          triggerForm();
         }}
         disabled={isSubmitting}
       />

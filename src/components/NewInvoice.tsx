@@ -12,7 +12,10 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 //npm install react-hook-form
-import { z } from 'zod';
+import {
+  z,
+  // ZodError
+} from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { schema } from './constants/zSchema';
 import { formatDateBack, todayDay } from '@/app/actions/formatDate';
@@ -21,7 +24,8 @@ import { IInvoice } from './Types';
 
 import { useDispatch } from 'react-redux';
 //import { setEditedInvoice } from '@/app/redux/slices/invoicesSlice';
-import { setNewInvoices } from '@/app/redux/slices/newInvoicesSlice';
+//import { setNewInvoices } from '@/app/redux/slices/newInvoicesSlice';
+import { setNewInvoices } from '@/app/redux/slices/invoicesSlice';
 
 export default function NewInvoice({
   setIsOpenNewInvoice,
@@ -53,6 +57,7 @@ export default function NewInvoice({
   const {
     // reset,
     // resetField,
+    trigger,
     register,
     unregister,
     handleSubmit,
@@ -128,12 +133,15 @@ export default function NewInvoice({
   countInvoiceTotal();
 
   const formSubmit: SubmitHandler<IInvoice> = (data) => {
+    trigger();
     console.log(data);
     console.log('formSubmit');
-
-    // const edittedInvoices = [...invoices, data];
-    //console.log('edittedInvoices', edittedInvoices);
-    // dispatch(setEditedInvoice(edittedInvoices));
+    /*try {
+      const res = schema.parse(data);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }*/
 
     dispatch(setNewInvoices(data));
   };
@@ -143,7 +151,20 @@ export default function NewInvoice({
     console.log(values);
     console.log('formSubmit');
   };*/
+  /* function isZodError(err: unknown): err is ZodError {
+    return Boolean(
+      err && (err instanceof ZodError || (err as ZodError).name === 'ZodError')
+    );
+  }*/
+  /* const haveErrors = (err: unknown): err is ZodError => {
+    return Boolean(
+      err && (err instanceof ZodError || (err as ZodError).name === 'ZodError')
+    );
+  };*/
 
+  const haveErrors = () => {
+    return Object.keys(errors).length > 0 ? true : false;
+  };
   return (
     <div
       className={`sm:overflow-hidden absolute left-0 top-[4.5rem] grid place-items-start   md:top-[5rem] xl:top-0 xl:left-[6.44rem]  z-2 
@@ -176,24 +197,32 @@ export default function NewInvoice({
                   </p>
                   <Input
                     label="street address"
-                    {...register(`senderAddress.street`)}
+                    {...register(`senderAddress.street`, {
+                      required: true,
+                    })}
                     errorMessage={errors?.senderAddress?.street?.message}
                   />
                   <div className={`grid items-end grid-cols-2 gap-x-6`}>
                     <Input
                       label="city"
-                      {...register(`senderAddress.city`)}
+                      {...register(`senderAddress.city`, {
+                        required: true,
+                      })}
                       errorMessage={errors?.senderAddress?.city?.message}
                     />
                     <Input
                       label="post code"
-                      {...register(`senderAddress.postCode`)}
+                      {...register(`senderAddress.postCode`, {
+                        required: true,
+                      })}
                       errorMessage={errors?.senderAddress?.postCode?.message}
                     />
                     <Input
                       label="country"
                       className={`col-span-2`}
-                      {...register(`senderAddress.country`)}
+                      {...register(`senderAddress.country`, {
+                        required: true,
+                      })}
                       errorMessage={errors?.senderAddress?.country?.message}
                     />
                   </div>
@@ -204,35 +233,47 @@ export default function NewInvoice({
                   </p>
                   <Input
                     label="client's name"
-                    {...register(`clientName`)}
+                    {...register(`clientName`, {
+                      required: true,
+                    })}
                     errorMessage={errors?.clientName?.message}
                   />
 
                   <Input
                     label="client's email"
-                    {...register(`clientEmail`)}
+                    {...register(`clientEmail`, {
+                      required: true,
+                    })}
                     errorMessage={errors?.clientEmail?.message}
                   />
                   <Input
                     label="street address"
-                    {...register(`clientAddress.street`)}
+                    {...register(`clientAddress.street`, {
+                      required: true,
+                    })}
                     errorMessage={errors?.senderAddress?.street?.message}
                   />
                   <div className={`grid items-end grid-cols-2 gap-x-6`}>
                     <Input
                       label="city"
-                      {...register(`clientAddress.city`)}
+                      {...register(`clientAddress.city`, {
+                        required: true,
+                      })}
                       errorMessage={errors?.senderAddress?.city?.message}
                     />
                     <Input
                       label="post code"
-                      {...register(`clientAddress.postCode`)}
+                      {...register(`clientAddress.postCode`, {
+                        required: true,
+                      })}
                       errorMessage={errors?.senderAddress?.postCode?.message}
                     />
                     <Input
                       label="country"
                       className={`col-span-2`}
-                      {...register(`clientAddress.country`)}
+                      {...register(`clientAddress.country`, {
+                        required: true,
+                      })}
                       errorMessage={errors?.senderAddress?.country?.message}
                     />
                   </div>
@@ -294,7 +335,7 @@ export default function NewInvoice({
                           <p>
                             <span>Net </span>
                             {paymentTerms}
-                            {paymentTerms == 1 ? (
+                            {paymentTerms == '1' ? (
                               <span> day</span>
                             ) : (
                               <span> days</span>
@@ -320,7 +361,9 @@ export default function NewInvoice({
                   </div>
                   <Input
                     label="project description"
-                    {...register(`description`)}
+                    {...register(`description`, {
+                      required: true,
+                    })}
                     errorMessage={errors?.description?.message}
                   />
                 </section>
@@ -350,7 +393,9 @@ export default function NewInvoice({
                       </p>
                       <Input
                         className={`row-start-2  col-span-4 sm:row-start-1 sm:col-span-1`}
-                        {...register(`items.${index}.name`)}
+                        {...register(`items.${index}.name`, {
+                          required: true,
+                        })}
                         errorMessage={errors?.items?.[index]?.name?.message}
                       />
                       <p
@@ -363,6 +408,7 @@ export default function NewInvoice({
                         className={`row-start-4 sm:row-start-1 sm:col-start-2`}
                         {...register(`items.${index}.quantity`, {
                           valueAsNumber: true,
+                          required: true,
                         })}
                         errorMessage={errors?.items?.[index]?.quantity?.message}
                       />
@@ -376,6 +422,7 @@ export default function NewInvoice({
                         className={`row-start-4 sm:row-start-1 sm:col-start-3`}
                         {...register(`items.${index}.price`, {
                           valueAsNumber: true,
+                          required: true,
                         })}
                         errorMessage={errors?.items?.[index]?.price?.message}
                       />
@@ -413,9 +460,9 @@ export default function NewInvoice({
                       </div>
                     </div>
                   ))}
-
                   <AddNewItemButton handleAddItem={handleAddItem} />
-                  {Object.keys(errors).length > 0 ? (
+
+                  {haveErrors() ? (
                     <p className={`text-delete text-xs font-semibold mt-8`}>
                       - All fields must be added
                     </p>
@@ -432,6 +479,7 @@ export default function NewInvoice({
                 <DiscardDraftSend
                   handleGoBack={handleGoBack}
                   onSubmit={handleSubmit(formSubmit)}
+                  haveErrors={haveErrors()}
                 />
               </div>
             </div>
@@ -441,3 +489,4 @@ export default function NewInvoice({
     </div>
   );
 }
+//Object.keys(errors).length > 0

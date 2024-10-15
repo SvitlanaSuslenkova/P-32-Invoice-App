@@ -1,8 +1,12 @@
 'use client';
 import { GreyButton, RedButton, PurpleButton } from './Buttons';
 import { useDispatch } from 'react-redux';
-import { setDeletedId } from '@/app/redux/slices/deletedIdSlice';
-import { setNewInvoices } from '@/app/redux/slices/newInvoicesSlice';
+//import { setDeletedId } from '@/app/redux/slices/deletedIdSlice';
+//import { setNewInvoices } from '@/app/redux/slices/newInvoicesSlice';
+import {
+  setNewInvoices,
+  setDeletedInvoices,
+} from '@/app/redux/slices/invoicesSlice';
 import type { AppDispatch } from '@/app/redux/store';
 import { IInvoice } from './Types';
 
@@ -21,7 +25,7 @@ export const EditDeleteMark = ({
 
   const editStatusHandler = (e: React.MouseEvent) => {
     e.preventDefault();
-    dispatch(setDeletedId(invoiceId));
+    dispatch(setDeletedInvoices(invoiceId));
 
     const paidInvoice = {
       ...invoice,

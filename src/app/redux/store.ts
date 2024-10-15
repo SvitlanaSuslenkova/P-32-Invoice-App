@@ -1,16 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import InvoicesReducer from './slices/invoicesSlice';
 import FiltersReducer from './slices/filtersSlice';
-import deletedIdReducer from './slices/deletedIdSlice';
-import newInvoicesReducer from './slices/newInvoicesSlice';
 
 const store = configureStore({
   reducer: {
     invoices: InvoicesReducer,
     filters: FiltersReducer,
-
-    deletedId: deletedIdReducer,
-    newInvoices: newInvoicesReducer,
   },
 });
 export default store;

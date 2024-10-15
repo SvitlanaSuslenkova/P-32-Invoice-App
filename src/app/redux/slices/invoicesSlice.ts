@@ -1,37 +1,16 @@
-import {
-  createSlice,
-  PayloadAction,
-  //  , createAsyncThunk
-} from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 //import { setError } from './errorSlice';
-//import { getInvoices } from '../../actions/getInvoices';
 import { IInvoice } from '../../../components/Types';
-
-/*export const fetchInvoices = createAsyncThunk(
-  'invoices/fetchInvoices',
-  async (_, { dispatch, rejectWithValue }) => {
-    try {
-      const invoices = await getInvoices();
-      return invoices;
-    } catch (error) {
-      dispatch(setError('Failed to fetch invoices'));
-      return rejectWithValue((error as Error).message);
-    }
-  }
-);*/
 import defaultInvoices from '../../../data.json';
+//import { setNewInvoices } from './newInvoicesSlice';
 type InvoicesState = {
   invoices: IInvoice[];
-
   editedinvoices: IInvoice[];
-  // status: 'idle' | 'loading' | 'succeeded' | 'failed';
-  //error: string | null;
 };
 
 const initialState: InvoicesState = {
   invoices: defaultInvoices,
-
-  editedinvoices: [],
+  editedinvoices: defaultInvoices,
   // status: 'idle',
   // error: null,
 };
@@ -40,34 +19,31 @@ const invoicesSlice = createSlice({
   name: 'invoices',
   initialState,
   reducers: {
-    setEditedInvoice: (state, action: PayloadAction<IInvoice[]>) => {
+    setDeletedInvoices: (state, action: PayloadAction<string>) => {
+      const { payload } = action;
+      console.log('setDeletedInvoices payload', payload);
+      state.editedinvoices = state.invoices.filter(
+        (invoice) => invoice.id !== payload
+      );
+    },
+    setNewInvoices: (state, action: PayloadAction<IInvoice>) => {
+      const { payload } = action;
+      console.log('setNewInvoices payload', payload);
+      //state.editedinvoices = [...state.invoices, payload];
+      state.editedinvoices = [...state.editedinvoices, payload];
+    },
+  },
+});
+
+export const { setDeletedInvoices, setNewInvoices } = invoicesSlice.actions;
+export default invoicesSlice.reducer;
+
+/* setEditedInvoice: (state, action: PayloadAction<IInvoice[]>) => {
       const { payload } = action;
       console.log(payload);
 
       state.editedinvoices = payload;
-    },
-  },
-
-  /* extraReducers: (builder) => {
-    builder
-      .addCase(fetchInvoices.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(fetchInvoices.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.invoices = action.payload;
-        state.editedinvoices = action.payload;
-      })
-      .addCase(fetchInvoices.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message ?? 'Failed to fetch invoices';
-      });
-  },*/
-});
-
-export const { setEditedInvoice } = invoicesSlice.actions;
-export default invoicesSlice.reducer;
-
+    },*/
 /*
   reducers: {
     setFilteredInvoices: (state, action: PayloadAction<string>) => {
@@ -87,3 +63,18 @@ export default invoicesSlice.reducer;
     },
   },
   */
+
+/* extraReducers: (builder) => {
+    builder
+      .addCase(fetchInvoices.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchInvoices.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.invoices = action.payload;
+        state.editedinvoices = action.payload;
+      })
+      .addCase(fetchInvoices.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message ?? 'Failed to fetch invoices';
+      });*/
