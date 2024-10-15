@@ -32,7 +32,7 @@ export default function EditForm({
   const dispatch = useDispatch();
   const invoiceId = invoice.id;
   const [startDate, setStartDate] = useState(new Date());
-  const [items, setItems] = useState([nanoid(6)]);
+  const [items, setItems] = useState([nanoid(6)]); /*CHANGE*/
 
   const handleGoBack = () => {
     setIsEditOpen(false);
@@ -170,10 +170,10 @@ export default function EditForm({
   return (
     <div
       className={`sm:overflow-hidden absolute left-0 top-[4.5rem] grid place-items-start   md:top-[5rem] xl:top-0 xl:left-[6.44rem]  z-2 
-        w-full xl:w-[calc(100vw-6.44rem)] h-svh  sm:h-[calc(100vh-5rem)] xl:h-full bg-black bg-opacity-50  min-w-80`}
+        w-full xl:w-[calc(100vw-6.44rem)] h-svh  sm:h-[calc(100vh-4.5rem)] md:h-[calc(100vh-5rem)] xl:h-full bg-black bg-opacity-50  min-w-80`}
     >
       <div
-        className={` sm:flex bg-card dark:bg-dark-background sm:h-[calc(100vh-8rem)]   pr-4 sm:absolute sm:rounded-r-b20`}
+        className={` sm:flex bg-card dark:bg-dark-background sm:h-[calc(100vh-8rem)] xl:h-[calc(100vh-4rem)]   pr-4 sm:absolute sm:rounded-r-b20`}
       >
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(formSubmit)}>

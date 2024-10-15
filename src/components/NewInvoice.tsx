@@ -130,6 +130,7 @@ export default function NewInvoice({
   const formSubmit: SubmitHandler<IInvoice> = (data) => {
     console.log(data);
     console.log('formSubmit');
+
     // const edittedInvoices = [...invoices, data];
     //console.log('edittedInvoices', edittedInvoices);
     // dispatch(setEditedInvoice(edittedInvoices));
@@ -142,14 +143,14 @@ export default function NewInvoice({
     console.log(values);
     console.log('formSubmit');
   };*/
-
+  const zodErrors = Object.keys(errors).length;
   return (
     <div
       className={`sm:overflow-hidden absolute left-0 top-[4.5rem] grid place-items-start   md:top-[5rem] xl:top-0 xl:left-[6.44rem]  z-2 
-        w-full xl:w-[calc(100vw-6.44rem)] h-svh  sm:h-[calc(100vh-5rem)] xl:h-full bg-black bg-opacity-50  min-w-80`}
+        w-full xl:w-[calc(100vw-6.44rem)] h-svh  sm:h-[calc(100vh-4.5rem)] md:h-[calc(100vh-5rem)] xl:h-full bg-black bg-opacity-50  min-w-80`}
     >
       <div
-        className={` sm:flex bg-card dark:bg-dark-background sm:h-[calc(100vh-8rem)]   pr-4 sm:absolute sm:rounded-r-b20`}
+        className={` sm:flex bg-card dark:bg-dark-background sm:h-[calc(100vh-8rem)] xl:h-[calc(100vh-4rem)]   pr-4 sm:absolute sm:rounded-r-b20`}
       >
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(formSubmit)}>
@@ -431,6 +432,7 @@ export default function NewInvoice({
                 <DiscardDraftSend
                   handleGoBack={handleGoBack}
                   onSubmit={handleSubmit(formSubmit)}
+                  zodErrors={zodErrors}
                 />
               </div>
             </div>

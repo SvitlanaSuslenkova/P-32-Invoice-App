@@ -14,6 +14,7 @@ import EditForm from '@/components/EditForm';
 import ConfirmDelete from '@/components/ConfirmDelete';
 
 import NoInvoice from '@/components/NoInvoice';
+import Loading from '@/components/Loading';
 import InvoiceView from '@/components/InvoiceView';
 import { IInvoice } from '@/components/Types';
 
@@ -93,7 +94,7 @@ export default function ViewInvoice() {
           <GoBackButton onClick={handleGoBack} />
         </div>
         {invoicesStatus === 'loading' ? (
-          <p>Loading...</p>
+          <Loading />
         ) : invoicesStatus === 'succeeded' && invoice[0] ? (
           <InvoiceView
             invoice={invoice[0]}

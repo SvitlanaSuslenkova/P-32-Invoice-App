@@ -11,9 +11,15 @@ export const DiscardDraftSend = ({
   const {
     setValue,
 
-    formState: { isSubmitting },
+    //handleSubmit,
+    formState: { isSubmitting, isSubmitted },
   } = useFormContext();
-
+  function handleReturn() {
+    console.log('isSubmitted', isSubmitted);
+    if (isSubmitted) {
+      handleGoBack();
+    } else return;
+  }
   return (
     <div
       className={`w-full grid grid-cols-[auto,auto,auto] sm:grid-cols-[auto,8.4rem,8.4rem] sm:justify-items-end gap-x-2`}
@@ -25,10 +31,10 @@ export const DiscardDraftSend = ({
         text="Save as Draft"
         type="submit"
         onClick={(e) => {
-          setValue('status', 'draft');
           e.preventDefault();
+          setValue('status', 'draft');
           onSubmit();
-          handleGoBack();
+          handleReturn();
         }}
         disabled={isSubmitting}
       />
@@ -39,7 +45,7 @@ export const DiscardDraftSend = ({
           setValue('status', 'pending');
           e.preventDefault();
           onSubmit();
-          handleGoBack();
+          handleReturn();
         }}
         disabled={isSubmitting}
       />

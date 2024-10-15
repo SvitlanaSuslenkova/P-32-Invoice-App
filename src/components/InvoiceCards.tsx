@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import InvoiceCard from './InvoiceCard';
 import Filter from './Filter';
 import NoInvoice from './NoInvoice';
+import Loading from './Loading';
 import { IInvoice } from './Types';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchInvoices } from '../app/redux/slices/invoicesSlice';
@@ -69,10 +70,12 @@ export default function InvoiceCards() {
 
   return (
     <div
-      className={`grid content-center w-full max-w-[45.63rem] 2xl:max-w-[60rem] px-6 sm:px-12 md:px-0  `}
+      className={`   grid content-center w-full max-w-[45.63rem] 2xl:max-w-[60rem] px-6 sm:px-12 md:px-0  `}
     >
       <div
-        className={`grid justify-items-center gap-y-4 content-start w-full `}
+        className={`${
+          isOpenNewInvoice ? 'overflow-hidden max-h-svh' : ''
+        } grid justify-items-center gap-y-4 content-start w-full `}
       >
         <Filter
           isOpenMenu={isOpenMenu}
@@ -82,7 +85,9 @@ export default function InvoiceCards() {
         />
 
         {invoicesStatus === 'loading' ? (
-          <p>Loading...</p>
+          <div>
+            <Loading />
+          </div>
         ) : invoicesStatus === 'succeeded' &&
           invoicesToShow &&
           invoicesToShow.length > 0 ? (

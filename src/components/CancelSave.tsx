@@ -15,15 +15,22 @@ export const CancelSave = ({
   invoiceId: string;
 }) => {
   const {
-    formState: { isSubmitting },
+    formState: { isSubmitting, isSubmitted },
   } = useFormContext();
   const dispatch = useDispatch<AppDispatch>();
+
+  function handleReturn() {
+    console.log('isSubmitted', isSubmitted);
+    if (isSubmitted) {
+      setIsEditOpen(false);
+    } else return;
+  }
 
   const savehandler = (e: React.MouseEvent) => {
     e.preventDefault();
     dispatch(setDeletedId(invoiceId));
     onSubmit();
-    setIsEditOpen(false);
+    handleReturn();
   };
   return (
     <div className={`flex flex-row gap-x-2`}>
