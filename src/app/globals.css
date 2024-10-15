@@ -46,44 +46,6 @@
     -webkit-text-fill-color: hsl(231, 28%, 7%) !important;
     box-shadow: 0 0 0px 1000px white inset !important;
   }
-
-  ::-webkit-scrollbar-thumb {
-    border-radius: 1rem !important;
-    width: 2rem !important; /*Not working*/
-    height: 2rem !important; /*Not working*/
-    background: blue !important;
-    background-color: red !important;
-  }
-  ::-webkit-scrollbar-track {
-    border-radius: 1rem !important;
-    background: blue !important;
-    background-color: red !important;
-    color: green !important;
-    width: 0.5rem !important;
-    height: 12rem !important;
-  }
-  /* ::-webkit-scrollbar {
-    border-radius: 1rem !important; 
-    background: transparent !important; 
-    background-color: transparent !important; 
-
-    color: transparent !important; 
-    width: 0.2rem !important; 
-    height: 2rem !important; 
-  }*/
-}
-::-webkit-scrollbar-thumb {
-  border-radius: 1rem !important;
-  width: 2rem !important; /*Not working*/
-  height: 2rem !important; /*Not working*/
-}
-::-webkit-scrollbar-track {
-  border-radius: 1rem !important;
-  background: blue !important;
-  background-color: red !important;
-  color: green !important;
-  width: 0.2rem !important;
-  height: 12rem !important;
 }
 
 .react-datepicker {

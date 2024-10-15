@@ -1,6 +1,5 @@
 'use client';
 import { MouseEvent, useState } from 'react';
-//import { GoBackButton } from './Buttons';
 import { Input } from './Input';
 import { AddNewItemButton } from './Buttons';
 import { DiscardDraftSend } from './DiscardDraftSend';
@@ -21,18 +20,12 @@ import { schema } from './constants/zSchema';
 import { formatDateBack, todayDay } from '@/app/actions/formatDate';
 import { nanoid } from 'nanoid';
 import { IInvoice } from './Types';
-
 import { useDispatch } from 'react-redux';
-//import { setEditedInvoice } from '@/app/redux/slices/invoicesSlice';
-//import { setNewInvoices } from '@/app/redux/slices/newInvoicesSlice';
 import { setNewInvoices } from '@/app/redux/slices/invoicesSlice';
-
 export default function NewInvoice({
   setIsOpenNewInvoice,
-}: //invoices,
-{
+}: {
   setIsOpenNewInvoice: (isOpenNewInvoice: boolean) => void;
-  // invoices: IInvoice[];
 }) {
   const dispatch = useDispatch();
   const [startDate, setStartDate] = useState(new Date());
@@ -55,8 +48,6 @@ export default function NewInvoice({
   });
 
   const {
-    // reset,
-    // resetField,
     trigger,
     register,
     unregister,
@@ -145,12 +136,7 @@ export default function NewInvoice({
 
     dispatch(setNewInvoices(data));
   };
-  /* const onSubmit = () => {
-    handleSubmit(formSubmit);
-    const values = getValues();
-    console.log(values);
-    console.log('formSubmit');
-  };*/
+
   /* function isZodError(err: unknown): err is ZodError {
     return Boolean(
       err && (err instanceof ZodError || (err as ZodError).name === 'ZodError')
@@ -165,6 +151,7 @@ export default function NewInvoice({
   const haveErrors = () => {
     return Object.keys(errors).length > 0 ? true : false;
   };
+
   return (
     <div
       className={`sm:overflow-hidden absolute left-0 top-[4.5rem] grid place-items-start   md:top-[5rem] xl:top-0 xl:left-[6.44rem]  z-2 
@@ -251,7 +238,7 @@ export default function NewInvoice({
                     {...register(`clientAddress.street`, {
                       required: true,
                     })}
-                    errorMessage={errors?.senderAddress?.street?.message}
+                    errorMessage={errors?.clientAddress?.street?.message}
                   />
                   <div className={`grid items-end grid-cols-2 gap-x-6`}>
                     <Input
@@ -259,14 +246,14 @@ export default function NewInvoice({
                       {...register(`clientAddress.city`, {
                         required: true,
                       })}
-                      errorMessage={errors?.senderAddress?.city?.message}
+                      errorMessage={errors?.clientAddress?.city?.message}
                     />
                     <Input
                       label="post code"
                       {...register(`clientAddress.postCode`, {
                         required: true,
                       })}
-                      errorMessage={errors?.senderAddress?.postCode?.message}
+                      errorMessage={errors?.clientAddress?.postCode?.message}
                     />
                     <Input
                       label="country"
@@ -274,7 +261,7 @@ export default function NewInvoice({
                       {...register(`clientAddress.country`, {
                         required: true,
                       })}
-                      errorMessage={errors?.senderAddress?.country?.message}
+                      errorMessage={errors?.clientAddress?.country?.message}
                     />
                   </div>
                   <div

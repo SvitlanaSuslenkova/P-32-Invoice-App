@@ -23,7 +23,7 @@ const invoicesSlice = createSlice({
     setDeletedInvoices: (state, action: PayloadAction<string>) => {
       const { payload } = action;
       console.log('setDeletedInvoices payload', payload);
-      state.editedinvoices = state.invoices.filter(
+      state.editedinvoices = state.editedinvoices.filter(
         (invoice) => invoice.id !== payload
       );
     },

@@ -11,7 +11,7 @@ export const DiscardDraftSend = ({
 }) => {
   const {
     setValue,
-    getValues,
+
     trigger,
     //handleSubmit,
     formState: {
@@ -25,12 +25,8 @@ export const DiscardDraftSend = ({
     const t = await trigger();
     if (t) {
       console.log('errors', errors);
-      const v = getValues();
-      console.log('values', v);
-      if (Object.keys(errors).length == 0) {
-        onSubmit();
-        handleGoBack();
-      }
+      onSubmit();
+      handleGoBack();
     }
   }
 
@@ -44,12 +40,8 @@ export const DiscardDraftSend = ({
       <DarkButton
         text="Save as Draft"
         type="submit"
-        onClick={(e) => {
-          trigger(); //check
-          e.preventDefault();
+        onClick={() => {
           setValue('status', 'draft');
-          // onSubmit();
-          // handleGoBack();
           triggerForm();
         }}
         disabled={isSubmitting}
@@ -57,9 +49,7 @@ export const DiscardDraftSend = ({
       <PurpleButton
         text="Save & Send"
         type="submit"
-        onClick={(e) => {
-          trigger();
-          e.preventDefault();
+        onClick={() => {
           setValue('status', 'pending');
           triggerForm();
         }}

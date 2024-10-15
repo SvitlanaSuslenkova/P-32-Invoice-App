@@ -259,7 +259,7 @@ export default function EditForm({
                     {...register(`clientAddress.street`, {
                       required: true,
                     })}
-                    errorMessage={errors?.senderAddress?.street?.message}
+                    errorMessage={errors?.clientAddress?.street?.message}
                   />
                   <div className={`grid items-end grid-cols-2 gap-x-6`}>
                     <Input
@@ -267,14 +267,14 @@ export default function EditForm({
                       {...register(`clientAddress.city`, {
                         required: true,
                       })}
-                      errorMessage={errors?.senderAddress?.city?.message}
+                      errorMessage={errors?.clientAddress?.city?.message}
                     />
                     <Input
                       label="post code"
                       {...register(`clientAddress.postCode`, {
                         required: true,
                       })}
-                      errorMessage={errors?.senderAddress?.postCode?.message}
+                      errorMessage={errors?.clientAddress?.postCode?.message}
                     />
                     <Input
                       label="country"
@@ -282,7 +282,7 @@ export default function EditForm({
                       {...register(`clientAddress.country`, {
                         required: true,
                       })}
-                      errorMessage={errors?.senderAddress?.country?.message}
+                      errorMessage={errors?.clientAddress?.country?.message}
                     />
                   </div>
                   <div
