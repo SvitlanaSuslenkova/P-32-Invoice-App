@@ -3,9 +3,8 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { GoBackButton } from '../../../components/Buttons';
 import { useDispatch, useSelector } from 'react-redux';
-//import { fetchInvoice } from '@/app/redux/slices/oneInvoiceSlice';
 
-import { fetchInvoices } from '@/app/redux/slices/invoicesSlice';
+//import { fetchInvoices } from '@/app/redux/slices/invoicesSlice';
 import { setDeletedId } from '@/app/redux/slices/deletedIdSlice';
 
 import { useRouter } from 'next/navigation';
@@ -38,9 +37,9 @@ export default function ViewInvoice() {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const invoicesStatus = useSelector(
+  /* const invoicesStatus = useSelector(
     (state: RootState) => state.invoices.status
-  );
+  );*/
   const invoices = useSelector((state: RootState) => state.invoices.invoices);
   const deletedId = useSelector(
     (state: RootState) => state.deletedId.deletedId
@@ -62,9 +61,9 @@ export default function ViewInvoice() {
     router.back();
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     dispatch(fetchInvoices());
-  }, [dispatch, invoiceId]);
+  }, [dispatch, invoiceId]);*/
 
   const invoice = newInvoicesArray.filter(
     (invoice: IInvoice) => invoiceId == invoice.id
@@ -93,9 +92,7 @@ export default function ViewInvoice() {
         <div className={`h-20 grid content-center mt-1 md:mt-8 xl:mt-12`}>
           <GoBackButton onClick={handleGoBack} />
         </div>
-        {invoicesStatus === 'loading' ? (
-          <Loading />
-        ) : invoicesStatus === 'succeeded' && invoice[0] ? (
+        {invoice[0] ? (
           <InvoiceView
             invoice={invoice[0]}
             handleDelete={handleDelete}
@@ -129,3 +126,17 @@ export default function ViewInvoice() {
     </>
   );
 }
+/*
+        {invoicesStatus === 'loading' ? (
+          <Loading />
+        ) : invoicesStatus === 'succeeded' && invoice[0] ? (
+          <InvoiceView
+            invoice={invoice[0]}
+            handleDelete={handleDelete}
+            setIsEditOpen={setIsEditOpen}
+            // onSubmit={handleSubmit(formSubmit)}
+          />
+        ) : (
+          <NoInvoice />
+        )}
+          */

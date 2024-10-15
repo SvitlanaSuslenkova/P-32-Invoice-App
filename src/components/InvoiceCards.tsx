@@ -5,17 +5,21 @@ import Filter from './Filter';
 import NoInvoice from './NoInvoice';
 import Loading from './Loading';
 import { IInvoice } from './Types';
+
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchInvoices } from '../app/redux/slices/invoicesSlice';
+//import { fetchInvoices } from '../app/redux/slices/invoicesSlice';
 import NewInvoice from './NewInvoice';
 //import { TypedUseSelectorHook } from 'react-redux';
-import type { RootState, AppDispatch } from '../app/redux/store';
+import type {
+  RootState,
+  //, AppDispatch
+} from '../app/redux/store';
 
 export default function InvoiceCards() {
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
   const [isOpenNewInvoice, setIsOpenNewInvoice] = useState<boolean>(false);
 
-  const dispatch = useDispatch<AppDispatch>();
+  // const dispatch = useDispatch<AppDispatch>();
   const invoices = useSelector((state: RootState) => state.invoices.invoices);
 
   const newInvoices = useSelector((state: RootState) => {
@@ -33,11 +37,11 @@ export default function InvoiceCards() {
     (state: RootState) => state.deletedId.deletedId
   );
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (invoicesStatus === 'idle') {
       dispatch(fetchInvoices());
     }
-  }, [dispatch, invoices, invoicesStatus]);
+  }, [dispatch, invoices, invoicesStatus]);*/
 
   const [invoicesToShow, setInvoicesToShow] = useState<IInvoice[] | null>([]);
   // DELETE NEW INVOICES???
@@ -84,6 +88,23 @@ export default function InvoiceCards() {
           handleOpenNewInvoice={handleOpenNewInvoice}
         />
 
+        {invoicesToShow && invoicesToShow.length > 0 ? (
+          invoicesToShow.map((invoice: IInvoice) => (
+            <InvoiceCard invoice={invoice} key={invoice.id} />
+          ))
+        ) : (
+          <div className={`mt-16 md:mt-44 xl:mt-16`}>
+            <NoInvoice />
+          </div>
+        )}
+      </div>
+      {isOpenNewInvoice && (
+        <NewInvoice setIsOpenNewInvoice={setIsOpenNewInvoice} />
+      )}
+    </div>
+  );
+}
+/*
         {invoicesStatus === 'loading' ? (
           <div>
             <Loading />
@@ -101,10 +122,4 @@ export default function InvoiceCards() {
         ) : invoicesStatus == 'failed' ? (
           <p>Error</p>
         ) : null}
-      </div>
-      {isOpenNewInvoice && (
-        <NewInvoice setIsOpenNewInvoice={setIsOpenNewInvoice} />
-      )}
-    </div>
-  );
-}
+         */

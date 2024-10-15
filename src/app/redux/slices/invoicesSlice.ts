@@ -1,9 +1,13 @@
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { setError } from './errorSlice';
-import { getInvoices } from '../../actions/getInvoices';
+import {
+  createSlice,
+  PayloadAction,
+  //  , createAsyncThunk
+} from '@reduxjs/toolkit';
+//import { setError } from './errorSlice';
+//import { getInvoices } from '../../actions/getInvoices';
 import { IInvoice } from '../../../components/Types';
 
-export const fetchInvoices = createAsyncThunk(
+/*export const fetchInvoices = createAsyncThunk(
   'invoices/fetchInvoices',
   async (_, { dispatch, rejectWithValue }) => {
     try {
@@ -14,22 +18,22 @@ export const fetchInvoices = createAsyncThunk(
       return rejectWithValue((error as Error).message);
     }
   }
-);
-
+);*/
+import defaultInvoices from '../../../data.json';
 type InvoicesState = {
   invoices: IInvoice[];
 
   editedinvoices: IInvoice[];
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
-  error: string | null;
+  // status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  //error: string | null;
 };
 
 const initialState: InvoicesState = {
-  invoices: [],
+  invoices: defaultInvoices,
 
   editedinvoices: [],
-  status: 'idle',
-  error: null,
+  // status: 'idle',
+  // error: null,
 };
 
 const invoicesSlice = createSlice({
@@ -44,7 +48,7 @@ const invoicesSlice = createSlice({
     },
   },
 
-  extraReducers: (builder) => {
+  /* extraReducers: (builder) => {
     builder
       .addCase(fetchInvoices.pending, (state) => {
         state.status = 'loading';
@@ -58,7 +62,7 @@ const invoicesSlice = createSlice({
         state.status = 'failed';
         state.error = action.error.message ?? 'Failed to fetch invoices';
       });
-  },
+  },*/
 });
 
 export const { setEditedInvoice } = invoicesSlice.actions;
