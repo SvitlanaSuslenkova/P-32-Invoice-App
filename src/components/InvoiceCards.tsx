@@ -5,7 +5,7 @@ import Filter from './Filter';
 import NoInvoice from './NoInvoice';
 //import Loading from './Loading';
 import { IInvoice, IInvoiceDraft } from './Types';
-
+import { motion } from 'framer-motion';
 import {
   //useDispatch,
   useSelector,
@@ -72,7 +72,14 @@ export default function InvoiceCards() {
 
         {invoicesToShow && invoicesToShow.length > 0 ? (
           invoicesToShow.map((invoice: IInvoice | IInvoiceDraft) => (
-            <InvoiceCard invoice={invoice} key={invoice.id} />
+            <motion.div
+              key={invoice.id}
+              initial={{ opacity: 0, scale: 0.7, zIndex: 0 }}
+              animate={{ opacity: 1, scale: 1, zIndex: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <InvoiceCard invoice={invoice} />
+            </motion.div>
           ))
         ) : (
           <div className={`mt-16 md:mt-44 xl:mt-16`}>
@@ -81,7 +88,10 @@ export default function InvoiceCards() {
         )}
       </div>
       {isOpenNewInvoice && (
-        <NewInvoice setIsOpenNewInvoice={setIsOpenNewInvoice} />
+        <NewInvoice
+          setIsOpenNewInvoice={setIsOpenNewInvoice}
+          isOpenNewInvoice={isOpenNewInvoice}
+        />
       )}
     </div>
   );

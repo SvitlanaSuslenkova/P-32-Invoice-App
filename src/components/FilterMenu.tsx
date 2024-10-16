@@ -1,6 +1,7 @@
 'use client';
 import { useDispatch } from 'react-redux';
 import { setFilters } from '../app/redux/slices/invoicesSlice';
+import { motion } from 'framer-motion';
 
 const statuses = ['draft', 'pending', 'paid'];
 
@@ -25,12 +26,23 @@ const FilterMenu = ({ filters }: { filters: string | null | string[] }) => {
   };
 
   return (
-    <div
-      className={`dark:bg-dark-filter absolute top-14 right-1/4 sm:top-14 sm:right-1/4 md:top-28 md:right-52 2xl:right-[16.9rem] z-2 w-48 h-32 p-6 rounded-lg bg-card shadow-bsh dark:shadow-dark-bsh`}
+    <motion.div
+      className={`overflow-hidden dark:bg-dark-filter absolute top-14 right-1/4 sm:top-14 sm:right-1/4 md:top-28 md:right-52 2xl:right-[16.9rem] z-2 w-48 h-32 p-6 rounded-lg bg-card shadow-bsh dark:shadow-dark-bsh`}
+      key="filterMenu"
+      initial={{ height: 0, zIndex: 1 }}
+      animate={{ height: 128, zIndex: 1 }}
+      transition={{ duration: 0.3 }}
     >
       <ul className={`grid  place-content-between items-center w-full h-full`}>
         {statuses.map((status) => (
-          <button className={`flex items-center`} value={status} key={status}>
+          <motion.button
+            className={`flex items-center`}
+            value={status}
+            key={status}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4 }}
+          >
             <input
               id={status}
               defaultChecked={isChecked(status)}
@@ -48,10 +60,10 @@ const FilterMenu = ({ filters }: { filters: string | null | string[] }) => {
             >
               {status.charAt(0).toUpperCase() + status.slice(1).toLowerCase()}
             </label>
-          </button>
+          </motion.button>
         ))}
       </ul>
-    </div>
+    </motion.div>
   );
 };
 export default FilterMenu;

@@ -10,7 +10,7 @@ interface IFilterButton {
 export const FilterButton = ({ onClick, isOpenMenu }: IFilterButton) => {
   return (
     <button
-      className={`justify-self-end flex justify-center items-center gap-2 md:gap-4 h-11 p-1.5 rounded-3xl 
+      className={`transition duration-200 justify-self-end flex justify-center items-center gap-2 md:gap-4 h-11 p-1.5 rounded-3xl 
         text-sm-15 leading-sm4 font-bold traking-em0016 hover:text-header`}
       onClick={onClick}
     >
@@ -31,7 +31,7 @@ export const FilterButton = ({ onClick, isOpenMenu }: IFilterButton) => {
 export const InvoiceButton = ({ onClick }: { onClick: () => void }) => {
   return (
     <button
-      className={`justify-self-end flex justify-center items-center gap-2 md:gap-4 pr-4 h-11 p-1.5  rounded-3xl bg-primary text-primary-foreground 
+      className={`transition duration-200 justify-self-end flex justify-center items-center gap-2 md:gap-4 pr-4 h-11 p-1.5  rounded-3xl bg-primary text-primary-foreground 
         text-sm-15 leading-sm4 font-bold traking-em0016 hover:bg-primary-hover`}
       onClick={onClick}
     >
@@ -53,7 +53,7 @@ export const GoBackButton = ({
 }) => {
   return (
     <button
-      className={`justify-self-start flex justify-center items-center gap-2 md:gap-4 h-11 p-1.5 rounded-3xl hover:text-card-foreground`}
+      className={`transition duration-200 justify-self-start flex justify-center items-center gap-2 md:gap-4 h-11 p-1.5 rounded-3xl hover:text-card-foreground`}
       onClick={onClick}
     >
       <Image src={ArrowLeft} alt="<" width={4.23} height={8.46} />
@@ -71,7 +71,7 @@ export const AddNewItemButton = ({
 }) => {
   return (
     <button
-      className={`flex justify-center items-center gap-2 md:gap-4 h-11 rounded-3xl 
+      className={`transition duration-200 flex justify-center items-center gap-2 md:gap-4 h-11 rounded-3xl 
         text-sm-15 leading-sm4 font-bold traking-em0016 w-full text-muted dark:text-muted-darker
          bg-secondary dark:bg-dark-filter sm:dark:hover:bg-secondary-accent  sm:hover:bg-muted-darker `}
       onClick={handleAddItem}
@@ -91,7 +91,7 @@ export const GreyButton = ({
   return (
     <button
       onClick={onClick}
-      className={`text-sm15 leading-sm15 font-bold tracking-em0016 rounded-3xl h-12 px-4 md:px-6 flex justify-center items-center
+      className={`transition duration-200 text-sm15 leading-sm15 font-bold tracking-em0016 rounded-3xl h-12 px-4 md:px-6 flex justify-center items-center
          text-card-foreground dark:text-muted-darker bg-secondary dark:bg-dark-filter sm:dark:hover:bg-secondary-accent hover:bg-muted-darker`}
     >
       {text}
@@ -108,7 +108,7 @@ export const RedButton = ({
   return (
     <button
       onClick={onClick}
-      className={`text-sm15 leading-sm15 font-bold tracking-em0016 rounded-3xl h-12 px-5 md:px-6 flex justify-center items-center text-primary-foreground bg-delete hover:bg-delete-muted`}
+      className={`transition duration-200 text-sm15 leading-sm15 font-bold tracking-em0016 rounded-3xl h-12 px-5 md:px-6 flex justify-center items-center text-primary-foreground bg-delete hover:bg-delete-muted`}
     >
       {text}
     </button>
@@ -131,7 +131,7 @@ export const PurpleButton = ({
       type={type}
       onClick={onClick}
       className={`w-full text-sm15 leading-sm15 font-bold tracking-em0016 rounded-3xl h-12 px-2 sm:px-4  flex justify-center items-center
-         text-primary-foreground bg-primary hover:bg-primary-hover disabled:bg-muted-darker `}
+         text-primary-foreground bg-primary hover:bg-primary-hover disabled:bg-muted-darker transition duration-200`}
     >
       {text}
     </button>
@@ -154,7 +154,7 @@ export const DarkButton = ({
       disabled={disabled}
       type={type}
       onClick={onClick}
-      className={`w-full text-sm15 leading-sm15 font-bold tracking-em0016 rounded-3xl h-12 px-2 sm:px-4 flex justify-center items-center text-card-foreground bg-secondary-accent hover:bg-foreground`}
+      className={`transition duration-200 w-full text-sm15 leading-sm15 font-bold tracking-em0016 rounded-3xl h-12 px-2 sm:px-4 flex justify-center items-center text-card-foreground bg-secondary-accent hover:bg-foreground`}
     >
       {text}
     </button>

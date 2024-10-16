@@ -1,4 +1,5 @@
 'use client';
+import { motion } from 'framer-motion';
 import { MouseEvent, useState } from 'react';
 import { GoBackButton } from './Buttons';
 import { Input } from './Input';
@@ -176,8 +177,11 @@ export default function EditForm({
       className={`sm:overflow-hidden absolute left-0 top-[4.5rem] grid place-items-start   md:top-[5rem] xl:top-0 xl:left-[6.44rem]  z-2 
         w-full xl:w-[calc(100vw-6.44rem)] h-svh  sm:h-[calc(100vh-4.5rem)] md:h-[calc(100vh-5rem)] xl:h-full bg-black bg-opacity-50  min-w-80`}
     >
-      <div
+      <motion.div
         className={` sm:flex bg-card dark:bg-dark-background sm:h-[calc(100vh-8rem)] xl:h-[calc(100vh-4rem)]   pr-4 sm:absolute sm:rounded-r-b20`}
+        initial={{ left: -616 }}
+        animate={{ left: 0 }}
+        transition={{ duration: 0.3 }}
       >
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(formSubmit)}>
@@ -186,13 +190,11 @@ export default function EditForm({
             sm:overflow-y-scroll  dark:scrollbar-track-dark-background scrollbar-track-card scrollbar-thumb-muted-darker dark:scrollbar-thumb-dark-filter scrollbar-thin`}
             >
               <div>
-                <div
-                  className={` h-20 grid content-center mt-1 sm:mt-4 xl:mt-8`}
-                >
+                <div className={` h-20 grid content-center mt-1  sm:hidden`}>
                   <GoBackButton onClick={handleGoBack} />
                 </div>
                 <h2
-                  className={`font-bold text-2xl leading-8 text-foreground dark:text-primary-foreground tracking-tight  capitalize`}
+                  className={`sm:mt-4 xl:mt-8 font-bold text-2xl leading-8 text-foreground dark:text-primary-foreground tracking-tight  capitalize`}
                 >
                   Edit
                   <span className={`text-card-foreground `}> #</span>
@@ -478,8 +480,11 @@ export default function EditForm({
                 </section>
               </div>
             </div>
-            <div
+            <motion.div
               className={`sm:fixed sm:left-0 xl:left-[6.44rem] sm:bottom-0 pt-14 w-full max-w-[38.5rem] bg-card dark:bg-dark-background sm:rounded-br-b20 `}
+              initial={{ left: -616 }}
+              animate={{ left: 0 }}
+              transition={{ duration: 0.3 }}
             >
               <div
                 className={`grid w-full   place-items-center  sm:place-items-end sm:rounded-r-b20 bg-card shadow-shadowUp dark:bg-dark-background  px-6 py-5 `}
@@ -490,10 +495,10 @@ export default function EditForm({
                   invoiceId={invoice.id}
                 />
               </div>
-            </div>
+            </motion.div>
           </form>
         </FormProvider>
-      </div>
+      </motion.div>
     </div>
   );
 }

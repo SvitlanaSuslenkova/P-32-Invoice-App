@@ -1,8 +1,6 @@
 'use client';
 import { GreyButton, RedButton, PurpleButton } from './Buttons';
 import { useDispatch } from 'react-redux';
-//import { setDeletedId } from '@/app/redux/slices/deletedIdSlice';
-//import { setNewInvoices } from '@/app/redux/slices/newInvoicesSlice';
 import {
   setNewInvoices,
   setDeletedInvoices,
