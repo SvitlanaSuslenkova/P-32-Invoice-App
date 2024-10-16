@@ -35,6 +35,10 @@ export const EditDeleteMark = ({
     setIsEditOpen(false);
   };
 
+  function isDraft() {
+    return invoice.status == 'draft' ? true : false;
+  }
+
   return (
     <div className={`flex flex-row gap-x-2`}>
       <GreyButton text="Edit" onClick={() => setIsEditOpen(true)} />
@@ -43,6 +47,7 @@ export const EditDeleteMark = ({
         text="Mark as Paid"
         type="submit"
         onClick={editStatusHandler}
+        disabled={isDraft()}
       />
     </div>
   );

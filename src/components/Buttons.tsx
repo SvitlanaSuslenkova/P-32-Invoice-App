@@ -130,7 +130,8 @@ export const PurpleButton = ({
       disabled={disabled}
       type={type}
       onClick={onClick}
-      className={`w-full text-sm15 leading-sm15 font-bold tracking-em0016 rounded-3xl h-12 px-2 sm:px-4  flex justify-center items-center text-primary-foreground bg-primary hover:bg-primary-hover`}
+      className={`w-full text-sm15 leading-sm15 font-bold tracking-em0016 rounded-3xl h-12 px-2 sm:px-4  flex justify-center items-center
+         text-primary-foreground bg-primary hover:bg-primary-hover disabled:bg-muted-darker `}
     >
       {text}
     </button>

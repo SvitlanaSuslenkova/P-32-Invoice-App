@@ -26,29 +26,18 @@ export default function InvoiceCards() {
   );
 
   const filters = useSelector((state: RootState) => state.invoices.filters);
-
+  /* const filteredInvoices = useSelector(
+    (state: RootState) => state.invoices.filteredinvoices
+  );*/
   const [invoicesToShow, setInvoicesToShow] = useState<
     IInvoice[] | IInvoiceDraft[] | null
   >([]);
-  // DELETE NEW INVOICES???
-  /* const invoicesWithoutDeleted = () => {
-    const i = invoices;
-    if (deletedId && deletedId.length > 0) {
-      return i.filter((invoice: IInvoice) => !deletedId.includes(invoice.id));
-    }
-    return i;
-  };*/
-  /* const newInvoicesArray = [...invoicesWithoutDeleted(), ...newInvoices];
-  const invoicesToShowArray = () => {
-    const filteredInvoices = newInvoicesArray;
 
-    if (filters && filters.length > 0) {
-      return filteredInvoices.filter((invoice: IInvoice) =>
-        filters.includes(invoice.status)
-      );
-    }
-    return [];
-  };*/
+  /*useEffect(() => {
+       
+    setInvoicesToShow(filteredInvoices);
+  }, [filters, edittedInvoices]);
+*/
 
   useEffect(() => {
     const invoicesToShowArray = () => {

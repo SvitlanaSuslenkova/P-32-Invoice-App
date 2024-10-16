@@ -8,12 +8,14 @@ type InvoicesState = {
   invoices: IInvoice[];
   editedinvoices: IInvoice[] | IInvoiceDraft[];
   filters: string[] | null;
+  // filteredinvoices: IInvoice[] | IInvoiceDraft[];
 };
 
 const initialState: InvoicesState = {
   invoices: defaultInvoices,
   editedinvoices: defaultInvoices,
   filters: ['paid', 'pending', 'draft'],
+  //filteredinvoices: defaultInvoices,
   // status: 'idle',
   // error: null,
 };
@@ -37,6 +39,27 @@ const invoicesSlice = createSlice({
       console.log('setNewInvoices payload', payload);
       state.editedinvoices = [...state.editedinvoices, payload];
     },
+
+    /* setFilters: (state, action: PayloadAction<string>) => {
+      const { payload } = action;
+      if (!state.filters) {
+        state.filters = [payload];
+      } else if (state.filters.includes(payload)) {
+        state.filters = state.filters.filter((filter) => filter !== payload);
+      } else {
+        state.filters = [...state.filters, payload];
+      }
+      if (state.filters !== null && state.filters.length > 0) {
+        state.filteredinvoices = state.editedinvoices.filter(
+          (invoice: IInvoice | IInvoiceDraft) =>
+            state.filters!.includes(invoice.status)
+        );
+      } else {
+        state.filteredinvoices = [];
+      }
+      console.log('editedinvoices', state.editedinvoices);
+      console.log('filteredinvoices', state.filteredinvoices);
+    },*/
     setFilters: (state, action: PayloadAction<string>) => {
       const { payload } = action;
 
