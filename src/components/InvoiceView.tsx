@@ -2,7 +2,7 @@
 
 import { EditDeleteMark } from './EditDeleteMark';
 import Status from './Status';
-import { IInvoice, Iitem } from './Types';
+import { IInvoice, Iitem, IInvoiceDraft, IitemDraft } from './Types';
 import { formatDate } from '@/app/actions/formatDate';
 
 export default function InvoiceView({
@@ -10,7 +10,7 @@ export default function InvoiceView({
   setIsEditOpen,
   invoice,
 }: {
-  invoice: IInvoice;
+  invoice: IInvoice | IInvoiceDraft;
   handleDelete: () => void;
   setIsEditOpen: (isEditOpen: boolean) => void;
 }) {
@@ -74,7 +74,7 @@ export default function InvoiceView({
               <div>
                 <p className={`mb-3`}>Payment due</p>
                 <p className={`black15 dark:text-primary-foreground`}>
-                  {formatDate(invoice.paymentDue)}
+                  {invoice.paymentDue ? formatDate(invoice.paymentDue) : null}
                 </p>
               </div>
             </article>
@@ -109,7 +109,7 @@ export default function InvoiceView({
             </div>
             {items &&
               items.length > 0 &&
-              items.map((item: Iitem) => (
+              items.map((item: Iitem | IitemDraft) => (
                 <div
                   key={item.name}
                   className={`grid grid-cols-2 mb-6 md:grid-cols-[6fr,1.5fr]`}
@@ -127,7 +127,7 @@ export default function InvoiceView({
                       </p>
                       <p className={`md:text-right`}>
                         <span> £ </span>
-                        {item.price.toFixed(2)}
+                        {item?.price?.toFixed(2)}
                       </p>
                     </div>
                   </div>
@@ -135,7 +135,11 @@ export default function InvoiceView({
                     className={`black15 dark:text-primary-foreground self-center justify-self-end`}
                   >
                     <span>£ </span>
-                    <span>{(item.price * item.quantity).toFixed(2)}</span>
+                    <span>
+                      {item.price && item.quantity
+                        ? (item.price * item.quantity).toFixed(2)
+                        : null}
+                    </span>
                   </p>
                 </div>
               ))}
@@ -146,7 +150,7 @@ export default function InvoiceView({
             <p className={`leading-sm5 `}>Grand Total</p>
             <p className={`text-2xl  text-bold leading-8 tracking-[-0.02em]`}>
               <span>£ </span>
-              <span>{invoice.total.toFixed(2)}</span>
+              <span>{invoice?.total?.toFixed(2)}</span>
             </p>
           </section>
         </div>

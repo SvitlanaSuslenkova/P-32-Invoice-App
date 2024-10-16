@@ -1,17 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 //import { setError } from './errorSlice';
-import { IInvoice } from '../../../components/Types';
+import { IInvoice, IInvoiceDraft } from '../../../components/Types';
 
 import defaultInvoices from '../../../data.json';
 //import { setNewInvoices } from './newInvoicesSlice';
 type InvoicesState = {
   invoices: IInvoice[];
-  editedinvoices: IInvoice[];
+  editedinvoices: IInvoice[] | IInvoiceDraft[];
+  filters: string[] | null;
 };
 
 const initialState: InvoicesState = {
   invoices: defaultInvoices,
   editedinvoices: defaultInvoices,
+  filters: ['paid', 'pending', 'draft'],
   // status: 'idle',
   // error: null,
 };
@@ -27,16 +29,32 @@ const invoicesSlice = createSlice({
         (invoice) => invoice.id !== payload
       );
     },
-    setNewInvoices: (state, action: PayloadAction<IInvoice>) => {
+    setNewInvoices: (
+      state,
+      action: PayloadAction<IInvoice | IInvoiceDraft>
+    ) => {
       const { payload } = action;
       console.log('setNewInvoices payload', payload);
-      //state.editedinvoices = [...state.invoices, payload];
       state.editedinvoices = [...state.editedinvoices, payload];
+    },
+    setFilters: (state, action: PayloadAction<string>) => {
+      const { payload } = action;
+
+      if (state.filters === null) {
+        state.filters = [payload];
+        return;
+      }
+      if (state.filters.includes(payload)) {
+        state.filters = state.filters.filter((filter) => filter !== payload);
+        return;
+      }
+      state.filters = [...state.filters, payload];
     },
   },
 });
 
-export const { setDeletedInvoices, setNewInvoices } = invoicesSlice.actions;
+export const { setDeletedInvoices, setNewInvoices, setFilters } =
+  invoicesSlice.actions;
 export default invoicesSlice.reducer;
 
 /* setEditedInvoice: (state, action: PayloadAction<IInvoice[]>) => {

@@ -8,7 +8,7 @@ import {
   setDeletedInvoices,
 } from '@/app/redux/slices/invoicesSlice';
 import type { AppDispatch } from '@/app/redux/store';
-import { IInvoice } from './Types';
+import { IInvoice, IInvoiceDraft } from './Types';
 
 export const EditDeleteMark = ({
   handleDelete,
@@ -19,7 +19,7 @@ export const EditDeleteMark = ({
   handleDelete: () => void;
   setIsEditOpen: (isEditOpen: boolean) => void;
   invoiceId: string;
-  invoice: IInvoice;
+  invoice: IInvoice | IInvoiceDraft;
 }) => {
   const dispatch = useDispatch<AppDispatch>();
 

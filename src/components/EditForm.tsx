@@ -17,7 +17,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { schema } from './constants/zSchema';
 import { formatDateBack } from '@/app/actions/formatDate';
 import { nanoid } from 'nanoid';
-import { IInvoice } from './Types';
+import { IInvoice, IInvoiceDraft, IitemDraft } from './Types';
 
 import { useDispatch } from 'react-redux';
 import { setNewInvoices } from '@/app/redux/slices/invoicesSlice';
@@ -28,7 +28,7 @@ export default function EditForm({
   invoice,
 }: {
   setIsEditOpen: (isEditOpen: boolean) => void;
-  invoice: IInvoice;
+  invoice: IInvoice | IInvoiceDraft;
 }) {
   const dispatch = useDispatch();
 
@@ -50,31 +50,31 @@ export default function EditForm({
     defaultValues: {
       id: invoice.id,
       createdAt: invoice.createdAt,
-      paymentDue: invoice.paymentDue,
-      description: invoice.description,
-      paymentTerms: invoice.paymentTerms,
-      clientName: invoice.clientName,
-      clientEmail: invoice.clientEmail,
-      status: invoice.status,
+      paymentDue: invoice?.paymentDue,
+      description: invoice?.description,
+      paymentTerms: invoice?.paymentTerms,
+      clientName: invoice?.clientName,
+      clientEmail: invoice?.clientEmail,
+      status: invoice?.status,
       senderAddress: {
-        street: invoice.senderAddress.street,
-        city: invoice.senderAddress.city,
-        postCode: invoice.senderAddress.postCode,
-        country: invoice.senderAddress.country,
+        street: invoice?.senderAddress?.street,
+        city: invoice?.senderAddress?.city,
+        postCode: invoice?.senderAddress?.postCode,
+        country: invoice?.senderAddress?.country,
       },
       clientAddress: {
-        street: invoice.clientAddress.street,
-        city: invoice.clientAddress.city,
-        postCode: invoice.clientAddress.postCode,
-        country: invoice.clientAddress.country,
+        street: invoice?.clientAddress?.street,
+        city: invoice?.clientAddress?.city,
+        postCode: invoice?.clientAddress?.postCode,
+        country: invoice?.clientAddress?.country,
       },
-      items: invoice.items.map((item) => ({
-        name: item.name,
-        quantity: item.quantity,
-        price: item.price,
-        total: item.total,
+      items: invoice?.items?.map((item: IitemDraft) => ({
+        name: item?.name,
+        quantity: item?.quantity,
+        price: item?.price,
+        total: item?.total,
       })),
-      total: invoice.total,
+      total: invoice?.total,
     },
 
     resolver: zodResolver(schema),
@@ -98,7 +98,7 @@ export default function EditForm({
 
   function handleDeleteItem(
     e: React.MouseEvent<HTMLButtonElement>,
-    item: string,
+    item: string | undefined,
     thisindex: number
   ) {
     e.preventDefault();
@@ -443,7 +443,7 @@ export default function EditForm({
                       <p
                         className={` grid items-center mb-8 row-start-4 sm:row-start-1 sm:col-start-4 black15 text-card-foreground`}
                       >
-                        {Number(itemTotal(index)).toFixed(2)}
+                        {Number(itemTotal(index))?.toFixed(2)}
                       </p>
                       <div
                         className={` justify-self-end mb-8 sm:justify-self-center grid place-items-center row-start-4 sm:row-start-1 sm:col-start-5`}

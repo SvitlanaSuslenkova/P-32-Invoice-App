@@ -30,7 +30,7 @@ export default function NewInvoice({
   const dispatch = useDispatch();
   const [startDate, setStartDate] = useState(new Date());
   const [items, setItems] = useState([nanoid(6)]);
-
+  const [isDraft, setIsDraft] = useState(false);
   const handleGoBack = () => {
     setIsOpenNewInvoice(false);
   };
@@ -66,7 +66,7 @@ export default function NewInvoice({
 
   function handleDeleteItem(
     e: React.MouseEvent<HTMLButtonElement>,
-    item: string,
+    item: string | undefined,
     thisindex: number
   ) {
     e.preventDefault();
@@ -127,13 +127,6 @@ export default function NewInvoice({
     trigger();
     console.log(data);
     console.log('formSubmit');
-    /*try {
-      const res = schema.parse(data);
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }*/
-
     dispatch(setNewInvoices(data));
   };
 
@@ -167,11 +160,6 @@ export default function NewInvoice({
             sm:overflow-y-scroll  dark:scrollbar-track-dark-background scrollbar-track-card scrollbar-thumb-muted-darker dark:scrollbar-thumb-dark-filter scrollbar-thin`}
             >
               <div>
-                {/*  <div
-                  className={` h-20 grid content-center mt-1 sm:mt-4 xl:mt-8`}
-                >
-                  <GoBackButton onClick={handleGoBack} />
-                </div>*/}
                 <h2
                   className={`font-bold text-2xl leading-8 mt-4 text-foreground dark:text-primary-foreground tracking-tight  capitalize`}
                 >
@@ -185,7 +173,7 @@ export default function NewInvoice({
                   <Input
                     label="street address"
                     {...register(`senderAddress.street`, {
-                      required: true,
+                      required: !isDraft ? true : false,
                     })}
                     errorMessage={errors?.senderAddress?.street?.message}
                   />
@@ -193,14 +181,14 @@ export default function NewInvoice({
                     <Input
                       label="city"
                       {...register(`senderAddress.city`, {
-                        required: true,
+                        required: !isDraft ? true : false,
                       })}
                       errorMessage={errors?.senderAddress?.city?.message}
                     />
                     <Input
                       label="post code"
                       {...register(`senderAddress.postCode`, {
-                        required: true,
+                        required: !isDraft ? true : false,
                       })}
                       errorMessage={errors?.senderAddress?.postCode?.message}
                     />
@@ -208,7 +196,7 @@ export default function NewInvoice({
                       label="country"
                       className={`col-span-2`}
                       {...register(`senderAddress.country`, {
-                        required: true,
+                        required: !isDraft ? true : false,
                       })}
                       errorMessage={errors?.senderAddress?.country?.message}
                     />
@@ -221,7 +209,7 @@ export default function NewInvoice({
                   <Input
                     label="client's name"
                     {...register(`clientName`, {
-                      required: true,
+                      required: !isDraft ? true : false,
                     })}
                     errorMessage={errors?.clientName?.message}
                   />
@@ -229,14 +217,14 @@ export default function NewInvoice({
                   <Input
                     label="client's email"
                     {...register(`clientEmail`, {
-                      required: true,
+                      required: !isDraft ? true : false,
                     })}
                     errorMessage={errors?.clientEmail?.message}
                   />
                   <Input
                     label="street address"
                     {...register(`clientAddress.street`, {
-                      required: true,
+                      required: !isDraft ? true : false,
                     })}
                     errorMessage={errors?.clientAddress?.street?.message}
                   />
@@ -244,14 +232,14 @@ export default function NewInvoice({
                     <Input
                       label="city"
                       {...register(`clientAddress.city`, {
-                        required: true,
+                        required: !isDraft ? true : false,
                       })}
                       errorMessage={errors?.clientAddress?.city?.message}
                     />
                     <Input
                       label="post code"
                       {...register(`clientAddress.postCode`, {
-                        required: true,
+                        required: !isDraft ? true : false,
                       })}
                       errorMessage={errors?.clientAddress?.postCode?.message}
                     />
@@ -259,7 +247,7 @@ export default function NewInvoice({
                       label="country"
                       className={`col-span-2`}
                       {...register(`clientAddress.country`, {
-                        required: true,
+                        required: !isDraft ? true : false,
                       })}
                       errorMessage={errors?.clientAddress?.country?.message}
                     />
@@ -349,7 +337,7 @@ export default function NewInvoice({
                   <Input
                     label="project description"
                     {...register(`description`, {
-                      required: true,
+                      required: !isDraft ? true : false,
                     })}
                     errorMessage={errors?.description?.message}
                   />
@@ -381,7 +369,7 @@ export default function NewInvoice({
                       <Input
                         className={`row-start-2  col-span-4 sm:row-start-1 sm:col-span-1`}
                         {...register(`items.${index}.name`, {
-                          required: true,
+                          required: !isDraft ? true : false,
                         })}
                         errorMessage={errors?.items?.[index]?.name?.message}
                       />
@@ -395,7 +383,7 @@ export default function NewInvoice({
                         className={`row-start-4 sm:row-start-1 sm:col-start-2`}
                         {...register(`items.${index}.quantity`, {
                           valueAsNumber: true,
-                          required: true,
+                          required: !isDraft ? true : false,
                         })}
                         errorMessage={errors?.items?.[index]?.quantity?.message}
                       />
@@ -409,7 +397,7 @@ export default function NewInvoice({
                         className={`row-start-4 sm:row-start-1 sm:col-start-3`}
                         {...register(`items.${index}.price`, {
                           valueAsNumber: true,
-                          required: true,
+                          required: !isDraft ? true : false,
                         })}
                         errorMessage={errors?.items?.[index]?.price?.message}
                       />
@@ -466,6 +454,7 @@ export default function NewInvoice({
                 <DiscardDraftSend
                   handleGoBack={handleGoBack}
                   onSubmit={handleSubmit(formSubmit)}
+                  setIsDraft={setIsDraft}
                 />
               </div>
             </div>

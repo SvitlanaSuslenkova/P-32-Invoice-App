@@ -10,7 +10,7 @@ import ConfirmDelete from '@/components/ConfirmDelete';
 import NoInvoice from '@/components/NoInvoice';
 //import Loading from '@/components/Loading';
 import InvoiceView from '@/components/InvoiceView';
-import { IInvoice } from '@/components/Types';
+import { IInvoice, IInvoiceDraft } from '@/components/Types';
 import { setDeletedInvoices } from '@/app/redux/slices/invoicesSlice';
 import type { RootState, AppDispatch } from '../../redux/store';
 export default function ViewInvoice() {
@@ -31,7 +31,7 @@ export default function ViewInvoice() {
     (state: RootState) => state.invoices.editedinvoices
   );
   const invoice = editedinvoices.filter(
-    (invoice: IInvoice) => invoiceId == invoice.id
+    (invoice: IInvoice | IInvoiceDraft) => invoiceId == invoice.id
   );
 
   const handleGoBack = () => {

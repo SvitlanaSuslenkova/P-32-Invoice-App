@@ -1,6 +1,6 @@
 'use client';
 import { useDispatch } from 'react-redux';
-import { setFilters } from '../app/redux/slices/filtersSlice';
+import { setFilters } from '../app/redux/slices/invoicesSlice';
 
 const statuses = ['draft', 'pending', 'paid'];
 

@@ -4,7 +4,7 @@ import InvoiceCard from './InvoiceCard';
 import Filter from './Filter';
 import NoInvoice from './NoInvoice';
 //import Loading from './Loading';
-import { IInvoice } from './Types';
+import { IInvoice, IInvoiceDraft } from './Types';
 
 import {
   //useDispatch,
@@ -21,35 +21,15 @@ import type {
 export default function InvoiceCards() {
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
   const [isOpenNewInvoice, setIsOpenNewInvoice] = useState<boolean>(false);
-
-  // const dispatch = useDispatch<AppDispatch>();
-  //const invoices = useSelector((state: RootState) => state.invoices.invoices);
   const edittedInvoices = useSelector(
     (state: RootState) => state.invoices.editedinvoices
   );
 
-  /*const newInvoices = useSelector((state: RootState) => {
-    console.log(state);
-    return state.newInvoices.newInvoices;
-  });*/
+  const filters = useSelector((state: RootState) => state.invoices.filters);
 
-  const filters = useSelector((state: RootState) => state.filters.filters);
-  /* const invoicesStatus = useSelector(
-    (state: RootState) => state.invoices.status
-  );*/
-  //const error = useSelector((state) => state.invoices.error);
-
-  /* const deletedId = useSelector(
-    (state: RootState) => state.deletedId.deletedId
-  );*/
-
-  /*useEffect(() => {
-    if (invoicesStatus === 'idle') {
-      dispatch(fetchInvoices());
-    }
-  }, [dispatch, invoices, invoicesStatus]);*/
-
-  const [invoicesToShow, setInvoicesToShow] = useState<IInvoice[] | null>([]);
+  const [invoicesToShow, setInvoicesToShow] = useState<
+    IInvoice[] | IInvoiceDraft[] | null
+  >([]);
   // DELETE NEW INVOICES???
   /* const invoicesWithoutDeleted = () => {
     const i = invoices;
@@ -73,7 +53,7 @@ export default function InvoiceCards() {
   useEffect(() => {
     const invoicesToShowArray = () => {
       if (filters && filters.length > 0) {
-        return edittedInvoices.filter((invoice: IInvoice) =>
+        return edittedInvoices.filter((invoice: IInvoice | IInvoiceDraft) =>
           filters.includes(invoice.status)
         );
       } else return [];
@@ -102,7 +82,7 @@ export default function InvoiceCards() {
         />
 
         {invoicesToShow && invoicesToShow.length > 0 ? (
-          invoicesToShow.map((invoice: IInvoice) => (
+          invoicesToShow.map((invoice: IInvoice | IInvoiceDraft) => (
             <InvoiceCard invoice={invoice} key={invoice.id} />
           ))
         ) : (
@@ -117,22 +97,3 @@ export default function InvoiceCards() {
     </div>
   );
 }
-/*
-        {invoicesStatus === 'loading' ? (
-          <div>
-            <Loading />
-          </div>
-        ) : invoicesStatus === 'succeeded' &&
-          invoicesToShow &&
-          invoicesToShow.length > 0 ? (
-          invoicesToShow.map((invoice: IInvoice) => (
-            <InvoiceCard invoice={invoice} key={invoice.id} />
-          ))
-        ) : invoicesStatus === 'succeeded' && invoicesToShow?.length == 0 ? (
-          <div className={`mt-16 md:mt-44 xl:mt-16`}>
-            <NoInvoice />
-          </div>
-        ) : invoicesStatus == 'failed' ? (
-          <p>Error</p>
-        ) : null}
-         */

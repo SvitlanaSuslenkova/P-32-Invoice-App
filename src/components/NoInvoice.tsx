@@ -6,7 +6,7 @@ export default function NoInvoice() {
       <div
         className={`dark:text-primary-foreground grid justify-items-center max-w-64 text-center`}
       >
-        <Image src={ImgEmpty} alt="no-information" width={241} height={200} />
+        <Image src={ImgEmpty} alt="no-information" width={242} height={200} />
         <p className={`text-2xl font-bold leading-sm6 tracking-em0031`}>
           There is nothing here
         </p>
