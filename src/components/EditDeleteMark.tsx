@@ -36,7 +36,7 @@ export const EditDeleteMark = ({
   };
 
   function isDraft() {
-    return invoice.status == 'draft' ? true : false;
+    return invoice?.status == 'draft' ? true : false;
   }
 
   return (
