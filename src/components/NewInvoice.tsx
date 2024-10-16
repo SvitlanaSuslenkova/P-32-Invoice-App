@@ -466,12 +466,11 @@ export default function NewInvoice({
                 </div>
               </div>
               <motion.div
-                className={`sm:fixed sm:left-0 xl:left-[6.44rem] sm:bottom-0 pt-14 w-full max-w-[38.5rem] bg-card dark:bg-dark-background sm:rounded-br-b20 `}
+                className={` sm:fixed sm:left-0 xl:left-[6.44rem] xl:ml-[6.44rem] sm:bottom-0 pt-14 w-full max-w-[38.5rem] bg-card dark:bg-dark-background sm:rounded-br-b20 `}
                 key="footer"
                 initial={{ left: -616 }}
                 animate={{ left: 0 }}
                 transition={{ duration: 0.3 }}
-                exit={{ left: -616 }}
               >
                 <div
                   className={`grid w-full   place-items-center  sm:place-items-end sm:rounded-r-b20 bg-card dark:bg-dark-background shadow-shadowUp   px-6 py-5 `}

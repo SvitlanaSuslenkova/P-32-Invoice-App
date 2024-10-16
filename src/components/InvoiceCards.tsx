@@ -77,6 +77,7 @@ export default function InvoiceCards() {
               initial={{ opacity: 0, scale: 0.7, zIndex: 0 }}
               animate={{ opacity: 1, scale: 1, zIndex: 0 }}
               transition={{ duration: 0.2 }}
+              className={`w-full`}
             >
               <InvoiceCard invoice={invoice} />
             </motion.div>
