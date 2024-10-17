@@ -1,30 +1,25 @@
 'use client';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { GoBackButton } from '../../../components/Buttons';
+import { GoBackButton } from '../../../components/ui/Buttons';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
-import { EditDeleteMark } from '@/components/EditDeleteMark';
+import { EditDeleteMark } from '@/components/Footers/EditDeleteMark';
 import EditForm from '@/components/EditForm';
 import ConfirmDelete from '@/components/ConfirmDelete';
-import NoInvoice from '@/components/NoInvoice';
-//import Loading from '@/components/Loading';
+import NoInvoice from '@/components/ui/NoInvoice';
 import InvoiceView from '@/components/InvoiceView';
 import { IInvoice, IInvoiceDraft } from '@/components/Types';
 import { setDeletedInvoices } from '@/app/redux/slices/invoicesSlice';
 import type { RootState, AppDispatch } from '../../redux/store';
+
 export default function ViewInvoice() {
   const router = useRouter();
-
-  //const { handleSubmit } = useFormContext();
-
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
-
   const pathname = usePathname();
   const partsofpathname = pathname.split('/');
   const invoiceId: string = partsofpathname[partsofpathname.length - 1];
-
   const dispatch = useDispatch<AppDispatch>();
 
   const editedinvoices = useSelector(

@@ -1,9 +1,9 @@
 'use client';
 import { setNewInvoices } from '@/app/redux/slices/invoicesSlice';
-import { GreyButton, PurpleButton, DarkButton } from './Buttons';
+import { GreyButton, PurpleButton, DarkButton } from '../ui/Buttons';
 import { useFormContext } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { IInvoiceDraft } from './Types';
+import { IInvoiceDraft } from '../Types';
 
 export const DiscardDraftSend = ({
   handleGoBack,
@@ -31,7 +31,6 @@ export const DiscardDraftSend = ({
   async function triggerForm() {
     const t = await trigger();
     if (t) {
-      console.log('errors', errors);
       onSubmit();
       handleGoBack();
     }

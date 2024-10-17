@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import ArrowRight from '../images/icon-arrow-right.svg';
-import Status from './Status';
+import Status from './ui/Status';
 import { IInvoice, IInvoiceDraft } from './Types';
 import { formatDate } from '@/app/actions/formatDate';
 

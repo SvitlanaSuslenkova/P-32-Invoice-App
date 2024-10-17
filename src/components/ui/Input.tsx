@@ -1,5 +1,4 @@
 import React, { forwardRef } from 'react';
-
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   name: string;
@@ -8,8 +7,6 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   errorMessage?: string;
 }
-
-// Use forwardRef with correct typing for the ref
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
@@ -45,7 +42,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           className={`dark:bg-dark-header dark:border-dark-filter  dark:text-primary-foreground appearance-none overflow-visible mt-2 w-full px-5 py-4 border rounded focus:outline-none focus:ring-1 focus:ring-primary hover:ring-1 hover:ring-primary hover:cursor-pointer black15 ${
             errorMessage ? 'border-delete dark:border-delete' : ''
           }`}
-          ref={ref} // forward the ref to the actual input element
+          ref={ref}
           onChange={onChange}
           {...props}
         />
@@ -53,6 +50,5 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     );
   }
 );
-//'border-muted-darker dark:border-dark-filter dark:bg-dark-header dark:text-primary-foreground
 
 Input.displayName = 'Input';

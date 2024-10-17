@@ -1,7 +1,7 @@
 import Image from 'next/image';
-import Plus from '../images/icon-plus.svg';
-import ArrowDown from '../images/icon-arrow-down.svg';
-import ArrowLeft from '../images/icon-arrow-left.svg';
+import Plus from '../../images/icon-plus.svg';
+import ArrowDown from '../../images/icon-arrow-down.svg';
+import ArrowLeft from '../../images/icon-arrow-left.svg';
 
 interface IFilterButton {
   onClick: React.MouseEventHandler<HTMLButtonElement>;

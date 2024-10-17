@@ -2,18 +2,11 @@
 import Image from 'next/image';
 import Avatar from '../images/image-avatar.jpg';
 import Moon from '../images/icon-moon.svg';
-//import { useState } from 'react';
 import { useDarkMode } from '@/app/actions/darkModeContext';
 import Sun from '../images/icon-sun.svg';
 
 export default function Header() {
   const { dark, toggleDarkMode } = useDarkMode();
-  /*const [dark, setDark] = useState(false);
-
-  const darkModeHandler = () => {
-    setDark(!dark);
-    document.body.classList.toggle('dark');
-  };*/
 
   return (
     <header

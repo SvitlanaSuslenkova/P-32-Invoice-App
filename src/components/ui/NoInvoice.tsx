@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import ImgEmpty from '../images/illustration-empty.svg';
+import ImgEmpty from '../../images/illustration-empty.svg';
 export default function NoInvoice() {
   return (
     <div className={`w-full grid items-center justify-center`}>

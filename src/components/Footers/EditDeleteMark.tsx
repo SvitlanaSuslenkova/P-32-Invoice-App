@@ -1,12 +1,12 @@
 'use client';
-import { GreyButton, RedButton, PurpleButton } from './Buttons';
+import { GreyButton, RedButton, PurpleButton } from '../ui/Buttons';
 import { useDispatch } from 'react-redux';
 import {
   setNewInvoices,
   setDeletedInvoices,
 } from '@/app/redux/slices/invoicesSlice';
 import type { AppDispatch } from '@/app/redux/store';
-import { IInvoice, IInvoiceDraft } from './Types';
+import { IInvoice, IInvoiceDraft } from '../Types';
 
 export const EditDeleteMark = ({
   handleDelete,

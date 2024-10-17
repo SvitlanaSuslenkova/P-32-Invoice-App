@@ -1,4 +1,4 @@
-import { RedButton, GreyButton } from './Buttons';
+import { RedButton, GreyButton } from './ui/Buttons';
 
 export default function ConfirmDelete({
   setIsDeleteOpen,

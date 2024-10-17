@@ -1,22 +1,13 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import InvoiceCard from './InvoiceCard';
-import Filter from './Filter';
-import NoInvoice from './NoInvoice';
-//import Loading from './Loading';
+import Filter from './Filter/Filter';
+import NoInvoice from './ui/NoInvoice';
 import { IInvoice, IInvoiceDraft } from './Types';
 import { motion } from 'framer-motion';
-import {
-  //useDispatch,
-  useSelector,
-} from 'react-redux';
-//import { fetchInvoices } from '../app/redux/slices/invoicesSlice';
+import { useSelector } from 'react-redux';
 import NewInvoice from './NewInvoice';
-//import { TypedUseSelectorHook } from 'react-redux';
-import type {
-  RootState,
-  //, AppDispatch
-} from '../app/redux/store';
+import type { RootState } from '../app/redux/store';
 
 export default function InvoiceCards() {
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
@@ -24,21 +15,10 @@ export default function InvoiceCards() {
   const edittedInvoices = useSelector(
     (state: RootState) => state.invoices.editedinvoices
   );
-
   const filters = useSelector((state: RootState) => state.invoices.filters);
-  /* const filteredInvoices = useSelector(
-    (state: RootState) => state.invoices.filteredinvoices
-  );*/
   const [invoicesToShow, setInvoicesToShow] = useState<
     IInvoice[] | IInvoiceDraft[] | null
   >([]);
-
-  /*useEffect(() => {
-       
-    setInvoicesToShow(filteredInvoices);
-  }, [filters, edittedInvoices]);
-*/
-
   useEffect(() => {
     const invoicesToShowArray = () => {
       if (filters && filters.length > 0) {
@@ -56,7 +36,7 @@ export default function InvoiceCards() {
 
   return (
     <div
-      className={`   grid content-center w-full max-w-[45.63rem] 2xl:max-w-[60rem] px-6 sm:px-12 md:px-0  `}
+      className={`   grid content-center w-full max-w-[45.63rem] 2xl:max-w-[60rem] px-6 pb-6 sm:px-12 md:px-0  `}
     >
       <div
         className={`${

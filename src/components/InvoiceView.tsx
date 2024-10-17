@@ -1,7 +1,6 @@
 'use client';
-
-import { EditDeleteMark } from './EditDeleteMark';
-import Status from './Status';
+import { EditDeleteMark } from './Footers/EditDeleteMark';
+import Status from './ui/Status';
 import { IInvoice, Iitem, IInvoiceDraft, IitemDraft } from './Types';
 import { formatDate } from '@/app/actions/formatDate';
 

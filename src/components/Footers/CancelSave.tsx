@@ -1,5 +1,5 @@
 'use client';
-import { GreyButton, PurpleButton, DarkButton } from './Buttons';
+import { GreyButton, PurpleButton, DarkButton } from '../ui/Buttons';
 import { useFormContext } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '@/app/redux/store';
@@ -7,7 +7,7 @@ import {
   setDeletedInvoices,
   setNewInvoices,
 } from '@/app/redux/slices/invoicesSlice';
-import { IInvoiceDraft } from './Types';
+import { IInvoiceDraft } from '../Types';
 
 export const CancelSave = ({
   setIsEditOpen,
@@ -31,9 +31,6 @@ export const CancelSave = ({
   async function triggerForm() {
     const t = await trigger();
     if (t) {
-      console.log('errors', errors);
-      const v = getValues();
-      console.log('values', v);
       if (Object.keys(errors).length == 0) {
         dispatch(setDeletedInvoices(invoiceId));
         onSubmit();

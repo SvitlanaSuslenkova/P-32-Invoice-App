@@ -1,5 +1,4 @@
-import { FilterButton, InvoiceButton } from './Buttons';
-
+import { FilterButton, InvoiceButton } from '../ui/Buttons';
 import FilterMenu from './FilterMenu';
 
 interface IFilter {

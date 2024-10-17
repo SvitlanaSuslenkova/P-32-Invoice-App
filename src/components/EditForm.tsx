@@ -1,10 +1,10 @@
 'use client';
 import { motion } from 'framer-motion';
 import { MouseEvent, useState } from 'react';
-import { GoBackButton } from './Buttons';
-import { Input } from './Input';
-import { AddNewItemButton } from './Buttons';
-import { CancelSave } from './CancelSave';
+import { GoBackButton } from './ui/Buttons';
+import { Input } from './ui/Input';
+import { AddNewItemButton } from './ui/Buttons';
+import { CancelSave } from './Footers/CancelSave';
 import PaymentTermsMenu from './PaymentTermsMenu';
 import Image from 'next/image';
 import ArrowDown from '../images/icon-arrow-down.svg';
@@ -19,10 +19,8 @@ import { schema } from './constants/zSchema';
 import { formatDateBack } from '@/app/actions/formatDate';
 import { nanoid } from 'nanoid';
 import { IInvoice, IInvoiceDraft, IitemDraft } from './Types';
-
 import { useDispatch } from 'react-redux';
 import { setNewInvoices } from '@/app/redux/slices/invoicesSlice';
-//import type { RootState } from '@/app/redux/store';
 
 export default function EditForm({
   setIsEditOpen,
@@ -33,17 +31,12 @@ export default function EditForm({
 }) {
   const dispatch = useDispatch();
 
+  const [isPaymentTermsMenu, setIsPaymentTermsMenu] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [isDraft, setIsDraft] = useState(false);
 
   const invoiceItems = invoice.items.map((item) => item.name);
-  const [items, setItems] = useState(invoiceItems); /*CHANGE*/
-  console.log('items', ...items);
-
-  const handleGoBack = () => {
-    setIsEditOpen(false);
-  };
-  const [isPaymentTermsMenu, setIsPaymentTermsMenu] = useState(false);
+  const [items, setItems] = useState(invoiceItems);
 
   type FormFields = z.infer<typeof schema>;
 
@@ -158,20 +151,8 @@ export default function EditForm({
   countInvoiceTotal();
 
   const formSubmit: SubmitHandler<IInvoice> = (data) => {
-    console.log(data);
-    console.log('formSubmit');
-    // const edittedInvoices = [...invoices, data];
-    //console.log('edittedInvoices', edittedInvoices);
-    // dispatch(setEditedInvoice(edittedInvoices));
-
     dispatch(setNewInvoices(data));
   };
-  /* const onSubmit = () => {
-    handleSubmit(formSubmit);
-    const values = getValues();
-    console.log(values);
-    console.log('formSubmit');
-  };*/
 
   return (
     <div
@@ -192,7 +173,7 @@ export default function EditForm({
             >
               <div>
                 <div className={` h-20 grid content-center mt-1  sm:hidden`}>
-                  <GoBackButton onClick={handleGoBack} />
+                  <GoBackButton onClick={() => setIsEditOpen(false)} />
                 </div>
                 <h2
                   className={`sm:mt-4 xl:mt-8 font-bold text-2xl leading-8 text-foreground dark:text-primary-foreground tracking-tight  capitalize`}

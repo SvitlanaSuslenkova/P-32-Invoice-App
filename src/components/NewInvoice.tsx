@@ -1,11 +1,9 @@
 'use client';
 import { motion } from 'framer-motion';
-
 import { MouseEvent, useState } from 'react';
-import { Input } from './Input';
-
-import { AddNewItemButton, GoBackButton } from './Buttons';
-import { DiscardDraftSend } from './DiscardDraftSend';
+import { Input } from './ui/Input';
+import { AddNewItemButton, GoBackButton } from './ui/Buttons';
+import { DiscardDraftSend } from './Footers/DiscardDraftSend';
 import PaymentTermsMenu from './PaymentTermsMenu';
 import Image from 'next/image';
 import ArrowDown from '../images/icon-arrow-down.svg';
@@ -14,10 +12,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 //npm install react-hook-form
-import {
-  z,
-  // ZodError
-} from 'zod';
+import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { schema } from './constants/zSchema';
 import { formatDateBack, todayDay } from '@/app/actions/formatDate';
@@ -131,27 +126,10 @@ export default function NewInvoice({
 
   const formSubmit: SubmitHandler<IInvoice> = (data) => {
     trigger();
-    console.log(data);
-    console.log('formSubmit');
     dispatch(setNewInvoices(data));
   };
 
-  /* function isZodError(err: unknown): err is ZodError {
-    return Boolean(
-      err && (err instanceof ZodError || (err as ZodError).name === 'ZodError')
-    );
-  }*/
-  /* const haveErrors = (err: unknown): err is ZodError => {
-    return Boolean(
-      err && (err instanceof ZodError || (err as ZodError).name === 'ZodError')
-    );
-  };*/
-  /* const [isErrors, setIsErrors] = useState(false);
-  useEffect(() => {
-    Object.keys(errors).length > 0 ? setIsErrors(true) : setIsErrors(false);
-  }, [errors]);*/
   const haveErrors = () => {
-    console.log(errors);
     return Object.keys(errors).length > 0 ? true : false;
   };
 
@@ -493,4 +471,3 @@ export default function NewInvoice({
     </motion.div>
   );
 }
-//Object.keys(errors).length > 0
