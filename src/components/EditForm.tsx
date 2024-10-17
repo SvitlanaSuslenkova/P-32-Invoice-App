@@ -34,6 +34,7 @@ export default function EditForm({
   const dispatch = useDispatch();
 
   const [startDate, setStartDate] = useState(new Date());
+  const [isDraft, setIsDraft] = useState(false);
 
   const invoiceItems = invoice.items.map((item) => item.name);
   const [items, setItems] = useState(invoiceItems); /*CHANGE*/
@@ -178,7 +179,7 @@ export default function EditForm({
         w-full xl:w-[calc(100vw-6.44rem)] h-svh  sm:h-[calc(100vh-4.5rem)] md:h-[calc(100vh-5rem)] xl:h-full bg-black bg-opacity-50  min-w-80`}
     >
       <motion.div
-        className={` sm:flex bg-card dark:bg-dark-background sm:h-[calc(100vh-8rem)] xl:h-[calc(100vh-4rem)]   pr-4 sm:absolute sm:rounded-r-b20`}
+        className={` sm:flex bg-card dark:bg-dark-background sm:h-[calc(100vh-8rem)] xl:h-[calc(100vh-4rem)]   sm:pr-4 sm:absolute sm:rounded-r-b20`}
         initial={{ left: -616 }}
         animate={{ left: 0 }}
         transition={{ duration: 0.3 }}
@@ -208,7 +209,7 @@ export default function EditForm({
                   <Input
                     label="street address"
                     {...register(`senderAddress.street`, {
-                      required: true,
+                      required: !isDraft ? true : false,
                     })}
                     errorMessage={errors?.senderAddress?.street?.message}
                   />
@@ -216,14 +217,14 @@ export default function EditForm({
                     <Input
                       label="city"
                       {...register(`senderAddress.city`, {
-                        required: true,
+                        required: !isDraft ? true : false,
                       })}
                       errorMessage={errors?.senderAddress?.city?.message}
                     />
                     <Input
                       label="post code"
                       {...register(`senderAddress.postCode`, {
-                        required: true,
+                        required: !isDraft ? true : false,
                       })}
                       errorMessage={errors?.senderAddress?.postCode?.message}
                     />
@@ -231,7 +232,7 @@ export default function EditForm({
                       label="country"
                       className={`col-span-2`}
                       {...register(`senderAddress.country`, {
-                        required: true,
+                        required: !isDraft ? true : false,
                       })}
                       errorMessage={errors?.senderAddress?.country?.message}
                     />
@@ -244,7 +245,7 @@ export default function EditForm({
                   <Input
                     label="client's name"
                     {...register(`clientName`, {
-                      required: true,
+                      required: !isDraft ? true : false,
                     })}
                     errorMessage={errors?.clientName?.message}
                   />
@@ -252,14 +253,14 @@ export default function EditForm({
                   <Input
                     label="client's email"
                     {...register(`clientEmail`, {
-                      required: true,
+                      required: !isDraft ? true : false,
                     })}
                     errorMessage={errors?.clientEmail?.message}
                   />
                   <Input
                     label="street address"
                     {...register(`clientAddress.street`, {
-                      required: true,
+                      required: !isDraft ? true : false,
                     })}
                     errorMessage={errors?.clientAddress?.street?.message}
                   />
@@ -267,14 +268,14 @@ export default function EditForm({
                     <Input
                       label="city"
                       {...register(`clientAddress.city`, {
-                        required: true,
+                        required: !isDraft ? true : false,
                       })}
                       errorMessage={errors?.clientAddress?.city?.message}
                     />
                     <Input
                       label="post code"
                       {...register(`clientAddress.postCode`, {
-                        required: true,
+                        required: !isDraft ? true : false,
                       })}
                       errorMessage={errors?.clientAddress?.postCode?.message}
                     />
@@ -282,7 +283,7 @@ export default function EditForm({
                       label="country"
                       className={`col-span-2`}
                       {...register(`clientAddress.country`, {
-                        required: true,
+                        required: !isDraft ? true : false,
                       })}
                       errorMessage={errors?.clientAddress?.country?.message}
                     />
@@ -372,7 +373,7 @@ export default function EditForm({
                   <Input
                     label="project description"
                     {...register(`description`, {
-                      required: true,
+                      required: !isDraft ? true : false,
                     })}
                     errorMessage={errors?.description?.message}
                   />
@@ -404,7 +405,7 @@ export default function EditForm({
                       <Input
                         className={`row-start-2  col-span-4 sm:row-start-1 sm:col-span-1`}
                         {...register(`items.${index}.name`, {
-                          required: true,
+                          required: !isDraft ? true : false,
                         })}
                         errorMessage={errors?.items?.[index]?.name?.message}
                       />
@@ -418,7 +419,7 @@ export default function EditForm({
                         className={`row-start-4 sm:row-start-1 sm:col-start-2`}
                         {...register(`items.${index}.quantity`, {
                           valueAsNumber: true,
-                          required: true,
+                          required: !isDraft ? true : false,
                         })}
                         errorMessage={errors?.items?.[index]?.quantity?.message}
                       />
@@ -432,7 +433,7 @@ export default function EditForm({
                         className={`row-start-4 sm:row-start-1 sm:col-start-3`}
                         {...register(`items.${index}.price`, {
                           valueAsNumber: true,
-                          required: true,
+                          required: !isDraft ? true : false,
                         })}
                         errorMessage={errors?.items?.[index]?.price?.message}
                       />
@@ -481,18 +482,19 @@ export default function EditForm({
               </div>
             </div>
             <motion.div
-              className={`sm:fixed sm:left-0 xl:left-[6.44rem] xl:ml-[6.44rem] sm:bottom-0 pt-14 w-full max-w-[38.5rem] bg-card dark:bg-dark-background sm:rounded-br-b20 `}
+              className={`w-full sm:fixed sm:left-0 xl:left-[6.44rem] xl:ml-[6.44rem] sm:bottom-0 pt-14  max-w-[38.5rem] bg-card dark:bg-dark-background sm:rounded-br-b20 `}
               initial={{ left: -616 }}
               animate={{ left: 0 }}
               transition={{ duration: 0.3 }}
             >
               <div
-                className={`grid w-full   place-items-center  sm:place-items-end sm:rounded-r-b20 bg-card shadow-shadowUp dark:bg-dark-background  px-6 py-5 `}
+                className={`grid w-full   place-items-center   sm:place-items-end sm:rounded-r-b20 bg-card shadow-shadowUp dark:bg-dark-background  px-6 py-5 `}
               >
                 <CancelSave
                   setIsEditOpen={setIsEditOpen}
                   onSubmit={handleSubmit(formSubmit)}
                   invoiceId={invoice.id}
+                  setIsDraft={setIsDraft}
                 />
               </div>
             </motion.div>

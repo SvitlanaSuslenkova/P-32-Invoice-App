@@ -66,7 +66,7 @@ export default function ViewInvoice() {
         )}
       </div>
       <div
-        className={`grid w-full place-items-center sm:pr-20 sm:place-items-end bg-card shadow-smsh mt-14  px-6 py-5 md:hidden`}
+        className={`grid w-full place-items-center sm:pr-20 sm:place-items-end bg-card shadow-smsh dark:bg-dark-header mt-14  px-6 py-5 md:hidden`}
       >
         <EditDeleteMark
           handleDelete={handleDelete}

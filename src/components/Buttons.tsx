@@ -11,7 +11,7 @@ export const FilterButton = ({ onClick, isOpenMenu }: IFilterButton) => {
   return (
     <button
       className={`transition duration-200 justify-self-end flex justify-center items-center gap-2 md:gap-4 h-11 p-1.5 rounded-3xl 
-        text-sm-15 leading-sm4 font-bold traking-em0016 hover:text-header`}
+        text-sm-15 leading-sm4 font-bold traking-em0016 hover:text-muted`}
       onClick={onClick}
     >
       <span>
@@ -84,15 +84,19 @@ export const AddNewItemButton = ({
 export const GreyButton = ({
   text,
   onClick,
+  disabled,
 }: {
   text: string;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
 }) => {
   return (
     <button
       onClick={onClick}
       className={`transition duration-200 text-sm15 leading-sm15 font-bold tracking-em0016 rounded-3xl h-12 px-4 md:px-6 flex justify-center items-center
-         text-card-foreground dark:text-muted-darker bg-secondary dark:bg-dark-filter sm:dark:hover:bg-secondary-accent hover:bg-muted-darker`}
+         text-card-foreground dark:text-muted-darker bg-secondary dark:bg-dark-filter sm:dark:hover:bg-secondary-accent hover:bg-muted-darker
+         disabled:bg-muted-darker disabled:text-primary-foreground dark:disabled:text-dark-background disabled:dark:hover:bg-dark-filter`}
+      disabled={disabled}
     >
       {text}
     </button>
@@ -131,7 +135,7 @@ export const PurpleButton = ({
       type={type}
       onClick={onClick}
       className={`w-full text-sm15 leading-sm15 font-bold tracking-em0016 rounded-3xl h-12 px-2 sm:px-4  flex justify-center items-center
-         text-primary-foreground bg-primary hover:bg-primary-hover disabled:bg-muted-darker transition duration-200`}
+         text-primary-foreground bg-primary hover:bg-primary-hover disabled:bg-muted-darker dark:disabled:bg-dark-filter dark:disabled:text-accent-three-foreground transition duration-200`}
     >
       {text}
     </button>

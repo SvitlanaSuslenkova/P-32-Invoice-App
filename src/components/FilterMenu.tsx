@@ -31,7 +31,7 @@ const FilterMenu = ({ filters }: { filters: string | null | string[] }) => {
       key="filterMenu"
       initial={{ height: 0, zIndex: 1 }}
       animate={{ height: 128, zIndex: 1 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.2 }}
     >
       <ul className={`grid  place-content-between items-center w-full h-full`}>
         {statuses.map((status) => (
@@ -41,7 +41,7 @@ const FilterMenu = ({ filters }: { filters: string | null | string[] }) => {
             key={status}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.5 }}
           >
             <input
               id={status}

@@ -146,8 +146,12 @@ export default function NewInvoice({
       err && (err instanceof ZodError || (err as ZodError).name === 'ZodError')
     );
   };*/
-
+  /* const [isErrors, setIsErrors] = useState(false);
+  useEffect(() => {
+    Object.keys(errors).length > 0 ? setIsErrors(true) : setIsErrors(false);
+  }, [errors]);*/
   const haveErrors = () => {
+    console.log(errors);
     return Object.keys(errors).length > 0 ? true : false;
   };
 
@@ -161,7 +165,7 @@ export default function NewInvoice({
     >
       {isOpenNewInvoice && (
         <motion.div
-          className={` sm:flex bg-card dark:bg-dark-background sm:h-[calc(100vh-8rem)] xl:h-[calc(100vh-4rem)]   pr-4 sm:absolute sm:rounded-r-b20`}
+          className={` sm:flex bg-card dark:bg-dark-background sm:h-[calc(100vh-8rem)] xl:h-[calc(100vh-4rem)]   sm:pr-4 sm:absolute sm:rounded-r-b20`}
           key="form"
           initial={{ left: -616 }}
           animate={{ left: 0 }}
