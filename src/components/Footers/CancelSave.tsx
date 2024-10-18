@@ -24,18 +24,16 @@ export const CancelSave = ({
     trigger,
     getValues,
     setValue,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
   } = useFormContext();
   const dispatch = useDispatch<AppDispatch>();
 
   async function triggerForm() {
     const t = await trigger();
     if (t) {
-      if (Object.keys(errors).length == 0) {
-        dispatch(setDeletedInvoices(invoiceId));
-        onSubmit();
-        setIsEditOpen(false);
-      }
+      onSubmit();
+      dispatch(setDeletedInvoices(invoiceId));
+      setIsEditOpen(false);
     }
   }
 

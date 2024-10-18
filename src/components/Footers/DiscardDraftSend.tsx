@@ -22,7 +22,6 @@ export const DiscardDraftSend = ({
     trigger,
     //handleSubmit,
     formState: {
-      errors,
       isSubmitting,
       // isSubmitted
     },
