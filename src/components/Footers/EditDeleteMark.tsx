@@ -33,10 +33,13 @@ export const EditDeleteMark = ({
     setIsEditOpen(false);
   };
 
-  const isDraft = () => {
+  const isDraftorPaid = () => {
     return invoice?.status == 'draft' || invoice?.status == 'paid'
       ? true
       : false;
+  };
+  const isDraft = () => {
+    return invoice?.status == 'draft' ? true : false;
   };
   return (
     <div className={`flex flex-row gap-x-2`}>
@@ -50,7 +53,7 @@ export const EditDeleteMark = ({
         text="Mark as Paid"
         type="submit"
         onClick={editStatusHandler}
-        disabled={isDraft()}
+        disabled={isDraftorPaid()}
       />
     </div>
   );
