@@ -34,7 +34,9 @@ export const EditDeleteMark = ({
   };
 
   const isDraft = () => {
-    return invoice?.status == 'draft' ? true : false;
+    return invoice?.status == 'draft' || invoice?.status == 'paid'
+      ? true
+      : false;
   };
   return (
     <div className={`flex flex-row gap-x-2`}>
